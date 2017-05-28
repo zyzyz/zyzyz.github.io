@@ -3427,6 +3427,22 @@ figure.highlight,
     .image-gallery .image-gallery-photos--thumbnail .photo-box:nth-child(n + 4) {
       display: none; }
 
+.lang-selector-wrap {
+  display: inline-block;
+  position: relative;
+  padding-left: 5px; }
+  .lang-selector-wrap .lang-selector-label i {
+    padding-right: 3px; }
+  .lang-selector-wrap .lang-selector {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: menulist-button;
+    font-size: inherit; }
+
 a.link-unstyled, a.link-unstyled:hover, a.link-unstyled:active {
   cursor: pointer !important;
   color: inherit !important;
@@ -4716,10 +4732,8 @@ figure.highlight,
   .codeblock.swift .number,
   .codeblock.swift .type {
     color: #0086b3; }
-  figure.highlight.yml .line
-.attr,
-  .codeblock.yml .line
-.attr {
+  figure.highlight.yml .line .attr,
+  .codeblock.yml .line .attr {
     color: #63a35c; }
   figure.highlight.yml .line,
   figure.highlight.yml .string,

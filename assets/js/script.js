@@ -11897,7 +11897,7 @@ return jQuery;
 })(jQuery);
 ;(function($) {
   'use strict';
-
+  
   // Run fancybox feature
 
   $(document).ready(function() {
@@ -12104,6 +12104,40 @@ return jQuery;
     }
   });
 })(jQuery);
+;(function($) {
+  'use strict';
+
+
+  /**
+   * LanguageSelector
+   * @constructor
+   */
+  var LanguageSelector = function() {
+    this.$selector = $('.lang-selector');
+  };
+
+  LanguageSelector.prototype = {
+
+    run: function() {
+      var self = this;
+
+      self.$selector.change(function() {
+        var lang = this.value;
+        var canonical = this.dataset.canonical;
+        if (lang) lang += '/';
+
+        location.href = '/' + lang + canonical;
+      })
+    }
+  }
+
+  $(document).ready(function() {
+    if ($('.lang-selector').length) {
+      var langSelector = new LanguageSelector();
+      langSelector.run();
+    }
+  });
+})(jQuery)
 ;(function($) {
   'use strict';
 
