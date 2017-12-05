@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/MSYS2_root.png">
 <meta property="og:image" content="https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/error_double_quote.png">
 <meta property="og:image" content="https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/Alias_Path.png">
-<meta property="og:updated_time" content="2017-11-03T17:28:06.553Z">
+<meta property="og:updated_time" content="2017-12-05T08:08:00.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Integrate MSYS2 into Cmder">
 <meta name="twitter:description" content="Recently I’m reading a Chinese book named “A Programmer Prepares“ and I need a Linux environment, but I do like Macrohard Microsoft stuffs and Cmder is really awesome.So in order to avoid the not-so-b">
@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="/assets/css/style-xpex7f9ya5fmvcineqkehrrthucopz0b6cjbpo1d4opedesimfdzutdg670c.min.css">
     <!--STYLES END-->
     
+
     
 
 </head>
@@ -102,9 +103,10 @@
                         <a  class="sidebar-button-link "
                              href="/en/ "
                             
+                            title="Home"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
             </li>
@@ -114,9 +116,10 @@
                         <a  class="sidebar-button-link "
                              href="/en/all-categories"
                             
+                            title="Categories"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Categories</span>
                     </a>
             </li>
@@ -126,9 +129,10 @@
                         <a  class="sidebar-button-link "
                              href="/en/all-tags"
                             
+                            title="Tags"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
             </li>
@@ -138,9 +142,10 @@
                         <a  class="sidebar-button-link "
                              href="/en/all-archives"
                             
+                            title="Archives"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Archives</span>
                     </a>
             </li>
@@ -150,9 +155,10 @@
                         <a  class="sidebar-button-link open-algolia-search"
                              href="/en/#search"
                             
+                            title="Search"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Search</span>
                     </a>
             </li>
@@ -162,9 +168,10 @@
                         <a  class="sidebar-button-link "
                              href="/en/#about"
                             
+                            title="About"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">About</span>
                     </a>
             </li>
@@ -182,9 +189,10 @@
                         <a  class="sidebar-button-link "
                              href="/en/atom.xml"
                             
+                            title="RSS"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">RSS</span>
                     </a>
             </li>
@@ -235,13 +243,13 @@
 <h1 id="Which-One-Cygwin-MinGW-MSYS-MinGW-w64-or-MSYS2"><a href="#Which-One-Cygwin-MinGW-MSYS-MinGW-w64-or-MSYS2" class="headerlink" title="Which One? Cygwin, MinGW+MSYS, MinGW-w64, or MSYS2?"></a>Which One? Cygwin, MinGW+MSYS, MinGW-w64, or MSYS2?</h1><p>Before starting the integration, let’s take a minute to discuss which project can deliver a best Unix-like development environment on Windows platform and… Yes! You have known the answer from the title.<br>MSYS2 is a project based on modern Cygwin (POSIX compatibility layer), the core of which is an independent of MSYS. the Integration of MinGW-w64 makes MSYS2 more powerful when interoperating with native Windows software. And the most important, the “Git for Windows 2.x” in Cmder full-version exactly bases on MSYS2. Considering that the original MSYS2 is delivered with Arch Linux’s Pacman, so why not directly use MSYS2? With Pacman, git and gcc toolchain can be managed in a automatic way and we can kiss those installers goodbye!</p>
 <p>Besides, It’s worth noting something about MinGW, MSYS and MinGW-w64. When I started to investigate these project, firstly I was navigated to the official site of GCC and found a MinGW installer. The installer integrated MSYS, which resulted in a redundant copy of GNU Coreutiles in my OS (One from the new installed MSYS, and the other from my old Git for Windows). Luckily by the further investigation I found the alternative - MinGW-w64. The birth of MinGW-w64 is due to MinGW’s lack of 64-bit support and other conflicts between the authors of these two projects, but it doesn’t mean MinGW-w64 only targets 64-bit platforms, it does support both 32-bit and 64-bit. As the MSYS2 project‘s goal is to keep track with the modern Cygwin project while the original MSYS project can’t, I think it’s obvious why MSYS2 has chosen MinGW-w64.</p>
 <h1 id="How-to-Launch-MSYS2-in-Cmder"><a href="#How-to-Launch-MSYS2-in-Cmder" class="headerlink" title="How to Launch MSYS2 in Cmder?"></a>How to Launch MSYS2 in Cmder?</h1><p>Firstly, let’s see how to launch MSYS2 normally.<br>At the root folder of MSYS2 there’s a key executable <code>msys2_shell.cmd</code>, and the other three .exe files is a wrapper of <code>msys2_shell.cmd</code> with different command line argument:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">msys2.exe   --&gt; msys2_shell.cmd -msys</div><div class="line">mingw64.exe --&gt; msys2_shell.cmd -mingw64</div><div class="line">mingw32.exe --&gt; msys2_shell.cmd -mingw32</div></pre></td></tr></table></figure></p>
-<div class="figure " style="width:;"><a class="fancybox" href="MSYS2_root.png" title="" data-fancybox-group=""><img class="fig-img" src="MSYS2_root.png" alt=""></a></div>  
+<div class="figure " style="width:;"><a class="fancybox" href="MSYS2_root.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="MSYS2_root.png" alt=""></a></div>  
 <p>The most critical part of <code>msys2_shell.cmd</code> is to set environment variable <code>MSYSTEM</code> depending on the argument, and this variable directly affects the whole succeeding <code>source</code> process, even the logic of some executable files beneath /usr/bin. <code>MSYSTEM</code> has three possible values: <code>MSYS</code>、<code>MINGW64</code>、<code>MINGW32</code>, they correspond respectively to three subsystems. The <code>MSYS</code> subsystem provides an emulated mostly-POSIX-compliant environment, the <code>msys-2.0.dll</code> of which is the counterpart of runtime library <code>cygwin1.dll</code> in Cygwin, whereas the <code>MINGW64</code>&amp;<code>MINGW32</code> subsystems can be considered as MinGW-w64 environment, each of them respectively provides 64-bit (compiled by mingw-w64-x86_64-toolchain) and 32-bit (compiled by mingw-w64-i686-toolchain) native Windows programs.</p>
 <p>Because Cmder is built on ConEmu with some enhancements, the problem of integrating MSYS2 becomes how to add a new task in ConEmu. <code>msys2_shell.cmd</code> has logic about launching different terminal emulator (ConEmu, Mintty, ConsoleZ) by arguments user passes in, luckily the logic branch for ConEmu is not so special, <code>bash --login -i</code> is its core command, so we can add three new tasks under the Settings &gt; Startup &gt; Task tab in ConEmu and fill the “Command” field with the following lines respectively:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> MSYSTEM=MSYS &amp; <span class="built_in">cmd</span> /c "<span class="variable">%MSYS2_ROOT%</span>\usr\bin\bash --login -i" -new_console:d:<span class="variable">%USERPROFILE%</span></div><div class="line"><span class="built_in">set</span> MSYSTEM=MINGW64 &amp; <span class="built_in">cmd</span> /c "<span class="variable">%MSYS2_ROOT%</span>\usr\bin\bash --login -i" -new_console:d:<span class="variable">%USERPROFILE%</span></div><div class="line"><span class="built_in">set</span> MSYSTEM=MINGW32 &amp; <span class="built_in">cmd</span> /c "<span class="variable">%MSYS2_ROOT%</span>\usr\bin\bash --login -i" -new_console:d:<span class="variable">%USERPROFILE%</span></div></pre></td></tr></table></figure></p>
 <p>Each line will launch the corresponding subsystem. The <code>%MSYS2_ROOT%</code> refers to the root path of MSYS2 in Windows, you can add it into Windows environment variables or you can ignore it and just put an absolute path there. Do not forget to give every task a name and set one of them as default task.</p>
 <h1 id="How-to-Make-“Cmder-Here”-Context-Menu-Shortcut-Work-as-Normal"><a href="#How-to-Make-“Cmder-Here”-Context-Menu-Shortcut-Work-as-Normal" class="headerlink" title="How to Make “Cmder Here” Context Menu Shortcut Work as Normal"></a>How to Make “Cmder Here” Context Menu Shortcut Work as Normal</h1><p>The GitHub main page of Cmder project has an instruction that executing <code>.\cmder.exe /REGISTER ALL</code> under the directory of Cmder.exe will create a shortcut into context menu. In fact launching Cmder by this way will just cause an environment variable <code>CMDER_START</code> to be added into current session, the actual <code>cd</code> action is done by the following lines in the <code>%CMDER_ROOT%/vendor/init.bat</code>:<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">:: This is either a env variable <span class="built_in">set</span> by the user or the result of</div><div class="line">:: cmder.exe setting this variable due to a commandline argument or a "cmder here"</div><div class="line"><span class="keyword">if</span> <span class="keyword">defined</span> CMDER_START (</div><div class="line">    <span class="built_in">cd</span> /d "<span class="variable">%CMDER_START%</span>"</div><div class="line">)</div></pre></td></tr></table></figure></p>
 <p>Cmder uses this <code>init.bat</code> file to initialize everything and enhance the user experience for native Windows terminal cmd.exe (You can check other preset tasks to confirm), and as such, it will not be executed by our new created tasks. So the next step is to move the logic to the place where initializes the bash. Add the following lines into <code>.bashrc</code> (located in the home directory of MSYS2) to repair the broken “Cmder Here” shortcut:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># For "Cmder Here"</span></div><div class="line"><span class="keyword">if</span> [[ -n <span class="variable">$&#123;CMDER_START&#125;</span> ]]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Changing into directory: <span class="variable">$&#123;CMDER_START&#125;</span>"</span></div><div class="line">    <span class="built_in">cd</span> <span class="string">"<span class="variable">$&#123;CMDER_START&#125;</span>"</span></div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure></p>
-<p>Notice that the null check ensure double-clicking Cmder.exe or clicking the shortcut from taskbar can also function well (In this case the <code>CMDER_START</code> is not set). By this way we can also avoid adding a /Start launching argument to the taskbar shortcut. However, there still exist a flaw. Somehow a redundant double quote will appear at the end of the path contained by <code>CMDER_START</code> when the cotext menu shortcut is executed from the root of a drive. It’s likely to be a issue of Cmder itself so we can temporarily ignore it before new version of Cmder is released. But anyway, you can add some more commands to remove the annoying double quote manually.<br><div class="figure " style="width:;"><a class="fancybox" href="error_double_quote.png" title="" data-fancybox-group=""><img class="fig-img" src="error_double_quote.png" alt=""></a></div></p>
+<p>Notice that the null check ensure double-clicking Cmder.exe or clicking the shortcut from taskbar can also function well (In this case the <code>CMDER_START</code> is not set). By this way we can also avoid adding a /Start launching argument to the taskbar shortcut. However, there still exist a flaw. Somehow a redundant double quote will appear at the end of the path contained by <code>CMDER_START</code> when the cotext menu shortcut is executed from the root of a drive. It’s likely to be a issue of Cmder itself so we can temporarily ignore it before new version of Cmder is released. But anyway, you can add some more commands to remove the annoying double quote manually.<br><div class="figure " style="width:;"><a class="fancybox" href="error_double_quote.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="error_double_quote.png" alt=""></a></div></p>
 <h1 id="Injection-From-the-Cmder-Side"><a href="#Injection-From-the-Cmder-Side" class="headerlink" title="Injection From the Cmder Side"></a>Injection From the Cmder Side</h1><p>Cmder create a <code>cmder_exinit</code> file under <code>%CMDER_ROOT%/vendor/</code> and after adding a suitable suffix it can be put under <code>/etc/profile.d/</code> to allow current shell “source” it after launch.  the main task of this shell script is:</p>
 <ol>
 <li>create <code>CMDER_ROOT</code> and inject Cmder-related paths into <code>PATH</code></li>
@@ -251,9 +259,10 @@
 <p>In previous section we have added some custom code into <code>.bashrc</code>, but if following the Cmder official’s “portable” concept we should have put code into <code>user-profile.sh</code> to ensure all custom stuff can be taken away when migrating the whole Cmder directory to another machine. As for me, I think it’s just personal perference, each place is okay for me.</p>
 <p>Another file needed to be injected into <code>/etc/profile.d/</code> is <code>git-prompt.sh</code>, which is provided by Git for Windows project. It can bring git branch display and git command completion to bash. Its location is generally at <code>%CMDER_ROOT%/vendor/git-for-windows/etc/profile.d/</code> and if you are using Cmder full-version it should not be so hard to find. For Cmder-mini user, it can still be download from the GitHub repo of Git for Windows. It’s worth noting that this <code>git-prompt.sh</code> is not the real one. Actual <code>git-prompt.sh</code> and <code>git-completion.bash</code> are located in your git package installed by using Pacman. This one is mainly used for setting PS1 and sourcing two files mentioned above. Here’s the main code segment:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">PS1=<span class="string">'\[\033]0;$MSYSTEM:$&#123;PWD//[^[:ascii:]]/?&#125;\007\]'</span> <span class="comment"># set window title</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[32m\]'</span>       <span class="comment"># change to green</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\u@\h '</span>             <span class="comment"># user@host&lt;space&gt;</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[33m\]'</span>       <span class="comment"># change to brownish yellow</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\w'</span>                 <span class="comment"># current working directory</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">test</span> -z <span class="string">"<span class="variable">$WINELOADERNOEXEC</span>"</span></div><div class="line"><span class="keyword">then</span></div><div class="line">	GIT_EXEC_PATH=<span class="string">"<span class="variable">$(git --exec-path 2&gt;/dev/null)</span>"</span></div><div class="line">	COMPLETION_PATH=<span class="string">"<span class="variable">$&#123;GIT_EXEC_PATH%/libexec/git-core&#125;</span>"</span></div><div class="line">	COMPLETION_PATH=<span class="string">"<span class="variable">$&#123;COMPLETION_PATH%/lib/git-core&#125;</span>"</span></div><div class="line">	COMPLETION_PATH=<span class="string">"<span class="variable">$COMPLETION_PATH</span>/share/git/completion"</span></div><div class="line">	<span class="keyword">if</span> <span class="built_in">test</span> -f <span class="string">"<span class="variable">$COMPLETION_PATH</span>/git-prompt.sh"</span></div><div class="line">	<span class="keyword">then</span></div><div class="line">		. <span class="string">"<span class="variable">$COMPLETION_PATH</span>/git-completion.bash"</span></div><div class="line">		. <span class="string">"<span class="variable">$COMPLETION_PATH</span>/git-prompt.sh"</span></div><div class="line">		PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[36m\]'</span>  <span class="comment"># change color to cyan</span></div><div class="line">		PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'`__git_ps1`'</span>   <span class="comment"># bash function</span></div><div class="line">	<span class="keyword">fi</span></div><div class="line"><span class="keyword">fi</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[0m\]'</span>        <span class="comment"># change color</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\n'</span>                 <span class="comment"># new line</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'λ '</span>                 <span class="comment"># prompt: always λ</span></div></pre></td></tr></table></figure></p>
 <h1 id="Customize-Alias-and-PATH"><a href="#Customize-Alias-and-PATH" class="headerlink" title="Customize Alias and PATH"></a>Customize Alias and PATH</h1><p>Cmder itself provide a set of alias for cmder.exe (can be checked at <code>%CMDER_ROOT%/config/user-aliases.cmd</code>) and yes! again it’s just for cmder.exe. So again we should move them into <code>.bashrc</code> or <code>user-profile.sh</code>. Notice that correction is needed due to the different grammar (path format and variable reference) between Window and Linux. A special case is that when a path is a combination of Windows environment variable and other strings, MSYS2 cannot directly handle it and we should manually convert the format. The code is list below (for example, we want to use a external Node.js environment):<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">alias</span> ll=<span class="string">'ls -alh --time-style=long-iso --show-control-chars -F --color $*'</span></div><div class="line"><span class="built_in">alias</span> e.=<span class="string">'explorer .'</span></div><div class="line"><span class="built_in">alias</span> showpath=<span class="string">" tr ':' '\n' &lt;&lt;&lt; \"\$PATH\" "</span></div><div class="line"></div><div class="line"><span class="comment"># Include Extra Paths</span></div><div class="line">ExtraPaths=(</div><div class="line">  <span class="string">"<span class="variable">$&#123;NODE_PATH&#125;</span>"</span></div><div class="line">  <span class="string">"<span class="variable">$&#123;APPDATA&#125;</span>\npm"</span></div><div class="line">)</div><div class="line"><span class="keyword">for</span> currPath <span class="keyword">in</span> <span class="variable">$&#123;ExtraPaths[@]&#125;</span></div><div class="line"><span class="keyword">do</span></div><div class="line">  <span class="comment"># Convert path from Windows to Unix format </span></div><div class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$currPath</span>"</span> != <span class="string">""</span> ] ; <span class="keyword">then</span></div><div class="line">    <span class="keyword">case</span> <span class="string">"<span class="variable">$currPath</span>"</span> <span class="keyword">in</span> *\\*) currPath=<span class="string">"<span class="variable">$(cygpath -u "$currPath")</span>"</span>;; <span class="keyword">esac</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$currPath</span>"</span> != <span class="string">""</span> ] ; <span class="keyword">then</span></div><div class="line">    <span class="comment"># Remove any trailing '/'</span></div><div class="line">    currPath=$(<span class="built_in">echo</span> <span class="variable">$currPath</span> | sed <span class="string">'s:/*$::'</span>)</div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Adding extra path \"<span class="variable">$&#123;currPath&#125;</span>\"."</span></div><div class="line">    PATH=<span class="variable">$&#123;currPath&#125;</span>:<span class="variable">$&#123;PATH&#125;</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line">  <span class="built_in">export</span> PATH</div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="built_in">unset</span> ExtraPaths</div></pre></td></tr></table></figure></p>
-<p>And we can get:<br><div class="figure " style="width:;"><a class="fancybox" href="Alias_Path.png" title="" data-fancybox-group=""><img class="fig-img" src="Alias_Path.png" alt=""></a></div></p>
+<p>And we can get:<br><div class="figure " style="width:;"><a class="fancybox" href="Alias_Path.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="Alias_Path.png" alt=""></a></div></p>
 
             
+
         </div>
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
@@ -273,7 +282,7 @@
                 
                     <a class="post-action-btn btn btn--disabled">
                 
-                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                 </a>
             </li>
@@ -282,48 +291,50 @@
                     <a class="post-action-btn btn btn--disabled">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                    <i class="fa fa-angle-right"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
         
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-facebook-official"></i>
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 </a>
             </li>
         
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-twitter"></i>
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-google-plus"></i>
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
+        
+            
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
-                <i class="fa fa-list"></i>
+                <i class="fa fa-list" aria-hidden="true"></i>
             </a>
         </li>
     </ul>
@@ -375,7 +386,7 @@
                 
                     <a class="post-action-btn btn btn--disabled">
                 
-                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                 </a>
             </li>
@@ -384,48 +395,50 @@
                     <a class="post-action-btn btn btn--disabled">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                    <i class="fa fa-angle-right"></i>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </a>
             </li>
         </ul>
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
         
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-facebook-official"></i>
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 </a>
             </li>
         
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-twitter"></i>
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-google-plus"></i>
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
+        
+            
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
-                <i class="fa fa-list"></i>
+                <i class="fa fa-list" aria-hidden="true"></i>
             </a>
         </li>
     </ul>
@@ -441,7 +454,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
                 </a>
             </li>
         
@@ -449,7 +462,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                    <i class="fa fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
                 </a>
             </li>
         
@@ -457,7 +470,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
                 </a>
             </li>
         
@@ -504,95 +517,7 @@
     </div>
 </div>
 
-        <div id="algolia-search-modal" class="modal-container">
-    <div class="modal">
-        <div class="modal-header">
-            <span class="close-button"><i class="fa fa-close"></i></span>
-            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
-                <span class="searchby-algolia-text text-color-light text-small">by</span>
-                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
-            </a>
-            <i class="search-icon fa fa-search"></i>
-            <form id="algolia-search-form">
-                <input type="text" id="algolia-search-input" name="search"
-                    class="form-control input--large search-input" placeholder="Search "
-                    />
-            </form>
-        </div>
-        <div class="modal-body">
-            <div class="no-result text-color-light text-center">見つかりませんでした。</div>
-            <div class="results">
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="https://zyzyz.github.io/zh-cn/Integrate-MSYS2-into-Cmder/">
-                            <h3 class="media-heading">将MSYS2整合到Cmder中</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2017年10月21日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>最近在看《程序员的自我修养》，需要研究ELF。然而在<del>巨硬</del>微软爸爸的环境下总不能让我用dumpbin对着PE格式看书上例子吧？所以需要一个Linux环境。然而在习惯了Cmder的高颜值后再让我用那些黑色的终端我是拒绝的。<br>于是就有了这篇文章。</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="https://zyzyz.github.io/en/Integrate-MSYS2-into-Cmder/">
-                            <h3 class="media-heading">Integrate MSYS2 into Cmder</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Oct 22, 2017
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>Recently I’m reading a Chinese book named “<em>A Programmer Prepares</em>“ and I need a Linux environment, but I do like <del>Macrohard</del> Microsoft stuffs and Cmder is really awesome.<br>So in order to avoid the not-so-beautiful bash, here comes this post.</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
-                        <a class="link-unstyled" href="https://zyzyz.github.io/ja/Integrate-MSYS2-into-Cmder/">
-                            <h3 class="media-heading">CmderでMSYS2の環境を構築してみる</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    2017年10月25日
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>最近、『プログラマーの自己修養』という本を読んでいますが、この本のコード例は基本的にUNIXのものです。しかしすでに<del>最高の</del>Cmderに慣れた自分はまたあの黒いBashを使わせるのは多分できかねないでしょう。<br>そしてこの記事が生まれました！</p></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-            </div>
-        </div>
-        <div class="modal-footer">
-            <p class="results-count text-medium"
-                data-message-zero="見つかりませんでした。"
-                data-message-one="1件見つかりました。"
-                data-message-other="{n} 件見つかりました。">
-                3 件見つかりました。
-            </p>
-        </div>
-    </div>
-</div>
-
+        
         
 <div id="cover" style="background-image:url('/assets/images/cover_ori.jpg');"></div>
         <!--SCRIPTS-->
