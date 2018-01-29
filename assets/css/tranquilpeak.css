@@ -1534,6 +1534,29 @@ figure.highlight,
   font-size: 1em;
   margin: 0 0 5px 0; }
 
+.fancybox-caption-wrap {
+  padding: 0;
+  background: transparent; }
+  .fancybox-caption-wrap .fancybox-caption {
+    text-align: center;
+    border: none; }
+
+.fancybox-thumbs {
+  top: auto;
+  width: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 95px;
+  padding: 10px 10px 5px 10px;
+  box-sizing: border-box;
+  opacity: 1;
+  background: transparent; }
+
+.fancybox-show-thumbs .fancybox-inner {
+  right: 0;
+  bottom: 95px; }
+
 .figure.clear {
   clear: both; }
 
@@ -1915,8 +1938,10 @@ a.fancybox {
       display: block;
       width: auto;
       max-width: 100%; }
-    .post .post-content :not(blockquote):not(.alert) > p {
+    .post .post-content :not(blockquote):not(li):not(.alert) > p {
       margin: 1.5em 0 0 0; }
+    .post .post-content li p {
+      margin: 0 0 0 0; }
   .post .post-footer {
     margin-top: 20px; }
     .post .post-footer-tags {

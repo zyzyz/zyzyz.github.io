@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="zyzyz&#39;s Playground">
+    <title>[NOTE]GDC 2015 Animating Ori and the Blind Forest - zyzyz&#39;s Playground</title>
+    <meta name="author" content="zyzyz">
+    
+    
+    
+    <meta name="description" content="Although it’s an old speech but, it’s all about Ori and the Blind Forest‘s techniques! So it’s worthy of some notes on it.(it’s worth noting that Moon Studio started this game with Unity 3!)">
+<meta name="keywords" content="Ori and the Blind Forest,GDC,Animation,Rendering,Artist">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="[NOTE]GDC 2015 Animating Ori and the Blind Forest">
+<meta property="og:url" content="https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/index.html">
+<meta property="og:site_name" content="zyzyz&#39;s Playground">
+<meta property="og:description" content="Although it’s an old speech but, it’s all about Ori and the Blind Forest‘s techniques! So it’s worthy of some notes on it.(it’s worth noting that Moon Studio started this game with Unity 3!)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517148725/blog/2/owl-dof_eljh16.gif">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/q_90/v1517153497/blog/2/leaf-root-motion.gif">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/fl_lossy/v1517153203/blog/2/AdditiveMultiplyMask.gif">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517158940/blog/2/non-uniform-scaling_ori.gif">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517156611/blog/2/CheatPerspective1.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517156369/blog/2/CheatPerspective2.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement1.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement2.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg">
+<meta property="og:updated_time" content="2018-01-29T15:50:47.063Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[NOTE]GDC 2015 Animating Ori and the Blind Forest">
+<meta name="twitter:description" content="Although it’s an old speech but, it’s all about Ori and the Blind Forest‘s techniques! So it’s worthy of some notes on it.(it’s worth noting that Moon Studio started this game with Unity 3!)">
+<meta name="twitter:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517148725/blog/2/owl-dof_eljh16.gif">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://zyzyz.github.io/assets/images/avatar.jpg"/>
+    
+    
+        <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517152353/blog/thumbnails/NOTE_GDC_2015_Animating_Ori_and_the_Blind_Forest_fobsfx.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517152353/blog/thumbnails/NOTE_GDC_2015_Animating_Ori_and_the_Blind_Forest_fobsfx.jpg" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-hrscylehuiwvo3j78rutnghzicgbuzchczgwqfsa49evq42llbezbmozyqzm.min.css">
+    <!--STYLES END-->
+    
+
+    
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/en/ ">zyzyz&#39;s Playground</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/en/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">zyzyz</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Just an amateur game developer, having a little knowledge about CG.<br/> Oh, as you can see, my English is not so good. Sorry ;P</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="/en/#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            [NOTE]GDC 2015 Animating Ori and the Blind Forest
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-01-26T06:35:13+08:00">
+	
+		    Jan 26, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/game/">game</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Although it’s an old speech but, it’s all about <strong><em>Ori and the Blind Forest</em></strong>‘s techniques! So it’s worthy of some notes on it.<br>(it’s worth noting that Moon Studio started this game with Unity 3!)</p>
+<a id="more"></a>
+<div class="video-container"><iframe src="//www.youtube.com/embed/m8lOwrWNbEY" frameborder="0" allowfullscreen></iframe></div>
+<h1 id="About-Ori-and-the-Blind-Forest-and-its-team"><a href="#About-Ori-and-the-Blind-Forest-and-its-team" class="headerlink" title="About Ori and the Blind Forest and its team"></a>About Ori and the Blind Forest and its team</h1><ul>
+<li>Speaker is James Benson, the lead animator.</li>
+<li>Game type is 2D paint open world <strong>metroidvania</strong>.</li>
+<li>Ori is a <strong>very very content-heavy</strong> game.</li>
+<li>Team is tiny, no technical animator.</li>
+</ul>
+<p>They want tone like miyazaki’s films, background is lush painting.<br>And some shots of the films contain 3D stuff, but makes people think it’s 2D.<br>The Ori team want to pull the same trick.  </p>
+<h1 id="3D-Ori-design-concept"><a href="#3D-Ori-design-concept" class="headerlink" title="3D Ori (design concept)"></a>3D Ori (design concept)</h1><ul>
+<li>100% self illum diffuse<ul>
+<li>Use one texure, which is just his diffuse texture.</li>
+<li><strong>No light</strong> on him.</li>
+</ul>
+</li>
+<li>Almost pure black/white</li>
+<li>Desgin all about <strong>silhouette</strong><ul>
+<li>The zoom of this game is like the <strong><em>meat boy</em></strong> level’s zoom, so these super detailed backgrounds have him just be pure white silhouette, which helps read him really really clearly at all time.</li>
+<li>So it’s important.</li>
+</ul>
+</li>
+<li>Spring jointed legs/tail to aid animation goals<ul>
+<li>There exist a few animation concession in his design:<ul>
+<li>Give him a tail so as to show the direction of travel when he is moving.</li>
+<li>Give him double jointed legs.<ul>
+<li>It’s a platforming game.</li>
+<li>You can coil them up like a spring and have them bounce up.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Ori is rigged by using 3ds max CAT system.</li>
+</ul>
+<h1 id="Ori-rendering"><a href="#Ori-rendering" class="headerlink" title="Ori rendering"></a>Ori rendering</h1><ul>
+<li><p><strong>Orthographic</strong> camera from the side  </p>
+<ul>
+<li><p>It’s important not to render all of these with perspective because:</p>
+<ul>
+<li>Not having any 3d lighting information.</li>
+<li>Not having any mathematical perspective information.</li>
+</ul>
+<p>They are useful because having less of these details makes it easier to trick you into thinking that you’re not looking at a 3d asset and so that’s crucial.</p>
+</li>
+</ul>
+</li>
+<li>Motion blur baked<ul>
+<li>It‘s essentially free for it’s already paying the memory for sprites.</li>
+</ul>
+</li>
+</ul>
+<p>Using the rendering style above, in engine it looks vaguely in most cases.</p>
+<h1 id="Baked-effects"><a href="#Baked-effects" class="headerlink" title="Baked effects"></a>Baked effects</h1><ul>
+<li>Do a bunch of stuff to frames before starting making them into atlases.<ul>
+<li>When the owl coming out from camera, the blur blending out is actually the depth of field baked into sprites. It’s a relatively expensive thing to do in real time.</li>
+</ul>
+</li>
+</ul>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517148725/blog/2/owl-dof_eljh16.gif" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517148725/blog/2/owl-dof_eljh16.gif" alt=""></a></div>
+<h1 id="Altases"><a href="#Altases" class="headerlink" title="Altases"></a>Altases</h1><ul>
+<li>Very memory efficient</li>
+<li><p>Dynamic chroma key generation</p>
+<ul>
+<li>Sample all pixels in the various images thrown into the machine, and let’s assume blue is the least used color so we make a blue screen. But it also does really smart sampling like if a character has red eyes, it can tell that’s important and even if red is least used color in all those images, it’ll ensure not to make eyes transparent.  </li>
+</ul>
+<p>(The speech doesn’t give details and intention of using this kind of chroma key system. However, I suspect that either limitation of early Unity version or memory pressure, or maybe both of them force Ori team to turn to chroma key technique instead of the conventional alpha texture. Since one extra alpha channel will cause an image size increased 1/4, considering the content-heavy property of this game, the final memory taken by alpha channel will be huge. Consequently, using the chroma key to handle transparent issue of sprite may spare tons of GPU memory.)</p>
+</li>
+</ul>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg" alt=""></a></div>
+<ul>
+<li>Lots of auto detection/bug prevention<ul>
+<li>Save artists’ time. (I hope it give more technical details but..whatever).</li>
+</ul>
+</li>
+</ul>
+<h1 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h1><ul>
+<li><p>Rig can be exported with frames</p>
+<ul>
+<li>We’re obviously making sprites but the assets are all 3d assets (have all the bones, etc.).</li>
+<li><p>Can apply root motion to all the sprites because it’s just 3d.</p>
+<ul>
+<li>Root motion makes cutscenes and script events very very easy.</li>
+</ul>
+<p>The leaf tumbling around the wind in the opening scene is a relatively complicated shot to do but it was really easy because the leaf is just using the root motion from 3d.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/q_90/v1517153497/blog/2/leaf-root-motion.gif" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/q_90/v1517153497/blog/2/leaf-root-motion.gif" alt=""></a></div>
+<h1 id="In-engine-effects"><a href="#In-engine-effects" class="headerlink" title="In engine effects"></a>In engine effects</h1><ul>
+<li>Incredibly powerful shader framework<ul>
+<li>A super clever example: you can put an additive multiply mask on one side of the character to simulate something like a big moon behind it all over, and if the sprite flips, the light still keeps in that direction. So you can fake real-time lighting in your scene.</li>
+</ul>
+</li>
+</ul>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/fl_lossy/v1517153203/blog/2/AdditiveMultiplyMask.gif" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/fl_lossy/v1517153203/blog/2/AdditiveMultiplyMask.gif" alt=""></a></div>
+<h1 id="Pros-of-this-pipeline"><a href="#Pros-of-this-pipeline" class="headerlink" title="Pros of this pipeline"></a>Pros of this pipeline</h1><h2 id="Perfect-non-uniform-scaling-of-bones-with-no-overhead"><a href="#Perfect-non-uniform-scaling-of-bones-with-no-overhead" class="headerlink" title="Perfect, non-uniform scaling of bones, with no overhead"></a>Perfect, non-uniform scaling of bones, with no overhead</h2><ul>
+<li>Squash and strecth<ul>
+<li>Here, when ori hits the ground he becomes like 10 pixels. And when ori does the spins, tail becomes like three times its normal length for a few frames.</li>
+</ul>
+</li>
+</ul>
+<div class="figure left" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517158940/blog/2/non-uniform-scaling_ori.gif" title="" data-caption="" data-fancybox="NonUniformScaling" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517158940/blog/2/non-uniform-scaling_ori.gif" alt=""></a></div>
+<div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif" title="" data-caption="" data-fancybox="NonUniformScaling" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif" alt=""></a></div><div style="clear:both;"></div>
+<ul>
+<li>Cheat perspective<ul>
+<li>for 2D sometimes you don’t want to show like both arms when character is running, you can shrink the arm down to a little nub.</li>
+</ul>
+</li>
+</ul>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517156611/blog/2/CheatPerspective1.jpg" title="" data-caption="" data-fancybox="CheatPerspective" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517156611/blog/2/CheatPerspective1.jpg" alt=""></a></div>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517156369/blog/2/CheatPerspective2.jpg" title="" data-caption="" data-fancybox="CheatPerspective" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517156369/blog/2/CheatPerspective2.jpg" alt=""></a></div><div style="clear:both;"></div>
+<ul>
+<li>A million tiny details<ul>
+<li>breathing, tail get longer on jump, pupils expand, etc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Control"><a href="#Control" class="headerlink" title="Control"></a>Control</h2><ul>
+<li>Every frame is yours (for good or ill)</li>
+<li>Interpolation ruins many animations</li>
+<li>No such thing as playblasts v.s. ‘engine result’</li>
+</ul>
+<h2 id="Transition-system"><a href="#Transition-system" class="headerlink" title="Transition system"></a>Transition system</h2><p>(I will not expand this part, because now Unity has developed a robust built-in animation transition system.)</p>
+<h2 id="Added-benefits"><a href="#Added-benefits" class="headerlink" title="Added benefits"></a>Added benefits</h2><ul>
+<li>Free high quality object motion blur/Dof</li>
+<li>Zero compression of any motion on any bone</li>
+<li>Infinite polycount limit, Infinite bone limit</li>
+<li>No texture limits on character</li>
+<li>Treat your assets like film<ul>
+<li>Ahatever you’re doing is just offline rendering.<ul>
+<li>So you can have whatever polys you want, like 10k.</li>
+<li>If you are not clever to do lots of things like fur or fluid simulation, but you just how to do it, then you can bake them into sprites and all works.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Animation-syncing"><a href="#Animation-syncing" class="headerlink" title="Animation syncing"></a>Animation syncing</h2><ul>
+<li>Animation syncing is massively simplified<ul>
+<li>Something as simple as opening a door can be a living nightmare in 3d.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Time-saved"><a href="#Time-saved" class="headerlink" title="Time saved"></a>Time saved</h2><ul>
+<li>There is no such thing as ‘check how it looks ingame’<ul>
+<li>It’s amazing how much time is lost making 3d games just working out what the hell your animation is doing inside the engine.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Cons-of-this-pipeline"><a href="#Cons-of-this-pipeline" class="headerlink" title="Cons of this pipeline"></a>Cons of this pipeline</h1><h2 id="You-have-a-big-cost-in-1-area-Whatever-great-stuff-you-get-for-free-in-the-sprite-you-are-paying-for-them-with-texture-memory"><a href="#You-have-a-big-cost-in-1-area-Whatever-great-stuff-you-get-for-free-in-the-sprite-you-are-paying-for-them-with-texture-memory" class="headerlink" title="You have a big cost in 1 area: Whatever great stuff you get for free in the sprite, you are paying for them with texture memory!"></a>You have a big cost in 1 area: Whatever great stuff you get for free in the sprite, you are paying for them with texture memory!</h2><h2 id="Iteration-on-character-look"><a href="#Iteration-on-character-look" class="headerlink" title="Iteration on character look"></a>Iteration on character look</h2><ul>
+<li>You have to re-render every frame if you change the character model/texture</li>
+<li>Since it’s 3D asset,this could be a batch script, but still a Huge pain. (Obviously much worse with ‘true’ 2d)</li>
+</ul>
+<h2 id="Gameplay-IK-solutions"><a href="#Gameplay-IK-solutions" class="headerlink" title="Gameplay IK solutions"></a>Gameplay IK solutions</h2><ul>
+<li>You can’t adjust feet to ground slope via IK</li>
+<li>Can’t create gameplay that relies on repositioning hands (e.g. LA Noire item inspection)</li>
+<li>Can’t dynamically change character model<ul>
+<li>If you want to say that there’s an upgrade when he gets cool new boots, that’s not going to happen because you’d have to double the memory of the entire game by having a boots version of the character.</li>
+</ul>
+</li>
+</ul>
+<h2 id="No-Blend-Trees"><a href="#No-Blend-Trees" class="headerlink" title="No Blend Trees"></a>No Blend Trees</h2><ul>
+<li>Can’t dynamically blend Walk/Jog/Run</li>
+<li>Can’t make characters head track things</li>
+</ul>
+<h2 id="Rendering-time-issue"><a href="#Rendering-time-issue" class="headerlink" title="Rendering time issue"></a>Rendering time issue</h2><ul>
+<li>Rendering 25 256x256 frames is nothing</li>
+<li>Rendering 700 2Kx2K is bad, and slows you down</li>
+</ul>
+<h1 id="Did-any-of-this-actually-stop-us"><a href="#Did-any-of-this-actually-stop-us" class="headerlink" title="Did any of this actually stop us?"></a>Did any of this actually stop us?</h1><p>Almost everything can be overcome with design and content.</p>
+<h2 id="Foot-placement"><a href="#Foot-placement" class="headerlink" title="Foot placement"></a>Foot placement</h2><ol>
+<li>Character is just rotated to the normal of the surface that he’s on</li>
+<li>Do a version of the idle where he’s looking up slope and looking down slope<ul>
+<li>It’s relatively simple except that then you have to do all the transitions, but if you like making content and if you have tools that make it very easy to make content like we did, you can do some of this fairly easily.</li>
+<li>It’s pretty robust and basically there’s no surface in the game that ori can’t stand on perfectly.</li>
+</ul>
+</li>
+</ol>
+<div class="figure left" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement1.jpg" title="" data-caption="" data-fancybox="FootPlacement" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement1.jpg" alt=""></a></div>
+<div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement2.jpg" title="" data-caption="" data-fancybox="FootPlacement" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement2.jpg" alt=""></a></div><div style="clear:both;"></div>
+<h2 id="Blend-Trees"><a href="#Blend-Trees" class="headerlink" title="Blend Trees"></a>Blend Trees</h2><h3 id="Idle-Walk-Run-problem"><a href="#Idle-Walk-Run-problem" class="headerlink" title="Idle-Walk-Run problem"></a>Idle-Walk-Run problem</h3><ol>
+<li>All the animations that affects are rendered at four times the normal frame rate.</li>
+<li>Then dynamically speed up and slow down the animation based on where your (joy)stick is.</li>
+<li>So 120 FPS version of the walk is playing at that threshold (slightest stick movement) where you’re doing the fastest version of thewalk and then we slowed it down to 30 if you’re doing the tiniest bit of stick, and then when you hit the threshold from the 120 walk to the 30 jog we just have a transition that covers it.</li>
+</ol>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg" alt=""></a></div>
+<p>It is’nt bulletproof but it does the job really really well and isn’t a big deal.</p>
+<h3 id="Circumvent-blender-issue-for-swimming"><a href="#Circumvent-blender-issue-for-swimming" class="headerlink" title="Circumvent blender issue for swimming"></a>Circumvent blender issue for swimming</h3><p>We want to do a 360 degree thing like Rayman Origins:</p>
+<ol>
+<li>Prepare a swimming idle going horizontally.</li>
+<li>Then additively make 11 versions with his back twisting concave, 11 versions twisting convex.</li>
+<li>The engine simultaneously runs all of those versions all the time.</li>
+<li>And depending on the angle you’re going to and coming from, the programming magic just dynamically picks through all these different animations.</li>
+</ol>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg" alt=""></a></div>
+<h3 id="Looking-at-targets"><a href="#Looking-at-targets" class="headerlink" title="Looking at targets"></a>Looking at targets</h3><ul>
+<li>Just content issue again<ul>
+<li>Version of watch 145 degrees</li>
+<li>Version of looking upwards</li>
+<li>Version of looking at background</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<div class="figure left" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg" title="" data-caption="" data-fancybox="LookingAtTargets" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg" alt=""></a></div>
+<div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg" title="" data-caption="" data-fancybox="LookingAtTargets" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg" alt=""></a></div><div style="clear:both;"></div>
+<h1 id="Personal-feeling"><a href="#Personal-feeling" class="headerlink" title="Personal feeling"></a>Personal feeling</h1><p>It’s extraordinary to see a team customizes almost every part of the development pipeline and turns the game-making into a film-making. Perhaps helping artists to create freely without concerning about technical limitation is much more important than we ever think.</p>
+<div class="alert info"><p><em>All images used in this post are owned by Moon Studio.</em></p>
+</div>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Animation/">Animation</a> <a class="tag tag--primary tag--small t-link" href="/tags/Artist/">Artist</a> <a class="tag tag--primary tag--small t-link" href="/tags/GDC/">GDC</a> <a class="tag tag--primary tag--small t-link" href="/tags/Ori-and-the-Blind-Forest/">Ori and the Blind Forest</a> <a class="tag tag--primary tag--small t-link" href="/tags/Rendering/">Rendering</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2017/10/Integrate-MSYS2-into-Cmder/" data-tooltip="Integrate MSYS2 into Cmder" aria-label="NEXT: Integrate MSYS2 into Cmder">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 zyzyz. All Rights Reserved.
+    </span>
+    
+        <div class="lang-selector-wrap">
+            <label class="lang-selector-label"><i class="fa fa-globe"></i><span>English</span></label>
+            <select class="lang-selector" data-canonical="2018/01/GDC2015-Animating-Ori/index.html">
+                
+                    <option value="en" selected >
+                        English
+                    </option>
+                
+                    <option value="zh-cn"  >
+                        简体中文
+                    </option>
+                
+                    <option value="ja"  >
+                        日本語
+                    </option>
+                
+            </select>
+        </div>
+    
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2017/10/Integrate-MSYS2-into-Cmder/" data-tooltip="Integrate MSYS2 into Cmder" aria-label="NEXT: Integrate MSYS2 into Cmder">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/">
+                    <i class="fa fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/01/GDC2015-Animating-Ori/">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">zyzyz</h4>
+        
+            <div id="about-card-bio"><p>Just an amateur game developer, having a little knowledge about CG.<br/> Oh, as you can see, my English is not so good. Sorry ;P</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Inside the Wall
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-mpehn3hzpbow7ftuagnmfg0omlcycbvrwg0l0seovwjcyhnes3wzmtnzxlsj.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

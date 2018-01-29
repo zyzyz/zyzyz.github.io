@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="zyzyz&#39;s Playground">
+    <title>将MSYS2整合到Cmder中 - zyzyz&#39;s Playground</title>
+    <meta name="author" content="zyzyz">
+    
+    
+    
+    <meta name="description" content="最近在看《程序员的自我修养》，需要研究ELF。然而在巨硬微软爸爸的环境下总不能让我用dumpbin对着PE格式看书上例子吧？所以需要一个Linux环境。然而在习惯了Cmder的高颜值后再让我用那些黑色的终端我是拒绝的。于是就有了这篇文章。">
+<meta name="keywords" content="MSYS2,Cmder">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="将MSYS2整合到Cmder中">
+<meta property="og:url" content="https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/index.html">
+<meta property="og:site_name" content="zyzyz&#39;s Playground">
+<meta property="og:description" content="最近在看《程序员的自我修养》，需要研究ELF。然而在巨硬微软爸爸的环境下总不能让我用dumpbin对着PE格式看书上例子吧？所以需要一个Linux环境。然而在习惯了Cmder的高颜值后再让我用那些黑色的终端我是拒绝的。于是就有了这篇文章。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/MSYS2_root.png">
+<meta property="og:image" content="https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/error_double_quote.png">
+<meta property="og:image" content="https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/Alias_Path.png">
+<meta property="og:updated_time" content="2018-01-29T15:50:47.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="将MSYS2整合到Cmder中">
+<meta name="twitter:description" content="最近在看《程序员的自我修养》，需要研究ELF。然而在巨硬微软爸爸的环境下总不能让我用dumpbin对着PE格式看书上例子吧？所以需要一个Linux环境。然而在习惯了Cmder的高颜值后再让我用那些黑色的终端我是拒绝的。于是就有了这篇文章。">
+<meta name="twitter:image" content="https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/MSYS2_root.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://zyzyz.github.io/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-hrscylehuiwvo3j78rutnghzicgbuzchczgwqfsa49evq42llbezbmozyqzm.min.css">
+    <!--STYLES END-->
+    
+
+    
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/zh-cn/ ">zyzyz&#39;s Playground</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/zh-cn/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">zyzyz</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>业余游戏开发选手，略懂CG<br/> 什么？其实我外语很差的。</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/zh-cn/ "
+                            
+                            title="首页"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/zh-cn/all-categories"
+                            
+                            title="分类"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/zh-cn/all-tags"
+                            
+                            title="标签"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/zh-cn/all-archives"
+                            
+                            title="归档"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="/zh-cn/#search"
+                            
+                            title="搜索"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/zh-cn/#about"
+                            
+                            title="关于"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/zh-cn/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            将MSYS2整合到Cmder中
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-10-21T01:02:43+08:00">
+	
+		    10月 21, 2017
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Non-game/">Non-game</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>最近在看《程序员的自我修养》，需要研究ELF。然而在<del>巨硬</del>微软爸爸的环境下总不能让我用dumpbin对着PE格式看书上例子吧？所以需要一个Linux环境。然而在习惯了Cmder的高颜值后再让我用那些黑色的终端我是拒绝的。<br>于是就有了这篇文章。</p>
+<a id="more"></a>
+<h1 id="Cygwin-MinGW-MSYS-MinGW-w64-MSYS2-选哪个"><a href="#Cygwin-MinGW-MSYS-MinGW-w64-MSYS2-选哪个" class="headerlink" title="Cygwin, MinGW+MSYS, MinGW-w64, MSYS2 选哪个"></a>Cygwin, MinGW+MSYS, MinGW-w64, MSYS2 选哪个</h1><p>嗯，标题已经剧透了。<br>MSYS2是以Cygwin（POSIX兼容层）为基础发展来的，其核心是MSYS的重写版本，并且集成了MinGW-w64。并且最重要的是，Cmder完整安装包里自带的Git for Windows 2.x就是基于MSYS2的魔改项目。那为什么不直接用Git for Windows呢？MSYS2是自带包管理pacman的，所以直接装MSYS2不仅能直接获得一个完整的Linux文件系统目录，还能通过pacman装git并管理后续的升级。此外需要用pacman安装并管理gcc工具链也是选择MSYS2的原因之一。<br>关于MinGW的问题稍微提一下，在一开始调查应该装哪个的时候，本人先是通过GCC的官网找到了MinGW的安装包，这个安装包集成了MSYS，导致当时系统中GNU coreutils多出了一份（一份MSYS里的，另一份Git for Windows里的）。后来经过V2EX里的人点拨和后续调查发现了MinGW的替代项目MinGW-w64。MinGW-w64是因为其主要维护者由于MinGW提供的GNU工具只支持32位而自己fork出来的项目，以提供64位支持。不过这不表示MinGW-w64项目只支持64位，它同时支持32位和64位。更重要的是MinGW-w64项目被GCC官方支持（敲黑板），所以MSYS2集成的是MinGW-w64也是很自然的事。</p>
+<h1 id="怎么用Cmder启动MSYS2"><a href="#怎么用Cmder启动MSYS2" class="headerlink" title="怎么用Cmder启动MSYS2"></a>怎么用Cmder启动MSYS2</h1><p>先看MSYS2正常如何启动。<br>在MSYS2安装的根目录中<code>msys2_shell.cmd</code>为启动shell的关键执行文件，同目录下的另外三个.exe文件则是对<code>msys2_shell.cmd</code>的带参调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">msys2.exe   --&gt; msys2_shell.cmd -msys</div><div class="line">mingw64.exe --&gt; msys2_shell.cmd -mingw64</div><div class="line">mingw32.exe --&gt; msys2_shell.cmd -mingw32</div></pre></td></tr></table></figure></p>
+<div class="figure " style="width:;"><a class="fancybox" href="MSYS2_root.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="MSYS2_root.png" alt=""></a></div>  
+<p>在<code>msys2_shell.cmd</code>的逻辑中最重要的是根据参数设置环境变量<code>MSYSTEM</code>，这个环境变量直接影响shell启动后的整个source流程，甚至影响/usr/bin内某些可执行文件的逻辑。<code>MSYSTEM</code>有三个可能值：<code>MSYS</code>、<code>MINGW64</code>、<code>MINGW32</code>，分别对应MSYS2的三个子系统。<code>MSYS</code>子系统提供一个”mostly POSIX-compliant”的仿真环境，类似Cygwin的运行库<code>cygwin1.dll</code>，MSYS2也有一个对应的库<code>msys-2.0.dll</code>，并提供依赖MSYS2的程序。而<code>MINGW64</code>&amp;<code>MINGW32</code>则可以理解为MinGW-w64环境，分别提供64位（由MinGW-w64 x86_64工具链编译而得）和32位（由MinGW-w64 i686工具链编译而得）的原生Windows程序。</p>
+<p>由于Cmder是用ConEmu魔改的，所以如何引入MSYS2就变成了如何在ConEmu里新加Task。<code>msys2_shell.cmd</code>有根据命令行传参的不同调用不同终端的exe文件的逻辑（ConEmu、Mintty、ConsoleZ），幸好ConEmu的分支没有什么特殊逻辑，核心命令仅为<code>bash --login -i</code>，所以可在ConEmu的Settings &gt; Startup &gt; Task页中新加三个Task，并在Command框中分别输入<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> MSYSTEM=MSYS &amp; <span class="built_in">cmd</span> /c "<span class="variable">%MSYS2_ROOT%</span>\usr\bin\bash --login -i" -new_console:d:<span class="variable">%USERPROFILE%</span></div><div class="line"><span class="built_in">set</span> MSYSTEM=MINGW64 &amp; <span class="built_in">cmd</span> /c "<span class="variable">%MSYS2_ROOT%</span>\usr\bin\bash --login -i" -new_console:d:<span class="variable">%USERPROFILE%</span></div><div class="line"><span class="built_in">set</span> MSYSTEM=MINGW32 &amp; <span class="built_in">cmd</span> /c "<span class="variable">%MSYS2_ROOT%</span>\usr\bin\bash --login -i" -new_console:d:<span class="variable">%USERPROFILE%</span></div></pre></td></tr></table></figure></p>
+<p>此三行分别对应三个子系统的启动，此外<code>%MSYS2_ROOT%</code>为在Windows中安装的MSYS2的根路径，可以在系统高级设置中添加环境变量，也可以直接写绝对路径。别忘了给每个Task加上名字，并设定其中一个为新终端开启的默认Task。</p>
+<h1 id="如何保证“Cmder-Here”右键菜单正常"><a href="#如何保证“Cmder-Here”右键菜单正常" class="headerlink" title="如何保证“Cmder Here”右键菜单正常"></a>如何保证“Cmder Here”右键菜单正常</h1><p>在Cmder的GitHub主页中有说明“在Cmder.exe目录下执行<code>.\cmder.exe /REGISTER ALL</code>”可以获得在指定目录下打开Cmder的右键菜单。当用右键菜单启动Cmder时，会添加了一个<code>CMDER_START</code>环境变量到当前session中。而实际切换路径的操作则是通过<code>%CMDER_ROOT%/vendor/init.bat</code>文件中以下几行命令实现的：<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">:: This is either a env variable <span class="built_in">set</span> by the user or the result of</div><div class="line">:: cmder.exe setting this variable due to a commandline argument or a "cmder here"</div><div class="line"><span class="keyword">if</span> <span class="keyword">defined</span> CMDER_START (</div><div class="line">    <span class="built_in">cd</span> /d "<span class="variable">%CMDER_START%</span>"</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<p>Cmder用这个init.bat文件来初始化并增强Windows的原生终端cmd.exe的体验（可以查看其他预设Task的配置），而我们用于启动MSYS2的新Task是不会执行init.bat的，所以想办法把逻辑搬到bash的初始化中就行。添加以下代码到MSYS2的home目录下的<code>.bashrc</code>中即可恢复<code>Cmder Here</code>的正常使用：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># For "Cmder Here"</span></div><div class="line"><span class="keyword">if</span> [[ -n <span class="variable">$&#123;CMDER_START&#125;</span> ]]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Changing into directory: <span class="variable">$&#123;CMDER_START&#125;</span>"</span></div><div class="line">    <span class="built_in">cd</span> <span class="string">"<span class="variable">$&#123;CMDER_START&#125;</span>"</span></div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure></p>
+<p>注意判空变量来保证直接双击Cmder.exe或者单击固定在任务栏上的图标也能正常运行（此情况下<code>CMDER_START</code>为空），这样做也避免了像网上其他地方描述的那样特意为Cmder.exe的快捷方式目标中加上/Start。然而此方法仍然存在瑕疵，不知为何，如果在分区根目录下直接右键打开Cmder会发现CMDER_START表示的路径最后会多出一个双引号。这个应该是Cmder自己的问题，看作者会不会修复。当然也可以在if里专门加上去双引号的代码，不过这只是一个临时方案，此文先忽略此问题。<br><div class="figure " style="width:;"><a class="fancybox" href="error_double_quote.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="error_double_quote.png" alt=""></a></div></p>
+<h1 id="Cmder侧的配置注入"><a href="#Cmder侧的配置注入" class="headerlink" title="Cmder侧的配置注入"></a>Cmder侧的配置注入</h1><p>其实在Cmder的GitHub主页里已经有关于“如何在Cmder中使用外部Linux环境”的说明。Cmder官方在<code>%CMDER_ROOT%/vendor/</code>下提供了一个不带后缀的脚本文件<code>cmder_exinit</code>，在添加后缀名后将其放到<code>/etc/profile.d/</code>便能被bash在启动时加载并执行。该脚本主要任务是：</p>
+<ol>
+<li>创建环境变量<code>CMDER_ROOT</code>并把cmder部分路径注入<code>PATH</code></li>
+<li>source其根目录下的<code>./config/profile.d/</code>内的所有脚本文件 + <code>./config/user-profile.sh</code></li>
+</ol>
+<p>这样放在Cmder的bin目录下的所有内容就能被bash所用了。  </p>
+<p>上一段有在<code>.bashrc</code>中添加自定义代码，而按照Cmder官方的“便携性”思想则应该把这些自定义代码放到<code>user-profile.sh</code>里，以保证迁移Cmder整个目录到其他机器上时能把这些自定义内容打包带走。至于选择加在哪里，看个人喜好了。</p>
+<p>另外一个需要移动到<code>/etc/profile.d/</code>下的文件是Git for Windows项目提供的<code>git-prompt.sh</code>，用来提供git命令补全和在Bash Prompt显示git分支的功能，位置一般在<code>%CMDER_ROOT%/vendor/git-for-windows/etc/profile.d/</code>下。如果你目前用的是Cmder完整版，可以先把这个文件拿出来再删Git for Windows目录。如果是Cmder_mini，可以直接去GitHub上扒一份下来。要注意的是这个文件并不是真正的<code>git-prompt.sh</code>，其本体和<code>git-completion.bash</code>是在你用pacman安装的git包里的。这个<code>git-prompt.sh</code>主要用来设定PS1和source实际git包里的<code>git-prompt.sh</code>和<code>git-completion.bash</code>两个文件。下面是该辅助脚本的主要代码段：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">PS1=<span class="string">'\[\033]0;$MSYSTEM:$&#123;PWD//[^[:ascii:]]/?&#125;\007\]'</span> <span class="comment"># set window title</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[32m\]'</span>       <span class="comment"># change to green</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\u@\h '</span>             <span class="comment"># user@host&lt;space&gt;</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[33m\]'</span>       <span class="comment"># change to brownish yellow</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\w'</span>                 <span class="comment"># current working directory</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">test</span> -z <span class="string">"<span class="variable">$WINELOADERNOEXEC</span>"</span></div><div class="line"><span class="keyword">then</span></div><div class="line">	GIT_EXEC_PATH=<span class="string">"<span class="variable">$(git --exec-path 2&gt;/dev/null)</span>"</span></div><div class="line">	COMPLETION_PATH=<span class="string">"<span class="variable">$&#123;GIT_EXEC_PATH%/libexec/git-core&#125;</span>"</span></div><div class="line">	COMPLETION_PATH=<span class="string">"<span class="variable">$&#123;COMPLETION_PATH%/lib/git-core&#125;</span>"</span></div><div class="line">	COMPLETION_PATH=<span class="string">"<span class="variable">$COMPLETION_PATH</span>/share/git/completion"</span></div><div class="line">	<span class="keyword">if</span> <span class="built_in">test</span> -f <span class="string">"<span class="variable">$COMPLETION_PATH</span>/git-prompt.sh"</span></div><div class="line">	<span class="keyword">then</span></div><div class="line">		. <span class="string">"<span class="variable">$COMPLETION_PATH</span>/git-completion.bash"</span></div><div class="line">		. <span class="string">"<span class="variable">$COMPLETION_PATH</span>/git-prompt.sh"</span></div><div class="line">		PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[36m\]'</span>  <span class="comment"># change color to cyan</span></div><div class="line">		PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'`__git_ps1`'</span>   <span class="comment"># bash function</span></div><div class="line">	<span class="keyword">fi</span></div><div class="line"><span class="keyword">fi</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\[\033[0m\]'</span>        <span class="comment"># change color</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'\n'</span>                 <span class="comment"># new line</span></div><div class="line">PS1=<span class="string">"<span class="variable">$PS1</span>"</span><span class="string">'λ '</span>                 <span class="comment"># prompt: always λ</span></div></pre></td></tr></table></figure></p>
+<h1 id="自定义Alias和PATH"><a href="#自定义Alias和PATH" class="headerlink" title="自定义Alias和PATH"></a>自定义Alias和PATH</h1><p>Cmder自身为cmd.exe提供了一组默认的alias（可以查看Cmder的config目录下的<code>user-aliases.cmd</code>），但是想继续用这组alias就只有把它们搬到<code>.bashrc</code>或者<code>user-profile.sh</code>里了。注意Windows的环境变量的语法还有路径格式和Linux下的不一样，搬运时要修正。PATH同理，但是注意如果加的路径中用到了Windows的环境变量，那么返回的是Windows格式的路径（反斜杠&amp;盘符引号），MSYS2下是不能直接用的，需要进一步添加路径格式转换的代码。如下（比如要在MSYS2环境下调用外部的Node.js）：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">alias</span> ll=<span class="string">'ls -alh --time-style=long-iso --show-control-chars -F --color $*'</span></div><div class="line"><span class="built_in">alias</span> e.=<span class="string">'explorer .'</span></div><div class="line"><span class="built_in">alias</span> showpath=<span class="string">" tr ':' '\n' &lt;&lt;&lt; \"\$PATH\" "</span></div><div class="line"></div><div class="line"><span class="comment"># Include Extra Paths</span></div><div class="line">ExtraPaths=(</div><div class="line">  <span class="string">"<span class="variable">$&#123;NODE_PATH&#125;</span>"</span></div><div class="line">  <span class="string">"<span class="variable">$&#123;APPDATA&#125;</span>\npm"</span></div><div class="line">)</div><div class="line"><span class="keyword">for</span> currPath <span class="keyword">in</span> <span class="variable">$&#123;ExtraPaths[@]&#125;</span></div><div class="line"><span class="keyword">do</span></div><div class="line">  <span class="comment"># Convert path from Windows to Unix format </span></div><div class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$currPath</span>"</span> != <span class="string">""</span> ] ; <span class="keyword">then</span></div><div class="line">    <span class="keyword">case</span> <span class="string">"<span class="variable">$currPath</span>"</span> <span class="keyword">in</span> *\\*) currPath=<span class="string">"<span class="variable">$(cygpath -u "$currPath")</span>"</span>;; <span class="keyword">esac</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line">  <span class="keyword">if</span> [ <span class="string">"<span class="variable">$currPath</span>"</span> != <span class="string">""</span> ] ; <span class="keyword">then</span></div><div class="line">    <span class="comment"># Remove any trailing '/'</span></div><div class="line">    currPath=$(<span class="built_in">echo</span> <span class="variable">$currPath</span> | sed <span class="string">'s:/*$::'</span>)</div><div class="line"></div><div class="line">    <span class="built_in">echo</span> <span class="string">"Adding extra path \"<span class="variable">$&#123;currPath&#125;</span>\"."</span></div><div class="line">    PATH=<span class="variable">$&#123;currPath&#125;</span>:<span class="variable">$&#123;PATH&#125;</span></div><div class="line">  <span class="keyword">fi</span></div><div class="line">  <span class="built_in">export</span> PATH</div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="built_in">unset</span> ExtraPaths</div></pre></td></tr></table></figure></p>
+<p>下面是效果：<br><div class="figure " style="width:;"><a class="fancybox" href="Alias_Path.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="Alias_Path.png" alt=""></a></div></p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Cmder/">Cmder</a> <a class="tag tag--primary tag--small t-link" href="/tags/MSYS2/">MSYS2</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/zh-cn/2018/01/GDC2015-Animating-Ori/" data-tooltip="[整理]GDC 2015 Animating Ori and the Blind Forest" aria-label="上一篇: [整理]GDC 2015 Animating Ori and the Blind Forest">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/" title="分享到 Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/" title="分享到 Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/" title="分享到 Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 zyzyz. All Rights Reserved.
+    </span>
+    
+        <div class="lang-selector-wrap">
+            <label class="lang-selector-label"><i class="fa fa-globe"></i><span>简体中文</span></label>
+            <select class="lang-selector" data-canonical="2017/10/Integrate-MSYS2-into-Cmder/index.html">
+                
+                    <option value="en"  >
+                        English
+                    </option>
+                
+                    <option value="zh-cn" selected >
+                        简体中文
+                    </option>
+                
+                    <option value="ja"  >
+                        日本語
+                    </option>
+                
+            </select>
+        </div>
+    
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/zh-cn/2018/01/GDC2015-Animating-Ori/" data-tooltip="[整理]GDC 2015 Animating Ori and the Blind Forest" aria-label="上一篇: [整理]GDC 2015 Animating Ori and the Blind Forest">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/" title="分享到 Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/" title="分享到 Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/" title="分享到 Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>分享到 Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/">
+                    <i class="fa fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2017/10/Integrate-MSYS2-into-Cmder/">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">zyzyz</h4>
+        
+            <div id="about-card-bio"><p>业余游戏开发选手，略懂CG<br/> 什么？其实我外语很差的。</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Inside the Wall
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-mpehn3hzpbow7ftuagnmfg0omlcycbvrwg0l0seovwjcyhnes3wzmtnzxlsj.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>
