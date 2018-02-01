@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg">
-<meta property="og:updated_time" content="2018-01-29T15:50:47.063Z">
+<meta property="og:updated_time" content="2018-02-01T07:35:02.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[NOTE]GDC 2015 Animating Ori and the Blind Forest">
 <meta name="twitter:description" content="Although it’s an old speech but, it’s all about Ori and the Blind Forest‘s techniques! So it’s worthy of some notes on it.(it’s worth noting that Moon Studio started this game with Unity 3!)">
@@ -275,7 +275,7 @@
 </ul>
 </li>
 <li>Spring jointed legs/tail to aid animation goals<ul>
-<li>There exist a few animation concession in his design:<ul>
+<li>There exist a few animation concessions in his design:<ul>
 <li>Give him a tail so as to show the direction of travel when he is moving.</li>
 <li>Give him double jointed legs.<ul>
 <li>It’s a platforming game.</li>
@@ -286,7 +286,7 @@
 </li>
 </ul>
 </li>
-<li>Ori is rigged by using 3ds max CAT system.</li>
+<li>Ori is rigged by using 3ds max CAT system</li>
 </ul>
 <h1 id="Ori-rendering"><a href="#Ori-rendering" class="headerlink" title="Ori rendering"></a>Ori rendering</h1><ul>
 <li><p><strong>Orthographic</strong> camera from the side  </p>
@@ -307,7 +307,7 @@
 </ul>
 <p>Using the rendering style above, in engine it looks vaguely in most cases.</p>
 <h1 id="Baked-effects"><a href="#Baked-effects" class="headerlink" title="Baked effects"></a>Baked effects</h1><ul>
-<li>Do a bunch of stuff to frames before starting making them into atlases.<ul>
+<li>Do a bunch of stuff to frames before starting making them into atlases<ul>
 <li>When the owl coming out from camera, the blur blending out is actually the depth of field baked into sprites. It’s a relatively expensive thing to do in real time.</li>
 </ul>
 </li>
@@ -319,7 +319,7 @@
 <ul>
 <li>Sample all pixels in the various images thrown into the machine, and let’s assume blue is the least used color so we make a blue screen. But it also does really smart sampling like if a character has red eyes, it can tell that’s important and even if red is least used color in all those images, it’ll ensure not to make eyes transparent.  </li>
 </ul>
-<p>(The speech doesn’t give details and intention of using this kind of chroma key system. However, I suspect that either limitation of early Unity version or memory pressure, or maybe both of them force Ori team to turn to chroma key technique instead of the conventional alpha texture. Since one extra alpha channel will cause an image size increased 1/4, considering the content-heavy property of this game, the final memory taken by alpha channel will be huge. Consequently, using the chroma key to handle transparent issue of sprite may spare tons of GPU memory.)</p>
+<p>(The speech doesn’t give details and intention of using this kind of chroma key system. However, I <strong>suspect</strong> that either limitation of early Unity version or memory pressure, or maybe both of them force Ori team to turn to chroma key technique instead of the conventional alpha texture. Since one extra alpha channel will cause an image size increased 1/4, considering the content-heavy property of this game, the final memory taken by alpha channel will be huge. Consequently, using the chroma key to handle transparent issue of sprite may spare tons of GPU memory.)</p>
 </li>
 </ul>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg" alt=""></a></div>
@@ -360,7 +360,7 @@
 <div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif" title="" data-caption="" data-fancybox="NonUniformScaling" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif" alt=""></a></div><div style="clear:both;"></div>
 <ul>
 <li>Cheat perspective<ul>
-<li>for 2D sometimes you don’t want to show like both arms when character is running, you can shrink the arm down to a little nub.</li>
+<li>for 2D sometimes you don’t want to show like both arms when character is running, you can shrink the arm down to a little nub. You can see the right view is just a horrible show.</li>
 </ul>
 </li>
 </ul>
@@ -405,8 +405,11 @@
 </li>
 </ul>
 <h1 id="Cons-of-this-pipeline"><a href="#Cons-of-this-pipeline" class="headerlink" title="Cons of this pipeline"></a>Cons of this pipeline</h1><h2 id="You-have-a-big-cost-in-1-area-Whatever-great-stuff-you-get-for-free-in-the-sprite-you-are-paying-for-them-with-texture-memory"><a href="#You-have-a-big-cost-in-1-area-Whatever-great-stuff-you-get-for-free-in-the-sprite-you-are-paying-for-them-with-texture-memory" class="headerlink" title="You have a big cost in 1 area: Whatever great stuff you get for free in the sprite, you are paying for them with texture memory!"></a>You have a big cost in 1 area: Whatever great stuff you get for free in the sprite, you are paying for them with texture memory!</h2><h2 id="Iteration-on-character-look"><a href="#Iteration-on-character-look" class="headerlink" title="Iteration on character look"></a>Iteration on character look</h2><ul>
-<li>You have to re-render every frame if you change the character model/texture</li>
-<li>Since it’s 3D asset,this could be a batch script, but still a Huge pain. (Obviously much worse with ‘true’ 2d)</li>
+<li>You have to re-render every frame if you change the character model/texture.</li>
+<li>Since it’s 3D asset, this could be a batch script, but still a Huge pain. (Obviously much worse with ‘true’ 2d)<ul>
+<li>It also costs programming time, and may cause bugs.</li>
+</ul>
+</li>
 </ul>
 <h2 id="Gameplay-IK-solutions"><a href="#Gameplay-IK-solutions" class="headerlink" title="Gameplay IK solutions"></a>Gameplay IK solutions</h2><ul>
 <li>You can’t adjust feet to ground slope via IK</li>
@@ -438,10 +441,10 @@
 <h2 id="Blend-Trees"><a href="#Blend-Trees" class="headerlink" title="Blend Trees"></a>Blend Trees</h2><h3 id="Idle-Walk-Run-problem"><a href="#Idle-Walk-Run-problem" class="headerlink" title="Idle-Walk-Run problem"></a>Idle-Walk-Run problem</h3><ol>
 <li>All the animations that affects are rendered at four times the normal frame rate.</li>
 <li>Then dynamically speed up and slow down the animation based on where your (joy)stick is.</li>
-<li>So 120 FPS version of the walk is playing at that threshold (slightest stick movement) where you’re doing the fastest version of thewalk and then we slowed it down to 30 if you’re doing the tiniest bit of stick, and then when you hit the threshold from the 120 walk to the 30 jog we just have a transition that covers it.</li>
+<li>So 120 FPS version of the walk is playing at the threshold where you’re doing the fastest version of the walk and then we slowed it down to 30 if you’re doing the tiniest bit of stick, and then when you hit the threshold from the 120 walk to the 30 jog we just have a transition that covers it.</li>
 </ol>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg" alt=""></a></div>
-<p>It is’nt bulletproof but it does the job really really well and isn’t a big deal.</p>
+<p>It‘s not bulletproof but it does the job really really well and isn’t a big deal.</p>
 <h3 id="Circumvent-blender-issue-for-swimming"><a href="#Circumvent-blender-issue-for-swimming" class="headerlink" title="Circumvent blender issue for swimming"></a>Circumvent blender issue for swimming</h3><p>We want to do a 360 degree thing like Rayman Origins:</p>
 <ol>
 <li>Prepare a swimming idle going horizontally.</li>
@@ -450,7 +453,7 @@
 <li>And depending on the angle you’re going to and coming from, the programming magic just dynamically picks through all these different animations.</li>
 </ol>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg" alt=""></a></div>
-<h3 id="Looking-at-targets"><a href="#Looking-at-targets" class="headerlink" title="Looking at targets"></a>Looking at targets</h3><ul>
+<h2 id="Looking-at-targets"><a href="#Looking-at-targets" class="headerlink" title="Looking at targets"></a>Looking at targets</h2><ul>
 <li>Just content issue again<ul>
 <li>Version of watch 145 degrees</li>
 <li>Version of looking upwards</li>
