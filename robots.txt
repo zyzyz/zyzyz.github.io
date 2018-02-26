@@ -8,7 +8,7 @@ Disallow: /zh-cn/all-tags
 Disallow: /zh-cn/archives
 Disallow: /zh-cn/categories
 Disallow: /zh-cn/tags
-Disallow: /en/terms-of-uses
+Disallow: /en/terms-of-use
 Disallow: /en/all-archives
 Disallow: /en/all-categories
 Disallow: /en/all-tags
