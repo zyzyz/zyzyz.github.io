@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="zyzyz&#39;s Playground">
+    <title>Understanding the Process of Android Data Recovery - zyzyz&#39;s Playground</title>
+    <meta name="author" content="zyzyz">
+    
+    
+    
+    <meta name="description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
+<meta name="keywords" content="Data Recovery,Android">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Understanding the Process of Android Data Recovery">
+<meta property="og:url" content="https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/index.html">
+<meta property="og:site_name" content="zyzyz&#39;s Playground">
+<meta property="og:description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-03-14T10:35:43.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Understanding the Process of Android Data Recovery">
+<meta name="twitter:description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://zyzyz.github.io/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-prcqxou7hisjt2xnhbaypaoei2xv365tw1jhd9m8gyrkgeqsbmvtx5wubcum.min.css">
+    <!--STYLES END-->
+    
+
+    
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/en/ ">zyzyz&#39;s Playground</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/en/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">zyzyz</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Just an amateur game developer, having a little knowledge about CG.<br/> Oh, as you can see, my English is not so good. Sorry ;P</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/terms-of-use"
+                            
+                            title="Terms"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-copyright" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Terms</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="/en/#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/zyzyz" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Understanding the Process of Android Data Recovery
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-03-11T23:09:25+08:00">
+	
+		    Mar 11, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Non-game/">Non-game</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find there’re more choices than I thought, like you can make use of those traditional data recovery software with more powerful algorithm on PC.</p>
+<a id="more"></a>
+<h1 id="About-device-type"><a href="#About-device-type" class="headerlink" title="About device type"></a>About device type</h1><p>The method given in this article is tested with Xiaomi Mi 3, with native android 4.4 ROM provided by a Xiaomi internal tech employee. </p>
+<h1 id="Understand-what-software-has-done-from-the-outside-in"><a href="#Understand-what-software-has-done-from-the-outside-in" class="headerlink" title="Understand what software has done from the outside-in"></a>Understand what software has done from the outside-in</h1><p>Android is just a Unix-like system, so the software is just copying data under one specific mount point in a Unix-like system to PC and analyzing it with related algorithm then picking out the missing files.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. Copy data of specific mount point in a Unix-like system to PC</div><div class="line">2. Analyze data and restore files.</div></pre></td></tr></table></figure></p>
+<p>Now it’s the problem how to achieve these two points. The difficulties are mainly focused on point 1, due to the involvement of two hardware, you should first establish physical communication channel using USB cable, and make sure your smartphone’s USB Debugging Mode is enabled. Of course you can have your two hardware in the same LAN by Wi-Fi but the data transimission speed of network is significant slower than of cable.</p>
+<p>Then the software part, PC side needs <code>Netcat</code> to download data from smartphone’s specific mount point. If you want to monitor the progress, prepare the <code>Pipe Viewer</code>. For PC side, as opposed to Unix-like system, Window system should also prepare a Linux command-line environment (like Cygwin or MSYS2); For smartphone side Netcat is also needed to open a port for PC side’s Netcat. Besides, in order to confirm the mount point of <code>/data</code>, <code>mount</code> command should be invoked in advance to get the path of mount point, blindly follow the instructions of some online tutorials will fail to complete the mission.</p>
+<p>Next, it’s not easy to execute the operation mentioned above on smartphone. The first one is privilege, android system should be rooted in advance; The second one is Linux tools, <code>Busybox</code> should be installed to acquire Netcat; The third one is operating approach, you can install <code>ADB</code> tools on PC and send commands after logged in Android shell, or directly use terminal app on smartphone.</p>
+<p>So the reason why some online tutorials list that many requirements should be clear at a glance.</p>
+<h1 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h1><h2 id="Tools-preparation"><a href="#Tools-preparation" class="headerlink" title="Tools preparation"></a>Tools preparation</h2><ol>
+<li>Root your smartphone.</li>
+<li>Install Busybox.</li>
+<li>Prepare command-line environment on PC.</li>
+<li>Download ADB tools (now Google has release ADB tools as standalone, no need to download full Android Studio).</li>
+<li>Put <code>adb.exe</code>, <code>AdbWinApi.dll</code> and <code>AdbWinUsbApi.dll</code> under <code>PATH</code>.</li>
+<li>Download <code>nc.exe</code> and <code>pv.exe</code>.</li>
+</ol>
+<h2 id="Command-line-operation"><a href="#Command-line-operation" class="headerlink" title="Command line operation"></a>Command line operation</h2><p>Step 1<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure></p>
+<p>This reset the ADB service, preventing interference from other existing ADB processes.</p>
+<p>Step 2<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Android shell entered...)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure></p>
+<p>Be aware that you should consciously invoke <code>mount</code> to figure out the path of <code>/data</code> mount point, and use it in the next command.<br>Apart from that, you should take special care of whether you need to specify IP when using Netcat, because specifying IP <strong>MAY</strong> cause your port opened as tcp6. So in this case please <strong>open another command line window, enter Android shell and execute the command below to check port usage</strong>. If you find your port is opened as tcp6, add parameter <code>-s 127.0.0.1</code> to force tcp instead of tcp6.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure></p>
+<p>Step 3<br>Open another window and execute<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure></p>
+<p>First you need to establish a port mapping from PC to Android using ADB’s forwarding function, then use Netcat to execute the data download, the target file name is <code>datablock.raw</code>.</p>
+<h2 id="Analyze-data-and-restore"><a href="#Analyze-data-and-restore" class="headerlink" title="Analyze data and restore"></a>Analyze data and restore</h2><p>Thanks to the extracted raw data from smartphone, now you can choose some more professional data recovery software on PC, such as R-Studio and Easy Recovery.</p>
+<div class="alert info"><p>References：<br>[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a>  </p>
+</div>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Android/">Android</a> <a class="tag tag--primary tag--small t-link" href="/tags/Data-Recovery/">Data Recovery</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Grammatical-Construction-of-MIT-License/" data-tooltip="Grammatical Construction of MIT License" aria-label="PREVIOUS: Grammatical Construction of MIT License">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/01/GDC2015-Animating-Ori/" data-tooltip="[NOTE]GDC 2015 Animating Ori and the Blind Forest" aria-label="NEXT: [NOTE]GDC 2015 Animating Ori and the Blind Forest">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 zyzyz. All Rights Reserved.
+    </span>
+    
+        <div class="lang-selector-wrap">
+            <label class="lang-selector-label"><i class="fa fa-globe"></i><span>English</span></label>
+            <select class="lang-selector" data-canonical="2018/03/Understanding-the-Process-of-Android-Data-Recovery/index.html">
+                
+                    <option value="en" selected >
+                        English
+                    </option>
+                
+                    <option value="zh-cn"  >
+                        简体中文
+                    </option>
+                
+                    <option value="ja"  >
+                        日本語
+                    </option>
+                
+            </select>
+        </div>
+    
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Grammatical-Construction-of-MIT-License/" data-tooltip="Grammatical Construction of MIT License" aria-label="PREVIOUS: Grammatical Construction of MIT License">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/01/GDC2015-Animating-Ori/" data-tooltip="[NOTE]GDC 2015 Animating Ori and the Blind Forest" aria-label="NEXT: [NOTE]GDC 2015 Animating Ori and the Blind Forest">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                    <i class="fa fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">zyzyz</h4>
+        
+            <div id="about-card-bio"><p>Just an amateur game developer, having a little knowledge about CG.<br/> Oh, as you can see, my English is not so good. Sorry ;P</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Inside the Wall
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-s1qxxirzk4funr9kz3gk3lvnsufv0yyupbhxf3blwxecdwbuvjvrswnh4cy5.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>
