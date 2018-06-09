@@ -20,7 +20,7 @@
 <meta property="og:description" content="I don’t think it’s appropriate for me to write this article in English, as I’m totally not an native English speaker! So why don’t native English speakers just go to study the source line by line? But">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg">
-<meta property="og:updated_time" content="2018-04-07T16:20:22.589Z">
+<meta property="og:updated_time" content="2018-04-07T16:50:04.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Grammatical Construction of MIT License">
 <meta name="twitter:description" content="I don’t think it’s appropriate for me to write this article in English, as I’m totally not an native English speaker! So why don’t native English speakers just go to study the source line by line? But">
@@ -252,12 +252,16 @@
 <blockquote>
 <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </blockquote>
-<p>Then the picture：<br><div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" alt=""></a></div></p>
+<p>Then the picture：</p>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" alt=""></a></div>
 <p>So how I get this diagram? That should thank to Kyle E. Mitchell’s article named <a href="https://writing.kemitchell.com/2016/09/21/MIT-License-Line-by-Line.html" target="_blank" rel="external">The MIT License, Line by Line</a>, as title says, it explains MIT license’s every line from a legal perspective. Besides, Hacker News <a href="https://news.ycombinator.com/item?id=12559169" target="_blank" rel="external">also forward this article</a> and Mitchell has left many comments in the thread, which are indeed kind of treasurable references.</p>
-<p>The last paragraph can be broken down into two section: <strong>Warranty Disclaimer</strong> and <strong>Limitation of Liability</strong><br>The first section is a relatively simple hierarchy structure. As a common legal form, “AS IS” is used to describe something sold by sellers, you can simply consider that it emphasizes what the buyers buy is just the thing <strong>presented in current state</strong>, no matter whether it has any fault or not. More details can be found at <a href="https://en.wikipedia.org/wiki/As_is" target="_blank" rel="external">wiki</a>. After this follows a variety of detailed warranty disclamations for the sake of covering all cases.<br>The second section is the focus of this article, this part states no legal responsibility for “any claim, damages or other liability”, and a sequence of coordinate structures listed behind in order to covering all cases are the causes. But they are not as simple as they look, there’s a knack in them. “of contract” and “of tort” are the first two main actions that can cause a lawsuit, and they are <strong>complemented by other <u>atypical</u> actions for the sake of covering all cases</strong>. You may find I have used 3 times of the phrase like “for the sake of covering all cases”, yes, this kind of expression, expanding another bunch of supplementary information after a bunch of things in case <u>you miss one inconspicuous possibility that consequently causes your getting sued</u>, is often seen in contract provisions, that’s to say you can install a N-ary tree whose nodes are all leaves except the root and the rightmost ones in your mind to make it easier to figure out which layer these bunch of “or” should belong to in the hierarchical sentence.</p>
+<p>The last paragraph can be broken down into two section: <strong>Warranty Disclaimer</strong> and <strong>Limitation of Liability</strong><br>
+The first section is a relatively simple hierarchy structure. As a common legal form, “AS IS” is used to describe something sold by sellers, you can simply consider that it emphasizes what the buyers buy is just the thing <strong>presented in current state</strong>, no matter whether it has any fault or not. More details can be found at <a href="https://en.wikipedia.org/wiki/As_is" target="_blank" rel="external">wiki</a>. After this follows a variety of detailed warranty disclamations for the sake of covering all cases.<br>
+The second section is the focus of this article, this part states no legal responsibility for “any claim, damages or other liability”, and a sequence of coordinate structures listed behind in order to covering all cases are the causes. But they are not as simple as they look, there’s a knack in them. “of contract” and “of tort” are the first two main actions that can cause a lawsuit, and they are <strong>complemented by other <u>atypical</u> actions for the sake of covering all cases</strong>. You may find I have used 3 times of the phrase like “for the sake of covering all cases”, yes, this kind of expression, expanding another bunch of supplementary information after a bunch of things in case <u>you miss one inconspicuous possibility that consequently causes your getting sued</u>, is often seen in contract provisions, that’s to say you can install a N-ary tree whose nodes are all leaves except the root and the rightmost ones in your mind to make it easier to figure out which layer these bunch of “or” should belong to in the hierarchical sentence.</p>
 <p>Apart from that, the way I illustrate “arising from, out of or in connection with” is a personal supposition based on the thread from Hacker New and <a href="http://www.adamsdrafting.com/arising-out-of-or-related-to-no-thank-you/" target="_blank" rel="external">a contract draftsman Ken Adams’s article</a> given in Mitchell’s comment. Mitchell mentioned “Why not just ‘related to’?”, this may imply “in connection with” in MIT license. So why not just “related to”?</p>
 <p>Let’s see a litigation (details can be found in Adams’s <a href="http://www.adamsdrafting.com/arising-out-of-what/" target="_blank" rel="external">another article</a>): in a <u>limited-liability-company operating agreement</u> there’s a <u>fee-shifting provision</u> which states “In any action or proceeding <u>brought to</u> enforce any provision of this Agreement, or where any provision is validly asserted as a defense, the successful party is entitled to recover reasonable attorneys’ fees in addition to any other available remedy.” In this litigation the plaintiff was awarded attorneys’ fees by the trial court but The Idaho Supreme Court reversed it eventually, because <strong>the plaintiff actually sought dissolution rather than something “brought to enforce any provision of this Agreement”, which fails the execution of this provision</strong>, and Adams banters “whoever drafted the provision suffered from a failure of imagination”.</p>
-<p>The Adams’s article referred by Mitchell approves a approach which is clearly demonstrated by the litigation above: if “a broad but predictable set of claims within the scope of a provision” is wanted, then “focus not on the contract but instead on the activities that then parties will be engaging in as part of the transaction contemplated by the contract”, using <strong>arising out of</strong> and <strong>specify what is out of contract after the phrase</strong> to “establish a relevant set (activities under the contract)” rather than “an overly narrow set (the contract)”.<br>As you can see, MIT license is just doing in the same way. Surely “from” and “in connection with” is used together for the sake of covering all cases, and not only the software itself but the use and other dealings in the software are also included.</p>
+<p>The Adams’s article referred by Mitchell approves a approach which is clearly demonstrated by the litigation above: if “a broad but predictable set of claims within the scope of a provision” is wanted, then “focus not on the contract but instead on the activities that then parties will be engaging in as part of the transaction contemplated by the contract”, using <strong>arising out of</strong> and <strong>specify what is out of contract after the phrase</strong> to “establish a relevant set (activities under the contract)” rather than “an overly narrow set (the contract)”.<br>
+As you can see, MIT license is just doing in the same way. Surely “from” and “in connection with” is used together for the sake of covering all cases, and not only the software itself but the use and other dealings in the software are also included.</p>
 <p>It’s not known whether it’s a coincidence or a decent understanding of legal knowledge, from the view of grammatical construction, the Japanese version of MIT license doesn’t fully match the English one, <strong>BUT</strong> amazingly it does deliver the connotation explained above. Mitchell gives a link of <a href="https://postd.cc/mit-license-line-by-line/" target="_blank" rel="external">fully translation of his article</a> at the end, in which “起因し（arising from）” and “関連し（in connection with）” is combined with “ソフトウェア”, “によって（arising out of）” is combined with the whole rest part “使用またはその他の扱いによって生じる”. If you know Japanese, you will feel the incredible smoothness when reading this sentence, without straying from the Adams’s view.</p>
 
             
@@ -279,7 +283,8 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/04/An-Embarrassing-Mistake/" data-tooltip="An Embarrassing Mistake" aria-label="PREVIOUS: An Embarrassing Mistake">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -288,7 +293,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" data-tooltip="Understanding the Process of Android Data Recovery" aria-label="NEXT: Understanding the Process of Android Data Recovery">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Understanding-the-process-of-Android-data-recovery/" data-tooltip="Understanding the Process of Android Data Recovery" aria-label="NEXT: Understanding the Process of Android Data Recovery">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -384,7 +389,8 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/04/An-Embarrassing-Mistake/" data-tooltip="An Embarrassing Mistake" aria-label="PREVIOUS: An Embarrassing Mistake">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -393,7 +399,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" data-tooltip="Understanding the Process of Android Data Recovery" aria-label="NEXT: Understanding the Process of Android Data Recovery">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Understanding-the-process-of-Android-data-recovery/" data-tooltip="Understanding the Process of Android Data Recovery" aria-label="NEXT: Understanding the Process of Android Data Recovery">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>

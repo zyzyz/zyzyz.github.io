@@ -20,7 +20,7 @@
 <meta property="og:description" content="你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg">
-<meta property="og:updated_time" content="2018-04-07T16:17:32.878Z">
+<meta property="og:updated_time" content="2018-04-07T16:50:04.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT许可协议的语法结构">
 <meta name="twitter:description" content="你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。">
@@ -252,12 +252,16 @@
 <blockquote>
 <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </blockquote>
-<p>再上图：<br><div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" alt=""></a></div></p>
+<p>再上图：</p>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" alt=""></a></div>
 <p>那么这张图是根据什么内容画出来的呢？这里要感谢一位名为Kyle E. Mitchell的大佬写了一篇名为<a href="https://writing.kemitchell.com/2016/09/21/MIT-License-Line-by-Line.html" target="_blank" rel="external">The MIT License, Line by Line</a>的文章，该文从法律的角度逐句解释了MIT许可协议原文。此外，Hacker News<a href="https://news.ycombinator.com/item?id=12559169" target="_blank" rel="external">报道了这篇文章</a>，且作者本人也有跑去Hacker News回复并与他人讨论，实在是难得的参考材料。</p>
-<p>MIT许可协议最后一段分为两大句，分别是<strong>担保解除声明</strong>与<strong>责任限制</strong>。<br>第一部分的结构很简单，是很规整的层级结构。其中“AS IS”为一个很常用的法律免责术语，用于描述卖家要卖出去的商品，可以简单理解为强调了买家想买的就是<strong>当前状态下</strong>的这个东西，无论它是否有缺陷。后面为了尽可能涵盖各种情况而追加了各种担保解除的描述。<br>而第二部分就是本文讨论的重点了，此部分表示对“任何的索赔、损害或其他责任”不负责任，那么“任何的索赔、损害或其他责任”是怎么造成的呢？后面一大长串尽可能涵盖了各种情况的并列就是造成原因。但这个不是简单的并列，里面是有门道的。首先是法律中两大可以用来告的行为：of contract的违约行为和of tort的侵权行为。<strong>然后就是为了尽可能涵盖任何情况而补充的其他<u>非典型</u>行为</strong>。你可能已经发现我已经用了3遍”尽可能涵盖各种情况“这样的描述，对，这种”在一堆并列的最后又展开一屁股的补充并列<u>以防漏掉某种情况给别人机会告</u>“的行文在法律相关文案中是一种常见的句式结构。也就是说如果提前在心里有一颗除了根节点和最右节点全是叶子节点的N叉树，那阅读法律文案时就比较好区分这一堆的or到底归属哪一层的并列。</p>
+<p>MIT许可协议最后一段分为两大句，分别是<strong>担保解除声明</strong>与<strong>责任限制</strong>。<br>
+第一部分的结构很简单，是很规整的层级结构。其中“AS IS”为一个很常用的法律免责术语，用于描述卖家要卖出去的商品，可以简单理解为强调了买家想买的就是<strong>当前状态下</strong>的这个东西，无论它是否有缺陷。后面为了尽可能涵盖各种情况而追加了各种担保解除的描述。<br>
+而第二部分就是本文讨论的重点了，此部分表示对“任何的索赔、损害或其他责任”不负责任，那么“任何的索赔、损害或其他责任”是怎么造成的呢？后面一大长串尽可能涵盖了各种情况的并列就是造成原因。但这个不是简单的并列，里面是有门道的。首先是法律中两大可以用来告的行为：of contract的违约行为和of tort的侵权行为。<strong>然后就是为了尽可能涵盖任何情况而补充的其他<u>非典型</u>行为</strong>。你可能已经发现我已经用了3遍”尽可能涵盖各种情况“这样的描述，对，这种”在一堆并列的最后又展开一屁股的补充并列<u>以防漏掉某种情况给别人机会告</u>“的行文在法律相关文案中是一种常见的句式结构。也就是说如果提前在心里有一颗除了根节点和最右节点全是叶子节点的N叉树，那阅读法律文案时就比较好区分这一堆的or到底归属哪一层的并列。</p>
 <p>此外，关于“arising from, out of or in connection with”为什么按图里那样拆分是参照了Hacker News讨论串和Mitchell本人在回复中给出的<a href="http://www.adamsdrafting.com/arising-out-of-or-related-to-no-thank-you/" target="_blank" rel="external">某位合同起草工作者Ken Adams的文章</a>后的推测结果。Mitchell在给出文章时回复“为什么不仅仅用related to”，这里应该意指MIT许可协议中的in connection with。那为什么不仅仅用related to？</p>
 <p>我们先看一个诉讼（诉讼的详细内容在Adams的<a href="http://www.adamsdrafting.com/arising-out-of-what/" target="_blank" rel="external">另一篇文章</a>里可以看到）：<u>某有限责任公司经营协议</u>中有一个<u>律师费用转移条款</u>，该条款简单来说就是“在因执行本经营协议而涉及的任何法律行为（action）或诉讼程序（proceeding）中，胜诉方有权追回合理的律师费”。在针对该经营协议的某诉讼中胜诉方在初级法庭上获得了这笔律师费，而后来最高法院又阻止了这笔律师费追回。因为<strong>原告谋求的是解约协议而不是协议中该条款所限定的“执行经营协议”，该条款执行不了</strong>，按原文话来说就是当初起草此转移条款的人“输在了想象力上”。</p>
-<p>Mitchell贴出的Adams的文章中，Adams赞同一种观点，该观点也正好用到了上面的诉讼来论证：如果想将一个广泛但可预期的诉求集合放到某条款的作用域内，那么描述就应该集中于诉讼主体可能涉及的活动上而不是合同本身，用<strong>出于（arising out of）</strong>并<strong>在该词后面具体指明出于合同的什么</strong>来构建一个相对集合（合同下的活动）代替一个过于狭窄的集合（合同）。<br>可以看到，MIT许可协议也是这么描述的。当然为了全面覆盖协议里也同时用了起因于（from）和关联于（in connection with），后面也不仅仅跟着software本身，同时也扩展到software的使用行为或其他交易处理行为。</p>
+<p>Mitchell贴出的Adams的文章中，Adams赞同一种观点，该观点也正好用到了上面的诉讼来论证：如果想将一个广泛但可预期的诉求集合放到某条款的作用域内，那么描述就应该集中于诉讼主体可能涉及的活动上而不是合同本身，用<strong>出于（arising out of）<strong>并</strong>在该词后面具体指明出于合同的什么</strong>来构建一个相对集合（合同下的活动）代替一个过于狭窄的集合（合同）。<br>
+可以看到，MIT许可协议也是这么描述的。当然为了全面覆盖协议里也同时用了起因于（from）和关联于（in connection with），后面也不仅仅跟着software本身，同时也扩展到software的使用行为或其他交易处理行为。</p>
 <p>此外，不知是巧合还是对法律知识的理解到位，MIT许可协议的日文版的日语句式结构虽然和英语的句式结构对应不上，却神奇地将上述的内涵完美地翻译了出来。Mitchell在自己的文章末尾给出了<a href="https://postd.cc/mit-license-line-by-line/" target="_blank" rel="external">全篇的日文翻译</a>，其中英文版中是“arising from”、“arising out of”、“in connection with”与“the software”、“the use”、“other dealings in the software”的3x3组合，而日文版直接把“起因し（arising from）”和“関連し（in connection with）”与“ソフトウェア”配对，而把“によって（arising out of）”与剩下的组成一句“使用またはその他の扱いによって生じる”。这句日语和后面的“一切の請求、損害、その他の義務”接起来读能感觉到特别顺畅没有翻译痕迹，语义更是与Adams的观点不谋而合，一下子扩大了整个诉求集合。</p>
 
             
@@ -288,7 +292,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/zh-cn/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" data-tooltip="理解安卓手机数据恢复的过程" aria-label="下一篇: 理解安卓手机数据恢复的过程">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/zh-cn/2018/03/Understanding-the-process-of-Android-data-recovery/" data-tooltip="理解安卓手机数据恢复的过程" aria-label="下一篇: 理解安卓手机数据恢复的过程">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -298,7 +302,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -332,7 +336,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -393,7 +397,7 @@
             <li class="post-action">
                 
                     
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/zh-cn/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" data-tooltip="理解安卓手机数据恢复的过程" aria-label="下一篇: 理解安卓手机数据恢复的过程">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/zh-cn/2018/03/Understanding-the-process-of-Android-data-recovery/" data-tooltip="理解安卓手机数据恢复的过程" aria-label="下一篇: 理解安卓手机数据恢复的过程">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -403,7 +407,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -437,7 +441,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>

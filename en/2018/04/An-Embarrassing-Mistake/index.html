@@ -1,0 +1,541 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="zyzyz&#39;s Playground">
+    <title>An Embarrassing Mistake - zyzyz&#39;s Playground</title>
+    <meta name="author" content="zyzyz">
+    
+    
+    
+    <meta name="description" content="I do hate typo and any syntax that cannot be checked by IDE…">
+<meta name="keywords" content="OpenGL">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="An Embarrassing Mistake">
+<meta property="og:url" content="https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/index.html">
+<meta property="og:site_name" content="zyzyz&#39;s Playground">
+<meta property="og:description" content="I do hate typo and any syntax that cannot be checked by IDE…">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg">
+<meta property="og:updated_time" content="2018-06-09T06:25:31.037Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="An Embarrassing Mistake">
+<meta name="twitter:description" content="I do hate typo and any syntax that cannot be checked by IDE…">
+<meta name="twitter:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://zyzyz.github.io/assets/images/avatar.jpg"/>
+    
+    
+    
+        <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg" />
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-prcqxou7hisjt2xnhbaypaoei2xv365tw1jhd9m8gyrkgeqsbmvtx5wubcum.min.css">
+    <!--STYLES END-->
+    
+
+    
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/en/ ">zyzyz&#39;s Playground</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/en/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">zyzyz</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Just an amateur game developer, having a little knowledge about CG.<br/> Oh, as you can see, my English is not so good. Sorry ;P</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/terms-of-use"
+                            
+                            title="Terms"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-copyright" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Terms</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="/en/#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/zyzyz" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/en/atom.xml"
+                            
+                            title="RSS"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+        <div class="post-header-cover
+                    text-left
+                    post-header-cover--partial"
+             style="background-image:url('https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg');"
+             data-behavior="4">
+            
+        </div>
+
+            <div id="main" data-behavior="4"
+                 class="hasCover
+                        hasCoverMetaOut
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            An Embarrassing Mistake
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-04-08T23:18:55+08:00">
+	
+		    Apr 08, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Programming/">Programming</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>I do hate typo and any syntax that cannot be checked by IDE…</p>
+<a id="more"></a>
+<p>The embarrassment started with a stupid typo of an uniform name in shader. I was trying to reimplement an OpenGL shadow-mapping tutorial but got the main texture covered on my object in a weird way, I didn’t even use any <code>mainTexture</code> stuff in my fragment shader’s <code>main()</code>!?</p>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg" alt=""></a></div>
+<p>Even more stupidly, I posted it on a Discord community for help! Someone did hint that 4294967295 of <code>GLuint</code> might stand for -1 but they didn’t notice there was a typo neither and started to complain the weird behaviors of shader compiler. (embarrassing!)</p>
+<p>After a long time of rolling the code up and down, eventually I caught <strong>the missing ‘t’</strong> from <code>shadowTexure</code> and everything turned to normal after the fixing.</p>
+<p>The “common mistakes” page on OpenGL Wiki notes that -1 is returned by <code>glGetUniformLocation</code> when a uniform is not using because “the driver will optimize your uniform out”. Indeed in my code <code>mainTexture</code> was bound to a valid texture object but hadn’t been used in my shader yet so 4294967295, and <code>shadowTexure</code> didn’t even have a definition in fragment shader so of course 4294967295.</p>
+<p>By the way, thanks to the marvelous debugging feature of ReSharper to show the value of local variables inline in the editor, without it I may waste more time on finding out the typo…<br>
+(No it’s not an AD, I swear.)</p>
+<div class="alert info"><p>References：<br>
+<a href="https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform" target="_blank" rel="external">https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform</a></p>
+</div>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/OpenGL/">OpenGL</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Grammatical-Construction-of-MIT-License/" data-tooltip="Grammatical Construction of MIT License" aria-label="NEXT: Grammatical Construction of MIT License">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 zyzyz. All Rights Reserved.
+    </span>
+    
+        <div class="lang-selector-wrap">
+            <label class="lang-selector-label"><i class="fa fa-globe"></i><span>English</span></label>
+            <select class="lang-selector" data-canonical="2018/04/An-Embarrassing-Mistake/index.html">
+                
+                    <option value="en" selected >
+                        English
+                    </option>
+                
+                    <option value="zh-cn"  >
+                        简体中文
+                    </option>
+                
+                    <option value="ja"  >
+                        日本語
+                    </option>
+                
+            </select>
+        </div>
+    
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/03/Grammatical-Construction-of-MIT-License/" data-tooltip="Grammatical Construction of MIT License" aria-label="NEXT: Grammatical Construction of MIT License">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/" title="Share on Facebook">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/" title="Share on Twitter">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/" title="Share on Google+">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/">
+                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/">
+                    <i class="fa fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/">
+                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">zyzyz</h4>
+        
+            <div id="about-card-bio"><p>Just an amateur game developer, having a little knowledge about CG.<br/> Oh, as you can see, my English is not so good. Sorry ;P</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Game Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Inside the Wall
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-s1qxxirzk4funr9kz3gk3lvnsufv0yyupbhxf3blwxecdwbuvjvrswnh4cy5.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    </body>
+</html>

@@ -15,11 +15,11 @@
 <meta name="keywords" content="Data Recovery,Android">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Androidデータ復元の過程を把握する">
-<meta property="og:url" content="https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/index.html">
+<meta property="og:url" content="https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/index.html">
 <meta property="og:site_name" content="zyzyz&#39;s Playground">
 <meta property="og:description" content="先日はとあるAndroidデータ復元ソフトを利用して削除したファイルをスマホから復元してみましたが、制限がなかなか多いです。そして、このようなソフトの仕組みを調べると、ほかの選択肢が見つかりました、例えばPC向けのより強力なアルゴリズムを利用するデータ復元ソフトを借りてスマホのデータを回復すること。">
 <meta property="og:locale" content="ja">
-<meta property="og:updated_time" content="2018-03-14T10:35:57.298Z">
+<meta property="og:updated_time" content="2018-04-07T16:50:04.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Androidデータ復元の過程を把握する">
 <meta name="twitter:description" content="先日はとあるAndroidデータ復元ソフトを利用して削除したファイルをスマホから復元してみましたが、制限がなかなか多いです。そして、このようなソフトの仕組みを調べると、ほかの選択肢が見つかりました、例えばPC向けのより強力なアルゴリズムを利用するデータ復元ソフトを借りてスマホのデータを回復すること。">
@@ -245,13 +245,18 @@
         <div class="main-content-wrap">
             <p>先日はとあるAndroidデータ復元ソフトを利用して削除したファイルをスマホから復元してみましたが、制限がなかなか多いです。そして、このようなソフトの仕組みを調べると、ほかの選択肢が見つかりました、例えばPC向けのより強力なアルゴリズムを利用するデータ復元ソフトを借りてスマホのデータを回復すること。</p>
 <a id="more"></a>
-<h1 id="スマホ機種について"><a href="#スマホ機種について" class="headerlink" title="スマホ機種について"></a>スマホ機種について</h1><p>この文はXiaomi Mi3とXiaomi会社の技術者からリリースされたNative Android 4.4 ROMに基づくものです。</p>
-<h1 id="アウトサイドインの視点で「ソフトは何をした」を理解する"><a href="#アウトサイドインの視点で「ソフトは何をした」を理解する" class="headerlink" title="アウトサイドインの視点で「ソフトは何をした」を理解する"></a>アウトサイドインの視点で「ソフトは何をした」を理解する</h1><p>はっきり言うと、AndroidはUnix系のシステムですよね。その視点で、Androidデータ復元ソフトの仕事はただ特定のマウント・ポイント下のデータをPCにコピーして、関連アルゴリズムによってデータを分析する、そして削除したフアイルを回復する、ということです。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 特定のマウント・ポイント下のデータをPCにコピーする。</div><div class="line">2. 特定のアルゴリズムを利用し、データを分析と復元する。</div></pre></td></tr></table></figure></p>
+<h1 id="スマホ機種について"><a class="markdownIt-Anchor" href="#スマホ機種について"></a> スマホ機種について</h1>
+<p>この文はXiaomi Mi3とXiaomi会社の技術者からリリースされたNative Android 4.4 ROMに基づくものです。</p>
+<h1 id="アウトサイドインの視点でソフトは何をしたを理解する"><a class="markdownIt-Anchor" href="#アウトサイドインの視点でソフトは何をしたを理解する"></a> アウトサイドインの視点で「ソフトは何をした」を理解する</h1>
+<p>はっきり言うと、AndroidはUnix系のシステムですよね。その視点で、Androidデータ復元ソフトの仕事はただ特定のマウント・ポイント下のデータをPCにコピーして、関連アルゴリズムによってデータを分析する、そして削除したフアイルを回復する、ということです。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 特定のマウント・ポイント下のデータをPCにコピーする。</div><div class="line">2. 特定のアルゴリズムを利用し、データを分析と復元する。</div></pre></td></tr></table></figure>
 <p>次は上記の点を実現する問題です。複雑の部分はほとんど第一点にあります。2つのハードウェアが関与しているため、まずUSBケーブルを使って物理的な通信チャネルを確立する必要があります。その前にAndroidデバイスのUSBデバッグを有効にすることをわすれないでね。もちろんWiFiでハードウェアを同じLAN内に保証するという手段もOKですが、ネットワークのデータ伝送速度はケーブルより大幅に遅くなります。</p>
 <p>それからはソフトウェアのこと。PC側はスマホから特定のマウント・ポイント下のデータをダウンロードするために<code>Netcat</code>が必要です。もし進行状況を監視したいなら<code>Pipe Viewer</code>の準備も必要です。PCのシステムはUnix系ならいいですが、Windowsシステムの場合はLinuxのコマンドライン環境（CygwinやMSYS2など）を用意しなければなりません。スマホ側はPC側のダウンロード用のポートを提供するために、同じくNetcatでポートを開くことが必須です。なお、スマホ内部の<code>/data</code>マウント・ポイントを確認のため、予め<code>mount</code>命令によって実際のディレクトリーを判明しなければなりません。考えなくて他のチュートリアルの使っているディレクトリーを直接に使うのはいけません。</p>
 <p>次ぎ、スマホで上記の操作を実行するのは簡単ではありません。一つ目は権限、Androidは事前ROOT化しなければならない。二つ目はLinuxツール、Busyboxインストール済みのはスマホでNetcatを利用する前提です。三つ目は操作の手段、一つはPCで<code>ADB</code>をインストールしてAndroidシェルにログインした後にコマンドを送信すること、もう一つはスマホでターミナルアプリを利用すること。</p>
 <p>こう見ると、他のチュートリアルにたくさんの項目があることの原因はひと目見ただけでよく分かります。</p>
-<h1 id="ステップ"><a href="#ステップ" class="headerlink" title="ステップ"></a>ステップ</h1><h2 id="ツールの準備"><a href="#ツールの準備" class="headerlink" title="ツールの準備"></a>ツールの準備</h2><ol>
+<h1 id="ステップ"><a class="markdownIt-Anchor" href="#ステップ"></a> ステップ</h1>
+<h2 id="ツールの準備"><a class="markdownIt-Anchor" href="#ツールの準備"></a> ツールの準備</h2>
+<ol>
 <li>AndroidをROOT化すること。</li>
 <li>Busyboxをインストールすること。</li>
 <li>PCでコマンドライン環境を用意すること。</li>
@@ -259,14 +264,25 @@
 <li><code>adb.exe</code>、<code>AdbWinApi.dll</code>と<code>AdbWinUsbApi.dll</code>を<code>PATH</code>に移動すること。</li>
 <li><code>nc.exe</code>と<code>pv.exe</code>をダウンロードすること。</li>
 </ol>
-<h2 id="コマンドライン"><a href="#コマンドライン" class="headerlink" title="コマンドライン"></a>コマンドライン</h2><p>一つ目<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure></p>
+<h2 id="コマンドライン"><a class="markdownIt-Anchor" href="#コマンドライン"></a> コマンドライン</h2>
+<p>一つ目</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure>
 <p>これにより、ADBサービスがリセットされ、既存の他のADBプロセスからの干渉が防止されます。</p>
-<p>二つ目<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Androidシェルにログインしたまま)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure></p>
-<p><code>/data</code>マウント・ポイントのパスを判明するために意識して<code>mount</code>を呼び出し、そのパスを次のコマンドで使うことに注意してください。<br>ちなみに、Netcatを使用する時にIPを指定する必要があるかどうかは状況次第です。時にIPを指定しないとtcp6ポートが開けてしまう状況になれます。その場合は<strong>もう一つコマンドプロンプトを起動し、Androidシェルにログインして下記の命令を呼び出してください</strong>。もしポートは本当にtcp6のものならば、後で<code>-s 127.0.0.1</code>を使ってtcpのポートを開くことを保証してください。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure></p>
-<p>三つ目<br>もう一つコマンドプロンプトを起動して下記の命令を呼び出します。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure></p>
+<p>二つ目</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Androidシェルにログインしたまま)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure>
+<p><code>/data</code>マウント・ポイントのパスを判明するために意識して<code>mount</code>を呼び出し、そのパスを次のコマンドで使うことに注意してください。<br>
+ちなみに、Netcatを使用する時にIPを指定する必要があるかどうかは状況次第です。時にIPを指定しないとtcp6ポートが開けてしまう状況になれます。その場合は<strong>もう一つコマンドプロンプトを起動し、Androidシェルにログインして下記の命令を呼び出してください</strong>。もしポートは本当にtcp6のものならば、後で<code>-s 127.0.0.1</code>を使ってtcpのポートを開くことを保証してください。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure>
+<p>三つ目<br>
+もう一つコマンドプロンプトを起動して下記の命令を呼び出します。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure>
 <p>ここはまずADBのforward機能を利用して、PCからAndroidへのポートマッピングを確立します。次にNetcatによってデータをダウンロードします、ファイル名は<code>datablock.raw</code>です。</p>
-<h2 id="データ分析と復元"><a href="#データ分析と復元" class="headerlink" title="データ分析と復元"></a>データ分析と復元</h2><p>スマホから抽出された生データがありましたら、PC上のより専門的なデータ復元ソフトを利用することができます（例えばR-StudioやEasy Recoveryなど）。</p>
-<div class="alert info"><p>参考：<br>[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a>  </p>
+<h2 id="データ分析と復元"><a class="markdownIt-Anchor" href="#データ分析と復元"></a> データ分析と復元</h2>
+<p>スマホから抽出された生データがありましたら、PC上のより専門的なデータ復元ソフトを利用することができます（例えばR-StudioやEasy Recoveryなど）。</p>
+<div class="alert info"><p>参考：<br>
+[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>
+[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>
+[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a></p>
 </div>
 
             
@@ -308,7 +324,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -316,7 +332,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Facebookで共有">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Facebookで共有">
                     <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 </a>
             </li>
@@ -324,7 +340,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Twitterで共有">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Twitterで共有">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -332,7 +348,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Google+で共有">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Google+で共有">
                     <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -342,7 +358,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -367,7 +383,7 @@
     
         <div class="lang-selector-wrap">
             <label class="lang-selector-label"><i class="fa fa-globe"></i><span>日本語</span></label>
-            <select class="lang-selector" data-canonical="2018/03/Understanding-the-Process-of-Android-Data-Recovery/index.html">
+            <select class="lang-selector" data-canonical="2018/03/Understanding-the-process-of-Android-data-recovery/index.html">
                 
                     <option value="en"  >
                         English
@@ -414,7 +430,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -422,7 +438,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Facebookで共有">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Facebookで共有">
                     <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 </a>
             </li>
@@ -430,7 +446,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Twitterで共有">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Twitterで共有">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -438,7 +454,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Google+で共有">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Google+で共有">
                     <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -448,7 +464,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -465,7 +481,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/">
                     <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Facebookで共有</span>
                 </a>
             </li>
@@ -473,7 +489,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/">
                     <i class="fa fa-twitter" aria-hidden="true"></i><span>Twitterで共有</span>
                 </a>
             </li>
@@ -481,7 +497,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/ja/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/ja/2018/03/Understanding-the-process-of-Android-data-recovery/">
                     <i class="fa fa-google-plus" aria-hidden="true"></i><span>Google+で共有</span>
                 </a>
             </li>

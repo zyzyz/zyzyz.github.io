@@ -15,11 +15,11 @@
 <meta name="keywords" content="Data Recovery,Android">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Understanding the Process of Android Data Recovery">
-<meta property="og:url" content="https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/index.html">
+<meta property="og:url" content="https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/index.html">
 <meta property="og:site_name" content="zyzyz&#39;s Playground">
 <meta property="og:description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-14T10:35:43.952Z">
+<meta property="og:updated_time" content="2018-04-07T16:50:04.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Understanding the Process of Android Data Recovery">
 <meta name="twitter:description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
@@ -245,13 +245,18 @@
         <div class="main-content-wrap">
             <p>Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find there’re more choices than I thought, like you can make use of those traditional data recovery software with more powerful algorithm on PC.</p>
 <a id="more"></a>
-<h1 id="About-device-type"><a href="#About-device-type" class="headerlink" title="About device type"></a>About device type</h1><p>The method given in this article is tested with Xiaomi Mi 3, with native android 4.4 ROM provided by a Xiaomi internal tech employee. </p>
-<h1 id="Understand-what-software-has-done-from-the-outside-in"><a href="#Understand-what-software-has-done-from-the-outside-in" class="headerlink" title="Understand what software has done from the outside-in"></a>Understand what software has done from the outside-in</h1><p>Android is just a Unix-like system, so the software is just copying data under one specific mount point in a Unix-like system to PC and analyzing it with related algorithm then picking out the missing files.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. Copy data of specific mount point in a Unix-like system to PC</div><div class="line">2. Analyze data and restore files.</div></pre></td></tr></table></figure></p>
+<h1 id="about-device-type"><a class="markdownIt-Anchor" href="#about-device-type"></a> About device type</h1>
+<p>The method given in this article is tested with Xiaomi Mi 3, with native android 4.4 ROM provided by a Xiaomi internal tech employee.</p>
+<h1 id="understand-what-software-has-done-from-the-outside-in"><a class="markdownIt-Anchor" href="#understand-what-software-has-done-from-the-outside-in"></a> Understand what software has done from the outside-in</h1>
+<p>Android is just a Unix-like system, so the software is just copying data under one specific mount point in a Unix-like system to PC and analyzing it with related algorithm then picking out the missing files.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. Copy data of specific mount point in a Unix-like system to PC</div><div class="line">2. Analyze data and restore files.</div></pre></td></tr></table></figure>
 <p>Now it’s the problem how to achieve these two points. The difficulties are mainly focused on point 1, due to the involvement of two hardware, you should first establish physical communication channel using USB cable, and make sure your smartphone’s USB Debugging Mode is enabled. Of course you can have your two hardware in the same LAN by Wi-Fi but the data transimission speed of network is significant slower than of cable.</p>
 <p>Then the software part, PC side needs <code>Netcat</code> to download data from smartphone’s specific mount point. If you want to monitor the progress, prepare the <code>Pipe Viewer</code>. For PC side, as opposed to Unix-like system, Window system should also prepare a Linux command-line environment (like Cygwin or MSYS2); For smartphone side Netcat is also needed to open a port for PC side’s Netcat. Besides, in order to confirm the mount point of <code>/data</code>, <code>mount</code> command should be invoked in advance to get the path of mount point, blindly follow the instructions of some online tutorials will fail to complete the mission.</p>
 <p>Next, it’s not easy to execute the operation mentioned above on smartphone. The first one is privilege, android system should be rooted in advance; The second one is Linux tools, <code>Busybox</code> should be installed to acquire Netcat; The third one is operating approach, you can install <code>ADB</code> tools on PC and send commands after logged in Android shell, or directly use terminal app on smartphone.</p>
 <p>So the reason why some online tutorials list that many requirements should be clear at a glance.</p>
-<h1 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h1><h2 id="Tools-preparation"><a href="#Tools-preparation" class="headerlink" title="Tools preparation"></a>Tools preparation</h2><ol>
+<h1 id="steps"><a class="markdownIt-Anchor" href="#steps"></a> Steps</h1>
+<h2 id="tools-preparation"><a class="markdownIt-Anchor" href="#tools-preparation"></a> Tools preparation</h2>
+<ol>
 <li>Root your smartphone.</li>
 <li>Install Busybox.</li>
 <li>Prepare command-line environment on PC.</li>
@@ -259,14 +264,25 @@
 <li>Put <code>adb.exe</code>, <code>AdbWinApi.dll</code> and <code>AdbWinUsbApi.dll</code> under <code>PATH</code>.</li>
 <li>Download <code>nc.exe</code> and <code>pv.exe</code>.</li>
 </ol>
-<h2 id="Command-line-operation"><a href="#Command-line-operation" class="headerlink" title="Command line operation"></a>Command line operation</h2><p>Step 1<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure></p>
+<h2 id="command-line-operation"><a class="markdownIt-Anchor" href="#command-line-operation"></a> Command line operation</h2>
+<p>Step 1</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure>
 <p>This reset the ADB service, preventing interference from other existing ADB processes.</p>
-<p>Step 2<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Android shell entered...)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure></p>
-<p>Be aware that you should consciously invoke <code>mount</code> to figure out the path of <code>/data</code> mount point, and use it in the next command.<br>Apart from that, you should take special care of whether you need to specify IP when using Netcat, because specifying IP <strong>MAY</strong> cause your port opened as tcp6. So in this case please <strong>open another command line window, enter Android shell and execute the command below to check port usage</strong>. If you find your port is opened as tcp6, add parameter <code>-s 127.0.0.1</code> to force tcp instead of tcp6.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure></p>
-<p>Step 3<br>Open another window and execute<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure></p>
+<p>Step 2</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Android shell entered...)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure>
+<p>Be aware that you should consciously invoke <code>mount</code> to figure out the path of <code>/data</code> mount point, and use it in the next command.<br>
+Apart from that, you should take special care of whether you need to specify IP when using Netcat, because specifying IP <strong>MAY</strong> cause your port opened as tcp6. So in this case please <strong>open another command line window, enter Android shell and execute the command below to check port usage</strong>. If you find your port is opened as tcp6, add parameter <code>-s 127.0.0.1</code> to force tcp instead of tcp6.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure>
+<p>Step 3<br>
+Open another window and execute</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure>
 <p>First you need to establish a port mapping from PC to Android using ADB’s forwarding function, then use Netcat to execute the data download, the target file name is <code>datablock.raw</code>.</p>
-<h2 id="Analyze-data-and-restore"><a href="#Analyze-data-and-restore" class="headerlink" title="Analyze data and restore"></a>Analyze data and restore</h2><p>Thanks to the extracted raw data from smartphone, now you can choose some more professional data recovery software on PC, such as R-Studio and Easy Recovery.</p>
-<div class="alert info"><p>References：<br>[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a>  </p>
+<h2 id="analyze-data-and-restore"><a class="markdownIt-Anchor" href="#analyze-data-and-restore"></a> Analyze data and restore</h2>
+<p>Thanks to the extracted raw data from smartphone, now you can choose some more professional data recovery software on PC, such as R-Studio and Easy Recovery.</p>
+<div class="alert info"><p>References：<br>
+[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>
+[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>
+[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a></p>
 </div>
 
             
@@ -316,7 +332,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Facebook">
                     <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 </a>
             </li>
@@ -324,7 +340,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Twitter">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -332,7 +348,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Google+">
                     <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -367,7 +383,7 @@
     
         <div class="lang-selector-wrap">
             <label class="lang-selector-label"><i class="fa fa-globe"></i><span>English</span></label>
-            <select class="lang-selector" data-canonical="2018/03/Understanding-the-Process-of-Android-Data-Recovery/index.html">
+            <select class="lang-selector" data-canonical="2018/03/Understanding-the-process-of-Android-data-recovery/index.html">
                 
                     <option value="en" selected >
                         English
@@ -422,7 +438,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Facebook">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Facebook">
                     <i class="fa fa-facebook-official" aria-hidden="true"></i>
                 </a>
             </li>
@@ -430,7 +446,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Twitter">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Twitter">
                     <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
@@ -438,7 +454,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/" title="Share on Google+">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Google+">
                     <i class="fa fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
@@ -465,7 +481,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/">
                     <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -473,7 +489,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/">
                     <i class="fa fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -481,7 +497,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-Process-of-Android-Data-Recovery/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/">
                     <i class="fa fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
                 </a>
             </li>
