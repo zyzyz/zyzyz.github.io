@@ -11,6 +11,7 @@
     
     
     
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。\n\n声明：本文仅讨论MIT许可协议的最后一段，并且本文的观点仅基于多处网络资源的相互印证而得出，不保证正确性。\n那么先上原文：\n\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n再上图：\n那么这张图是根据什么内容画出来的呢？这里要感谢一位名为Kyle E. Mitchell的大佬写了一篇名为The MIT License, Line by Line的文章，该文从法律的角度逐句解释了MIT许可协议原文。此外，Hacker News报道了这篇文章，且作者本人也有跑去Hacker News回复并与他人讨论，实在是难得的参考材料。\nMIT许可协议最后一段分为两大句，分别是担保解除声明与责任限制。第一部分的结构很简单，是很规整的层级结构。其中“AS IS”为一个很常用的法律免责术语，用于描述卖家要卖出去的商品，可以简单理解为强调了买家想买的就是当前状态下的这个东西，无论它是否有缺陷。后面为了尽可能涵盖各种情况而追加了各种担保解除的描述。而第二部分就是本文讨论的重点了，此部分表示对“任何的索赔、损害或其他责任”不负责任，那么“任何的索赔、损害或其他责任”是怎么造成的呢？后面一大长串尽可能涵盖了各种情况的并列就是造成原因。但这个不是简单的并列，里面是有门道的。首先是法律中两大可以用来告的行为：of contract的违约行为和of tort的侵权行为。然后就是为了尽可能涵盖任何情况而补充的其他非典型行为。你可能已经发现我已经用了3遍”尽可能涵盖各种情况“这样的描述，对，这种”在一堆并列的最后又展开一屁股的补充并列以防漏掉某种情况给别人机会告“的行文在法律相关文案中是一种常见的句式结构。也就是说如果提前在心里有一颗除了根节点和最右节点全是叶子节点的N叉树，那阅读法律文案时就比较好区分这一堆的or到底归属哪一层的并列。\n此外，关于“arising from, out of or in connection with”为什么按图里那样拆分是参照了Hacker News讨论串和Mitchell本人在回复中给出的某位合同起草工作者Ken Adams的文章后的推测结果。Mitchell在给出文章时回复“为什么不仅仅用related to”，这里应该意指MIT许可协议中的in connection with。那为什么不仅仅用related to？\n我们先看一个诉讼（诉讼的详细内容在Adams的另一篇文章里可以看到）：某有限责任公司经营协议中有一个律师费用转移条款，该条款简单来说就是“在因执行本经营协议而涉及的任何法律行为（action）或诉讼程序（proceeding）中，胜诉方有权追回合理的律师费”。在针对该经营协议的某诉讼中胜诉方在初级法庭上获得了这笔律师费，而后来最高法院又阻止了这笔律师费追回。因为原告谋求的是解约协议而不是协议中该条款所限定的“执行经营协议”，该条款执行不了，按原文话来说就是当初起草此转移条款的人“输在了想象力上”。\nMitchell贴出的Adams的文章中，Adams赞同一种观点，该观点也正好用到了上面的诉讼来论证：如果想将一个广泛但可预期的诉求集合放到某条款的作用域内，那么描述就应该集中于诉讼主体可能涉及的活动上而不是合同本身，用出于（arising out of）并在该词后面具体指明出于合同的什么来构建一个相对集合（合同下的活动）代替一个过于狭窄的集合（合同）。可以看到，MIT许可协议也是这么描述的。当然为了全面覆盖协议里也同时用了起因于（from）和关联于（in connection with），后面也不仅仅跟着software本身，同时也扩展到software的使用行为或其他交易处理行为。\n此外，不知是巧合还是对法律知识的理解到位，MIT许可协议的日文版的日语句式结构虽然和英语的句式结构对应不上，却神奇地将上述的内涵完美地翻译了出来。Mitchell在自己的文章末尾给出了全篇的日文翻译，其中英文版中是“arising from”、“arising out of”、“in connection with”与“the software”、“the use”、“other dealings in the software”的3x3组合，而日文版直接把“起因し（arising from）”和“関連し（in connection with）”与“ソフトウェア”配对，而把“によって（arising out of）”与剩下的组成一句“使用またはその他の扱いによって生じる”。这句日语和后面的“一切の請求、損害、その他の義務”接起来读能感觉到特别顺畅没有翻译痕迹，语义更是与Adams的观点不谋而合，一下子扩大了整个诉求集合。\n","dateCreated":"2018-03-15T03:42:33+09:00","dateModified":"2018-08-05T00:46:17+09:00","datePublished":"2018-03-15T03:42:33+09:00","description":"你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。","headline":"MIT许可协议的语法结构","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/","keywords":"Grammar"}</script>
     <meta name="description" content="你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。">
 <meta name="keywords" content="Grammar">
 <meta property="og:type" content="blog">
@@ -20,7 +21,7 @@
 <meta property="og:description" content="你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg">
-<meta property="og:updated_time" content="2018-04-07T16:50:04.886Z">
+<meta property="og:updated_time" content="2018-08-04T15:46:17.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT许可协议的语法结构">
 <meta name="twitter:description" content="你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。">
@@ -36,9 +37,19 @@
     
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-prcqxou7hisjt2xnhbaypaoei2xv365tw1jhd9m8gyrkgeqsbmvtx5wubcum.min.css">
+    <link rel="stylesheet" href="/assets/css/style-fgjla8tckr5vzva1cg6q4mmqxvozxkri5p13lfubzyfbs1ap3whckc49oazl.min.css">
     <!--STYLES END-->
     
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-123442566-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
 
     
 
@@ -104,7 +115,7 @@
                             title="首页"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">首页</span>
                     </a>
             </li>
@@ -117,7 +128,7 @@
                             title="使用条款"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-copyright" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-copyright" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">使用条款</span>
                     </a>
             </li>
@@ -130,7 +141,7 @@
                             title="分类"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">分类</span>
                     </a>
             </li>
@@ -143,7 +154,7 @@
                             title="标签"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">标签</span>
                     </a>
             </li>
@@ -156,7 +167,7 @@
                             title="归档"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">归档</span>
                     </a>
             </li>
@@ -169,7 +180,7 @@
                             title="搜索"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">搜索</span>
                     </a>
             </li>
@@ -182,7 +193,7 @@
                     
                         <a  class="sidebar-button-link " href="https://github.com/zyzyz" target="_blank" rel="noopener" title="GitHub">
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
             </li>
@@ -199,7 +210,7 @@
                             title="RSS"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">RSS</span>
                     </a>
             </li>
@@ -215,18 +226,18 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post">
     
     
         <div class="post-header main-content-wrap text-left">
     
-        <h1 class="post-title" itemprop="headline">
+        <h1 class="post-title">
             MIT许可协议的语法结构
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2018-03-15T02:42:33+08:00">
+    <time datetime="2018-03-15T03:42:33+09:00">
 	
 		    3月 15, 2018
     	
@@ -243,7 +254,7 @@
     
 </div>
     
-    <div class="post-content markdown" itemprop="articleBody">
+    <div class="post-content markdown">
         <div class="main-content-wrap">
             <p>你是否曾觉得MIT许可协议的最后一段有些读不懂？如果答案为“是”，那你来对地方了。</p>
 <a id="more"></a>
@@ -252,16 +263,12 @@
 <blockquote>
 <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </blockquote>
-<p>再上图：</p>
-<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" alt=""></a></div>
+<p>再上图：<br><div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1521034808/blog/3/diagram.svg" alt=""></a></div></p>
 <p>那么这张图是根据什么内容画出来的呢？这里要感谢一位名为Kyle E. Mitchell的大佬写了一篇名为<a href="https://writing.kemitchell.com/2016/09/21/MIT-License-Line-by-Line.html" target="_blank" rel="external">The MIT License, Line by Line</a>的文章，该文从法律的角度逐句解释了MIT许可协议原文。此外，Hacker News<a href="https://news.ycombinator.com/item?id=12559169" target="_blank" rel="external">报道了这篇文章</a>，且作者本人也有跑去Hacker News回复并与他人讨论，实在是难得的参考材料。</p>
-<p>MIT许可协议最后一段分为两大句，分别是<strong>担保解除声明</strong>与<strong>责任限制</strong>。<br>
-第一部分的结构很简单，是很规整的层级结构。其中“AS IS”为一个很常用的法律免责术语，用于描述卖家要卖出去的商品，可以简单理解为强调了买家想买的就是<strong>当前状态下</strong>的这个东西，无论它是否有缺陷。后面为了尽可能涵盖各种情况而追加了各种担保解除的描述。<br>
-而第二部分就是本文讨论的重点了，此部分表示对“任何的索赔、损害或其他责任”不负责任，那么“任何的索赔、损害或其他责任”是怎么造成的呢？后面一大长串尽可能涵盖了各种情况的并列就是造成原因。但这个不是简单的并列，里面是有门道的。首先是法律中两大可以用来告的行为：of contract的违约行为和of tort的侵权行为。<strong>然后就是为了尽可能涵盖任何情况而补充的其他<u>非典型</u>行为</strong>。你可能已经发现我已经用了3遍”尽可能涵盖各种情况“这样的描述，对，这种”在一堆并列的最后又展开一屁股的补充并列<u>以防漏掉某种情况给别人机会告</u>“的行文在法律相关文案中是一种常见的句式结构。也就是说如果提前在心里有一颗除了根节点和最右节点全是叶子节点的N叉树，那阅读法律文案时就比较好区分这一堆的or到底归属哪一层的并列。</p>
+<p>MIT许可协议最后一段分为两大句，分别是<strong>担保解除声明</strong>与<strong>责任限制</strong>。<br>第一部分的结构很简单，是很规整的层级结构。其中“AS IS”为一个很常用的法律免责术语，用于描述卖家要卖出去的商品，可以简单理解为强调了买家想买的就是<strong>当前状态下</strong>的这个东西，无论它是否有缺陷。后面为了尽可能涵盖各种情况而追加了各种担保解除的描述。<br>而第二部分就是本文讨论的重点了，此部分表示对“任何的索赔、损害或其他责任”不负责任，那么“任何的索赔、损害或其他责任”是怎么造成的呢？后面一大长串尽可能涵盖了各种情况的并列就是造成原因。但这个不是简单的并列，里面是有门道的。首先是法律中两大可以用来告的行为：of contract的违约行为和of tort的侵权行为。<strong>然后就是为了尽可能涵盖任何情况而补充的其他<u>非典型</u>行为</strong>。你可能已经发现我已经用了3遍”尽可能涵盖各种情况“这样的描述，对，这种”在一堆并列的最后又展开一屁股的补充并列<u>以防漏掉某种情况给别人机会告</u>“的行文在法律相关文案中是一种常见的句式结构。也就是说如果提前在心里有一颗除了根节点和最右节点全是叶子节点的N叉树，那阅读法律文案时就比较好区分这一堆的or到底归属哪一层的并列。</p>
 <p>此外，关于“arising from, out of or in connection with”为什么按图里那样拆分是参照了Hacker News讨论串和Mitchell本人在回复中给出的<a href="http://www.adamsdrafting.com/arising-out-of-or-related-to-no-thank-you/" target="_blank" rel="external">某位合同起草工作者Ken Adams的文章</a>后的推测结果。Mitchell在给出文章时回复“为什么不仅仅用related to”，这里应该意指MIT许可协议中的in connection with。那为什么不仅仅用related to？</p>
 <p>我们先看一个诉讼（诉讼的详细内容在Adams的<a href="http://www.adamsdrafting.com/arising-out-of-what/" target="_blank" rel="external">另一篇文章</a>里可以看到）：<u>某有限责任公司经营协议</u>中有一个<u>律师费用转移条款</u>，该条款简单来说就是“在因执行本经营协议而涉及的任何法律行为（action）或诉讼程序（proceeding）中，胜诉方有权追回合理的律师费”。在针对该经营协议的某诉讼中胜诉方在初级法庭上获得了这笔律师费，而后来最高法院又阻止了这笔律师费追回。因为<strong>原告谋求的是解约协议而不是协议中该条款所限定的“执行经营协议”，该条款执行不了</strong>，按原文话来说就是当初起草此转移条款的人“输在了想象力上”。</p>
-<p>Mitchell贴出的Adams的文章中，Adams赞同一种观点，该观点也正好用到了上面的诉讼来论证：如果想将一个广泛但可预期的诉求集合放到某条款的作用域内，那么描述就应该集中于诉讼主体可能涉及的活动上而不是合同本身，用<strong>出于（arising out of）<strong>并</strong>在该词后面具体指明出于合同的什么</strong>来构建一个相对集合（合同下的活动）代替一个过于狭窄的集合（合同）。<br>
-可以看到，MIT许可协议也是这么描述的。当然为了全面覆盖协议里也同时用了起因于（from）和关联于（in connection with），后面也不仅仅跟着software本身，同时也扩展到software的使用行为或其他交易处理行为。</p>
+<p>Mitchell贴出的Adams的文章中，Adams赞同一种观点，该观点也正好用到了上面的诉讼来论证：如果想将一个广泛但可预期的诉求集合放到某条款的作用域内，那么描述就应该集中于诉讼主体可能涉及的活动上而不是合同本身，用<strong>出于（arising out of）</strong>并<strong>在该词后面具体指明出于合同的什么</strong>来构建一个相对集合（合同下的活动）代替一个过于狭窄的集合（合同）。<br>可以看到，MIT许可协议也是这么描述的。当然为了全面覆盖协议里也同时用了起因于（from）和关联于（in connection with），后面也不仅仅跟着software本身，同时也扩展到software的使用行为或其他交易处理行为。</p>
 <p>此外，不知是巧合还是对法律知识的理解到位，MIT许可协议的日文版的日语句式结构虽然和英语的句式结构对应不上，却神奇地将上述的内涵完美地翻译了出来。Mitchell在自己的文章末尾给出了<a href="https://postd.cc/mit-license-line-by-line/" target="_blank" rel="external">全篇的日文翻译</a>，其中英文版中是“arising from”、“arising out of”、“in connection with”与“the software”、“the use”、“other dealings in the software”的3x3组合，而日文版直接把“起因し（arising from）”和“関連し（in connection with）”与“ソフトウェア”配对，而把“によって（arising out of）”与剩下的组成一句“使用またはその他の扱いによって生じる”。这句日语和后面的“一切の請求、損害、その他の義務”接起来读能感觉到特别顺畅没有翻译痕迹，语义更是与Adams的观点不谋而合，一下子扩大了整个诉求集合。</p>
 
             
@@ -302,7 +309,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -311,7 +318,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/" title="分享到 Facebook">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -319,7 +326,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/" title="分享到 Twitter">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -327,7 +334,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/" title="分享到 Google+">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -336,7 +343,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -348,6 +355,7 @@
         
         
             
+        
         
     </div>
 </article>
@@ -407,7 +415,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -416,7 +424,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/" title="分享到 Facebook">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -424,7 +432,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/" title="分享到 Twitter">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -432,7 +440,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/" title="分享到 Google+">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -441,7 +449,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -452,14 +460,14 @@
 
                 </div>
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
     <ul class="share-options">
         
             
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>分享到 Facebook</span>
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
         
@@ -467,7 +475,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/">
-                    <i class="fa fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
         
@@ -475,7 +483,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2018/03/Grammatical-Construction-of-MIT-License/">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
         
@@ -494,7 +502,7 @@
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
-            <i class="fa fa-remove"></i>
+            <i class="fa fa-times"></i>
         </div>
         
             <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="作者的图片"/>
@@ -514,7 +522,7 @@
         
         
             <div id="about-card-location">
-                <i class="fa fa-map-marker"></i>
+                <i class="fa fa-map-marker-alt"></i>
                 <br/>
                 Inside the Wall
             </div>
@@ -526,7 +534,7 @@
         
 <div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/assets/js/script-s1qxxirzk4funr9kz3gk3lvnsufv0yyupbhxf3blwxecdwbuvjvrswnh4cy5.min.js"></script>
+<script src="/assets/js/script-cgrhjjvb3y9asbumdacxtrs3jqkjaou1tfsl0yrwj2zkhvkdmk2ky8ctirib.min.js"></script>
 <!--SCRIPTS END-->
 
     

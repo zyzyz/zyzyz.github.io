@@ -11,6 +11,7 @@
     
     
     
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"虽然是老物，但只要是和Ori and the Blind Forest相关的技术演讲，那就有必要整理一下了。（值得一提的是Moon Studio开这个项目的时候Unity才到3！）\n\n\n关于Ori and the Blind Forest与其团队\n演讲者为James Benson，为团队的动画指导。\n类型为开放式2D手绘风类银河战士恶魔城游戏。\nOri是一个极其重内容的游戏。\n团队实际很小，甚至没有技术动画师！\n\n3D Ori （设计理念）\n100% 自发光漫反射\n只用一张纹理，就是他的漫反射纹理。\n对他不进行光照。\n\n\n几乎纯黑/白\n设计都向轮廓倾斜\n本游戏的摄像机焦距（zoom）类似肉食男孩那种级别，所以本游戏中细节极其丰富的背景使得Ori必须得是纯白的轮廓，这能令他在任何情况下都能被清晰地辨认出来。\n所以这一点很重要。\n\n\n按有弹簧关节的腿/尾巴以辅助达成动画目的\n在他的设计中，存在一些因动画需要而做出的让步：\n赋予了一条尾巴，便于在他运动时展示行进的方向。\n赋予了他双关节的腿。\n毕竟这是一个跳平台游戏。\n你能够把它们盘成圈并弹起来（还记得在空中盘成蚊香的二段跳动作吗？）。\n\n\n\n\n\n\nOri的骨骼是用3ds max的名为CAT的系统绑定的\n\nOri的渲染\n从侧面的正射投影摄像机\n\n不要用透视投影，这很重要，因为：\n\n我们不要Ori的任何3D光照信息。\n我们不要Ori的任何透视数学信息。\n\n这两点很有用，因为这种细节越少就越能欺骗你让你认为你盯着的不是一个3d物件。所以这很关键。\n\n\n\n动态模糊是烘焙的\n基本上这得来全不费工夫，毕竟我们已经为sprite付出内存了。\n\n\n\n使用以上的手法渲染的话，多数情况下在游戏里看起来有朦胧感。\n烘焙效果\n在把帧合成图集之前会把许多内容做到帧里\n当猫头鹰从摄像机方向飞出来的时候，渐渐淡出的模糊效果实际上是烘焙到sprite里的景深变化。如果要实时运算的话则相对耗费性能。\n\n\n\n\n图集\n有效利用内存\n动态色键生成系统\n\n首先采样所有丢到引擎里的各种图片的像素，然后假设这里蓝色是使用最少的颜色则我们就用蓝幕。但是这个采样很智能，如果角色眼睛是红色，它能识别出来这个部分是很重要的，并且即使在这堆图片中红色是使用最少的颜色，他也会保证不将眼睛变成透明的。\n\n（演讲中没有给出太多和“为什么要用这种色键系统”相关的细节。但是，本人猜测可能早期Unity版本的限制或者内存压力，或者是两者共同迫使Ori团队使用色键技术而不是用传统的alpha贴图。因为一个额外的alpha通道会导致一张图片体积增加1/4，考虑到本游戏重内容的特点，最后alpha通道所占的内存将会是巨大的。因此，使用色键来处理sprite的透明问题可以省下成吨的GPU内存。）\n\n\n\n\n大量的自动检测/bug预防措施\n节约美术们的时间。（这里讲的很泛，要是有更多技术细节就好了……）\n\n\n\n元数据\n骨骼绑定（rig）能够随着帧导出\n\n我们显然是在制作sprite但是所有的资源都是3d资源（带有所有的骨骼等）。\n能够对所有sprite使用跟运动（root motion）因为他们就是3d的。（由于是从美术角度进行的演讲，所以我怀疑这里的意思是指原3d模型做好的根运动能随着FBX带到Unity中然后把动画摘出来附到烘焙好的sprite上。）\n\n根运动使得制作过场动画与脚本事件（指走路落地触发音效这种）变得非常简单。\n\n开场动画中在风中旋转的叶子是一个相对复杂的分镜，但是实际很简单因为叶子直接用的3d里做好的根运动。\n\n\n\n\n\n引擎内特效\n威力惊人的shader框架\n有一个很聪明的例子：可以将一个叠加遮罩（additive multiply mask）放到角色上来模拟比如身后一直存在的大月亮的光照。如果sprite翻了面，光将保持在原来那个方向上。所以可以伪造场景里的实时光照。\n\n\n\n\n该流水线的优点完美的，非均匀骨骼缩放，并且无额外开销\n挤压与拉伸\n在这里，当Ori落到地面时他会被挤压成大概10个像素的样子。当Ori做自旋时，其尾巴能在数帧内变成普通长度的3倍。\n\n\n\n\n\n\n欺骗式透视\n比如在2D的某些情况下你不希望在角色奔跑时亮出两只手臂时，你可以在3D中直接把一边的手臂缩成一个小结，这样烘焙到sprite之后就看不到那只手臂了。可以看到右视图模型实际上是极其丑的。\n\n\n\n\n\n\n各式各样的小细节\n方便地获得如呼吸，跳跃时尾巴变长，瞳孔变大等小细节。\n\n\n\n美术控制\n每帧都由你自己负责（不管是做的好还是做的差）\n电脑插值会毁了大量的动画\n不会存在playblasts v.s. “引擎结果”的情况（playblast是指3d动画软件中的预览）\n\n动画过渡（我打算不展开这一部分，因为现在的unity已经开发出了较为健壮的内建动画过渡系统。）\n额外福利\n免费的高质量动态模糊/景深变化\n任何骨骼的任何运动都是零压缩（不会像传统的那样因为骨骼动画压缩导致动画失真）\n无限制的多边形数，无限制的骨骼数\n角色身上无纹理数限制\n可以把你的资源当作电影级别来对待\n你想用多少多边形就用多少，比如来个10k。\n如果你不擅长做大量的类似毛发、流体模拟的东西，但只要你知道怎么实现，那你可以把它们全烘培成sprite就能用啦。\n\n\n\n动画同步\n动画同步被大范围地简化了\n有些简单如开门的动画可能在3D里实现会是一场噩梦。\n\n\n\n节省时间\n不再存在“检查看看在游戏内的表现如何”这种事情\n制作3D游戏时，你最后一定会惊讶原来你已经浪费了如此多的时间在“搞明白你的动画在游戏引擎里怎么变成了这种鬼样”类似的事情上。\n\n\n\n该流水线的缺点你在某处付出了巨大的代价：任何从sprite上无偿获得的那些好东西，你实际上都在用纹理内存来换！角色外观的迭代\n如果你改变了角色的模型/纹理，你不得不重新渲染每一帧\n由于资源是3D的，你可以用批处理脚本来重新渲染所有东西，但仍然很伤（尤其是Ori这种要求“真”2D的情况）\n这也会花费额外时间去编程，甚至可能再弄出bug。\n\n\n\n依赖IK的游戏玩法\n当脚落到倾斜地面时，你无法通过IK来调整\n无法创造需要依赖重定位双手的玩法（举例：黑色洛城中的物品检视）\n无法动态改变角色模型\n如果你想让角色在获得一双很酷的靴子时发生模型外观上的升级，对不起做不到，除非你将整个游戏的内存翻倍，做一套有靴子版本的角色。\n\n\n\n没有混合树（Blend Trees）\n无法动态混合行走/慢跑/奔跑\n无法让角色头部跟随物体\n\n渲染时间的问题\n渲染256x256的25帧没什么\n渲染2Kx2K的700帧就不妙了，会拖慢开发\n\n任何的这些难点有阻碍到团队吗？基本上所有东西都可以通过设计和内容来克服。\n脚的放置\n角色会旋转到对齐他所处的表面法线上\n制作沿着斜面向上看和向下看的站立（idle）动画\n制作这个相对简单，当然你还得完成与其他所有动画的过渡的工作（这个并不简单）。但如果你像我（James Benson）一样喜欢内容制作并且有良好的工具来简化工作，那你能很轻松地完成这些工作。\n这种做法非常健壮，基本上在游戏里不存在Ori无法完美站立的表面。\n\n\n\n\n\n混合树站立/行走/奔跑 的混合问题\n所有受影响的动画会以正常帧率的4倍来渲染。\n然后基于手柄摇杆的位置，动态地加速或减速动画。\n当你的摇杆推到行走的阈值时会播放120帧的行走动画。然后如果你再轻推摇杆一点，帧率将会被降到30。当你突破从120帧的行走到30帧的慢跑的那个阈值时，会有一个动画过渡来处理这里。\n\n\n这个方案虽然不那么完美但实际上做的非常好。\n游泳的绕圈混合问题我们希望制作像雷曼起源那样的360度游泳姿势：\n\n先准备一个水平的游泳闲置（idle）姿势。\n之后叠加地制作11种背部上弓，11种背部下弓的版本。\n引擎会同时运行所有这些版本的动画。\n根据你游走的角度和游来的角度。（美术所无法理解的） 程序 魔法会从所有这些不同的动画中动态挑选出合适的一个。\n\n\n注视目标\n再次，仅仅是内容制作上的问题\n做一个145度眺望的版本\n做一个向上看的版本\n做一个望向背景的版本\n……\n\n\n\n\n\n个人想法Ori的开发着重依赖将3D烘焙成2D sprite，使得画面精细度几乎完全由美术把控，不存在为了性能和技术折中而降低美术资源的质量。而更令人惊叹！从Unity3出发，团队基本上把开发链上的每个部分都自定义化了一遍，把游戏制作直接拉到了电影级别！为了让美术自由地发挥，感觉程序员更应该致力于为他们扫除技术障碍而不是陷到完成游戏逻辑上。\n本文使用的所有图片归Moon Studio所有。\n","dateCreated":"2018-01-26T07:38:22+09:00","dateModified":"2018-08-05T00:46:17+09:00","datePublished":"2018-01-26T07:38:22+09:00","description":"虽然是老物，但只要是和Ori and the Blind Forest相关的技术演讲，那就有必要整理一下了。（值得一提的是Moon Studio开这个项目的时候Unity才到3！）","headline":"[整理]GDC 2015 Animating Ori and the Blind Forest","image":["https://res.cloudinary.com/dypawucdo/image/upload/v1517152353/blog/thumbnails/NOTE_GDC_2015_Animating_Ori_and_the_Blind_Forest_fobsfx.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/","keywords":"Ori and the Blind Forest, GDC, Animation, Rendering, Artist","thumbnailUrl":"https://res.cloudinary.com/dypawucdo/image/upload/v1517152353/blog/thumbnails/NOTE_GDC_2015_Animating_Ori_and_the_Blind_Forest_fobsfx.jpg"}</script>
     <meta name="description" content="虽然是老物，但只要是和Ori and the Blind Forest相关的技术演讲，那就有必要整理一下了。（值得一提的是Moon Studio开这个项目的时候Unity才到3！）">
 <meta name="keywords" content="Ori and the Blind Forest,GDC,Animation,Rendering,Artist">
 <meta property="og:type" content="blog">
@@ -33,7 +34,7 @@
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg">
-<meta property="og:updated_time" content="2018-04-08T07:22:20.725Z">
+<meta property="og:updated_time" content="2018-08-04T15:46:17.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[整理]GDC 2015 Animating Ori and the Blind Forest">
 <meta name="twitter:description" content="虽然是老物，但只要是和Ori and the Blind Forest相关的技术演讲，那就有必要整理一下了。（值得一提的是Moon Studio开这个项目的时候Unity才到3！）">
@@ -52,9 +53,19 @@
     
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-prcqxou7hisjt2xnhbaypaoei2xv365tw1jhd9m8gyrkgeqsbmvtx5wubcum.min.css">
+    <link rel="stylesheet" href="/assets/css/style-fgjla8tckr5vzva1cg6q4mmqxvozxkri5p13lfubzyfbs1ap3whckc49oazl.min.css">
     <!--STYLES END-->
     
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-123442566-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
 
     
 
@@ -120,7 +131,7 @@
                             title="首页"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">首页</span>
                     </a>
             </li>
@@ -133,7 +144,7 @@
                             title="使用条款"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-copyright" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-copyright" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">使用条款</span>
                     </a>
             </li>
@@ -146,7 +157,7 @@
                             title="分类"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">分类</span>
                     </a>
             </li>
@@ -159,7 +170,7 @@
                             title="标签"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">标签</span>
                     </a>
             </li>
@@ -172,7 +183,7 @@
                             title="归档"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">归档</span>
                     </a>
             </li>
@@ -185,7 +196,7 @@
                             title="搜索"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">搜索</span>
                     </a>
             </li>
@@ -198,7 +209,7 @@
                     
                         <a  class="sidebar-button-link " href="https://github.com/zyzyz" target="_blank" rel="noopener" title="GitHub">
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
             </li>
@@ -215,7 +226,7 @@
                             title="RSS"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">RSS</span>
                     </a>
             </li>
@@ -231,18 +242,18 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post">
     
     
         <div class="post-header main-content-wrap text-left">
     
-        <h1 class="post-title" itemprop="headline">
+        <h1 class="post-title">
             [整理]GDC 2015 Animating Ori and the Blind Forest
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2018-01-26T06:38:22+08:00">
+    <time datetime="2018-01-26T07:38:22+09:00">
 	
 		    1月 26, 2018
     	
@@ -259,40 +270,33 @@
     
 </div>
     
-    <div class="post-content markdown" itemprop="articleBody">
+    <div class="post-content markdown">
         <div class="main-content-wrap">
             <p>虽然是老物，但只要是和Ori and the Blind Forest相关的技术演讲，那就有必要整理一下了。（值得一提的是Moon Studio开这个项目的时候Unity才到3！）</p>
 <a id="more"></a>
 <div class="video-container"><iframe src="//www.youtube.com/embed/m8lOwrWNbEY" frameborder="0" allowfullscreen></iframe></div>
-<h1 id="关于ori-and-the-blind-forest与其团队"><a class="markdownIt-Anchor" href="#关于ori-and-the-blind-forest与其团队"></a> 关于Ori and the Blind Forest与其团队</h1>
-<ul>
+<h1 id="关于Ori-and-the-Blind-Forest与其团队"><a href="#关于Ori-and-the-Blind-Forest与其团队" class="headerlink" title="关于Ori and the Blind Forest与其团队"></a>关于Ori and the Blind Forest与其团队</h1><ul>
 <li>演讲者为James Benson，为团队的动画指导。</li>
 <li>类型为开放式2D手绘风<strong>类银河战士恶魔城</strong>游戏。</li>
 <li>Ori是一个<strong>极其重内容</strong>的游戏。</li>
 <li>团队实际很小，甚至没有技术动画师！</li>
 </ul>
-<h1 id="3d-ori-设计理念"><a class="markdownIt-Anchor" href="#3d-ori-设计理念"></a> 3D Ori （设计理念）</h1>
-<ul>
-<li>100% 自发光漫反射
-<ul>
+<h1 id="3D-Ori-（设计理念）"><a href="#3D-Ori-（设计理念）" class="headerlink" title="3D Ori （设计理念）"></a>3D Ori （设计理念）</h1><ul>
+<li>100% 自发光漫反射<ul>
 <li>只用一张纹理，就是他的漫反射纹理。</li>
 <li>对他<strong>不进行光照</strong>。</li>
 </ul>
 </li>
 <li>几乎纯黑/白</li>
-<li>设计都向<strong>轮廓</strong>倾斜
-<ul>
+<li>设计都向<strong>轮廓</strong>倾斜<ul>
 <li>本游戏的摄像机焦距（zoom）类似<strong>肉食男孩</strong>那种级别，所以本游戏中细节极其丰富的背景使得Ori必须得是纯白的轮廓，这能令他在任何情况下都能被清晰地辨认出来。</li>
 <li>所以这一点很重要。</li>
 </ul>
 </li>
-<li>按有弹簧关节的腿/尾巴以辅助达成动画目的
-<ul>
-<li>在他的设计中，存在一些因动画需要而做出的让步：
-<ul>
+<li>按有弹簧关节的腿/尾巴以辅助达成动画目的<ul>
+<li>在他的设计中，存在一些因动画需要而做出的让步：<ul>
 <li>赋予了一条尾巴，便于在他运动时展示行进的方向。</li>
-<li>赋予了他双关节的腿。
-<ul>
+<li>赋予了他双关节的腿。<ul>
 <li>毕竟这是一个跳平台游戏。</li>
 <li>你能够把它们盘成圈并弹起来（还记得在空中盘成蚊香的二段跳动作吗？）。</li>
 </ul>
@@ -303,12 +307,10 @@
 </li>
 <li>Ori的骨骼是用3ds max的名为CAT的系统绑定的</li>
 </ul>
-<h1 id="ori的渲染"><a class="markdownIt-Anchor" href="#ori的渲染"></a> Ori的渲染</h1>
+<h1 id="Ori的渲染"><a href="#Ori的渲染" class="headerlink" title="Ori的渲染"></a>Ori的渲染</h1><ul>
+<li><p>从侧面的<strong>正射投影</strong>摄像机</p>
 <ul>
-<li>从侧面的<strong>正射投影</strong>摄像机
-<ul>
-<li>
-<p>不要用透视投影，这很重要，因为：</p>
+<li><p>不要用透视投影，这很重要，因为：</p>
 <ul>
 <li>我们不要Ori的任何3D光照信息。</li>
 <li>我们不要Ori的任何透视数学信息。</li>
@@ -317,29 +319,22 @@
 </li>
 </ul>
 </li>
-<li>动态模糊是烘焙的
-<ul>
+<li>动态模糊是烘焙的<ul>
 <li>基本上这得来全不费工夫，毕竟我们已经为sprite付出内存了。</li>
 </ul>
 </li>
 </ul>
 <p>使用以上的手法渲染的话，多数情况下在游戏里看起来有朦胧感。</p>
-<h1 id="烘焙效果"><a class="markdownIt-Anchor" href="#烘焙效果"></a> 烘焙效果</h1>
-<ul>
-<li>在把帧合成图集之前会把许多内容做到帧里
-<ul>
+<h1 id="烘焙效果"><a href="#烘焙效果" class="headerlink" title="烘焙效果"></a>烘焙效果</h1><ul>
+<li>在把帧合成图集之前会把许多内容做到帧里<ul>
 <li>当猫头鹰从摄像机方向飞出来的时候，渐渐淡出的模糊效果实际上是烘焙到sprite里的景深变化。如果要实时运算的话则相对耗费性能。</li>
 </ul>
 </li>
 </ul>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517148725/blog/2/owl-dof_eljh16.gif" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517148725/blog/2/owl-dof_eljh16.gif" alt=""></a></div>
-<h1 id="图集"><a class="markdownIt-Anchor" href="#图集"></a> 图集</h1>
-<ul>
-<li>
-<p>有效利用内存</p>
-</li>
-<li>
-<p>动态色键生成系统</p>
+<h1 id="图集"><a href="#图集" class="headerlink" title="图集"></a>图集</h1><ul>
+<li>有效利用内存</li>
+<li><p>动态色键生成系统</p>
 <ul>
 <li>首先采样所有丢到引擎里的各种图片的像素，然后假设这里蓝色是使用最少的颜色则我们就用蓝幕。但是这个采样很智能，如果角色眼睛是红色，它能识别出来这个部分是很重要的，并且即使在这堆图片中红色是使用最少的颜色，他也会保证不将眼睛变成透明的。</li>
 </ul>
@@ -348,21 +343,16 @@
 </ul>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517154318/blog/2/chroma-key.jpg" alt=""></a></div>
 <ul>
-<li>大量的自动检测/bug预防措施
-<ul>
+<li>大量的自动检测/bug预防措施<ul>
 <li>节约美术们的时间。（这里讲的很泛，要是有更多技术细节就好了……）</li>
 </ul>
 </li>
 </ul>
-<h1 id="元数据"><a class="markdownIt-Anchor" href="#元数据"></a> 元数据</h1>
+<h1 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h1><ul>
+<li><p>骨骼绑定（rig）能够随着帧导出</p>
 <ul>
-<li>骨骼绑定（rig）能够随着帧导出
-<ul>
-<li>
-<p>我们显然是在制作sprite但是所有的资源都是3d资源（带有所有的骨骼等）。</p>
-</li>
-<li>
-<p>能够对所有sprite使用跟运动（root motion）因为他们就是3d的。（由于是从美术角度进行的演讲，所以我怀疑这里的意思是指原3d模型做好的根运动能随着FBX带到Unity中然后把动画摘出来附到烘焙好的sprite上。）</p>
+<li>我们显然是在制作sprite但是所有的资源都是3d资源（带有所有的骨骼等）。</li>
+<li><p>能够对所有sprite使用跟运动（root motion）因为他们就是3d的。（由于是从美术角度进行的演讲，所以我怀疑这里的意思是指原3d模型做好的根运动能随着FBX带到Unity中然后把动画摘出来附到烘焙好的sprite上。）</p>
 <ul>
 <li>根运动使得制作过场动画与脚本事件（指走路落地触发音效这种）变得非常简单。</li>
 </ul>
@@ -372,20 +362,15 @@
 </li>
 </ul>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/q_90/v1517153497/blog/2/leaf-root-motion.gif" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/q_90/v1517153497/blog/2/leaf-root-motion.gif" alt=""></a></div>
-<h1 id="引擎内特效"><a class="markdownIt-Anchor" href="#引擎内特效"></a> 引擎内特效</h1>
-<ul>
-<li>威力惊人的shader框架
-<ul>
+<h1 id="引擎内特效"><a href="#引擎内特效" class="headerlink" title="引擎内特效"></a>引擎内特效</h1><ul>
+<li>威力惊人的shader框架<ul>
 <li>有一个很聪明的例子：可以将一个叠加遮罩（additive multiply mask）放到角色上来模拟比如身后一直存在的大月亮的光照。如果sprite翻了面，光将保持在原来那个方向上。所以可以伪造场景里的实时光照。</li>
 </ul>
 </li>
 </ul>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/fl_lossy/v1517153203/blog/2/AdditiveMultiplyMask.gif" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/fl_lossy/v1517153203/blog/2/AdditiveMultiplyMask.gif" alt=""></a></div>
-<h1 id="该流水线的优点"><a class="markdownIt-Anchor" href="#该流水线的优点"></a> 该流水线的优点</h1>
-<h2 id="完美的非均匀骨骼缩放并且无额外开销"><a class="markdownIt-Anchor" href="#完美的非均匀骨骼缩放并且无额外开销"></a> 完美的，非均匀骨骼缩放，并且无额外开销</h2>
-<ul>
-<li>挤压与拉伸
-<ul>
+<h1 id="该流水线的优点"><a href="#该流水线的优点" class="headerlink" title="该流水线的优点"></a>该流水线的优点</h1><h2 id="完美的，非均匀骨骼缩放，并且无额外开销"><a href="#完美的，非均匀骨骼缩放，并且无额外开销" class="headerlink" title="完美的，非均匀骨骼缩放，并且无额外开销"></a>完美的，非均匀骨骼缩放，并且无额外开销</h2><ul>
+<li>挤压与拉伸<ul>
 <li>在这里，当Ori落到地面时他会被挤压成大概10个像素的样子。当Ori做自旋时，其尾巴能在数帧内变成普通长度的3倍。</li>
 </ul>
 </li>
@@ -393,8 +378,7 @@
 <div class="figure left" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517158940/blog/2/non-uniform-scaling_ori.gif" title="" data-caption="" data-fancybox="NonUniformScaling" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517158940/blog/2/non-uniform-scaling_ori.gif" alt=""></a></div>
 <div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif" title="" data-caption="" data-fancybox="NonUniformScaling" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517158948/blog/2/non-uniform-scaling_naru.gif" alt=""></a></div><div style="clear:both;"></div>
 <ul>
-<li>欺骗式透视
-<ul>
+<li>欺骗式透视<ul>
 <li>比如在2D的某些情况下你不希望在角色奔跑时亮出两只手臂时，你可以在3D中直接把一边的手臂缩成一个小结，这样烘焙到sprite之后就看不到那只手臂了。可以看到右视图模型实际上是极其丑的。</li>
 </ul>
 </li>
@@ -402,115 +386,91 @@
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517156611/blog/2/CheatPerspective1.jpg" title="" data-caption="" data-fancybox="CheatPerspective" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517156611/blog/2/CheatPerspective1.jpg" alt=""></a></div>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517156369/blog/2/CheatPerspective2.jpg" title="" data-caption="" data-fancybox="CheatPerspective" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517156369/blog/2/CheatPerspective2.jpg" alt=""></a></div><div style="clear:both;"></div>
 <ul>
-<li>各式各样的小细节
-<ul>
+<li>各式各样的小细节<ul>
 <li>方便地获得如呼吸，跳跃时尾巴变长，瞳孔变大等小细节。</li>
 </ul>
 </li>
 </ul>
-<h2 id="美术控制"><a class="markdownIt-Anchor" href="#美术控制"></a> 美术控制</h2>
-<ul>
+<h2 id="美术控制"><a href="#美术控制" class="headerlink" title="美术控制"></a>美术控制</h2><ul>
 <li>每帧都由你自己负责（不管是做的好还是做的差）</li>
 <li>电脑插值会毁了大量的动画</li>
-<li>不会存在playblasts v.s. &quot;引擎结果&quot;的情况（playblast是指3d动画软件中的预览）</li>
+<li>不会存在playblasts v.s. “引擎结果”的情况（playblast是指3d动画软件中的预览）</li>
 </ul>
-<h2 id="动画过渡"><a class="markdownIt-Anchor" href="#动画过渡"></a> 动画过渡</h2>
-<p>（我打算不展开这一部分，因为现在的unity已经开发出了较为健壮的内建动画过渡系统。）</p>
-<h2 id="额外福利"><a class="markdownIt-Anchor" href="#额外福利"></a> 额外福利</h2>
-<ul>
+<h2 id="动画过渡"><a href="#动画过渡" class="headerlink" title="动画过渡"></a>动画过渡</h2><p>（我打算不展开这一部分，因为现在的unity已经开发出了较为健壮的内建动画过渡系统。）</p>
+<h2 id="额外福利"><a href="#额外福利" class="headerlink" title="额外福利"></a>额外福利</h2><ul>
 <li>免费的高质量动态模糊/景深变化</li>
 <li>任何骨骼的任何运动都是零压缩（不会像传统的那样因为骨骼动画压缩导致动画失真）</li>
 <li>无限制的多边形数，无限制的骨骼数</li>
 <li>角色身上无纹理数限制</li>
-<li>可以把你的资源当作电影级别来对待
-<ul>
+<li>可以把你的资源当作电影级别来对待<ul>
 <li>你想用多少多边形就用多少，比如来个10k。</li>
 <li>如果你不擅长做大量的类似毛发、流体模拟的东西，但只要你知道怎么实现，那你可以把它们全烘培成sprite就能用啦。</li>
 </ul>
 </li>
 </ul>
-<h2 id="动画同步"><a class="markdownIt-Anchor" href="#动画同步"></a> 动画同步</h2>
-<ul>
-<li>动画同步被大范围地简化了
-<ul>
+<h2 id="动画同步"><a href="#动画同步" class="headerlink" title="动画同步"></a>动画同步</h2><ul>
+<li>动画同步被大范围地简化了<ul>
 <li>有些简单如开门的动画可能在3D里实现会是一场噩梦。</li>
 </ul>
 </li>
 </ul>
-<h2 id="节省时间"><a class="markdownIt-Anchor" href="#节省时间"></a> 节省时间</h2>
-<ul>
-<li>不再存在“检查看看在游戏内的表现如何”这种事情
-<ul>
+<h2 id="节省时间"><a href="#节省时间" class="headerlink" title="节省时间"></a>节省时间</h2><ul>
+<li>不再存在“检查看看在游戏内的表现如何”这种事情<ul>
 <li>制作3D游戏时，你最后一定会惊讶原来你已经浪费了如此多的时间在“搞明白你的动画在游戏引擎里怎么变成了这种鬼样”类似的事情上。</li>
 </ul>
 </li>
 </ul>
-<h1 id="该流水线的缺点"><a class="markdownIt-Anchor" href="#该流水线的缺点"></a> 该流水线的缺点</h1>
-<h2 id="你在某处付出了巨大的代价任何从sprite上无偿获得的那些好东西你实际上都在用纹理内存来换"><a class="markdownIt-Anchor" href="#你在某处付出了巨大的代价任何从sprite上无偿获得的那些好东西你实际上都在用纹理内存来换"></a> 你在某处付出了巨大的代价：任何从sprite上无偿获得的那些好东西，你实际上都在用纹理内存来换！</h2>
-<h2 id="角色外观的迭代"><a class="markdownIt-Anchor" href="#角色外观的迭代"></a> 角色外观的迭代</h2>
-<ul>
+<h1 id="该流水线的缺点"><a href="#该流水线的缺点" class="headerlink" title="该流水线的缺点"></a>该流水线的缺点</h1><h2 id="你在某处付出了巨大的代价：任何从sprite上无偿获得的那些好东西，你实际上都在用纹理内存来换！"><a href="#你在某处付出了巨大的代价：任何从sprite上无偿获得的那些好东西，你实际上都在用纹理内存来换！" class="headerlink" title="你在某处付出了巨大的代价：任何从sprite上无偿获得的那些好东西，你实际上都在用纹理内存来换！"></a>你在某处付出了巨大的代价：任何从sprite上无偿获得的那些好东西，你实际上都在用纹理内存来换！</h2><h2 id="角色外观的迭代"><a href="#角色外观的迭代" class="headerlink" title="角色外观的迭代"></a>角色外观的迭代</h2><ul>
 <li>如果你改变了角色的模型/纹理，你不得不重新渲染每一帧</li>
-<li>由于资源是3D的，你可以用批处理脚本来重新渲染所有东西，但仍然很伤（尤其是Ori这种要求“真”2D的情况）
-<ul>
+<li>由于资源是3D的，你可以用批处理脚本来重新渲染所有东西，但仍然很伤（尤其是Ori这种要求“真”2D的情况）<ul>
 <li>这也会花费额外时间去编程，甚至可能再弄出bug。</li>
 </ul>
 </li>
 </ul>
-<h2 id="依赖ik的游戏玩法"><a class="markdownIt-Anchor" href="#依赖ik的游戏玩法"></a> 依赖IK的游戏玩法</h2>
-<ul>
+<h2 id="依赖IK的游戏玩法"><a href="#依赖IK的游戏玩法" class="headerlink" title="依赖IK的游戏玩法"></a>依赖IK的游戏玩法</h2><ul>
 <li>当脚落到倾斜地面时，你无法通过IK来调整</li>
 <li>无法创造需要依赖重定位双手的玩法（举例：黑色洛城中的物品检视）</li>
-<li>无法动态改变角色模型
-<ul>
+<li>无法动态改变角色模型<ul>
 <li>如果你想让角色在获得一双很酷的靴子时发生模型外观上的升级，对不起做不到，除非你将整个游戏的内存翻倍，做一套有靴子版本的角色。</li>
 </ul>
 </li>
 </ul>
-<h2 id="没有混合树blend-trees"><a class="markdownIt-Anchor" href="#没有混合树blend-trees"></a> 没有混合树（Blend Trees）</h2>
-<ul>
+<h2 id="没有混合树（Blend-Trees）"><a href="#没有混合树（Blend-Trees）" class="headerlink" title="没有混合树（Blend Trees）"></a>没有混合树（Blend Trees）</h2><ul>
 <li>无法动态混合行走/慢跑/奔跑</li>
 <li>无法让角色头部跟随物体</li>
 </ul>
-<h2 id="渲染时间的问题"><a class="markdownIt-Anchor" href="#渲染时间的问题"></a> 渲染时间的问题</h2>
-<ul>
+<h2 id="渲染时间的问题"><a href="#渲染时间的问题" class="headerlink" title="渲染时间的问题"></a>渲染时间的问题</h2><ul>
 <li>渲染256x256的25帧没什么</li>
 <li>渲染2Kx2K的700帧就不妙了，会拖慢开发</li>
 </ul>
-<h1 id="任何的这些难点有阻碍到团队吗"><a class="markdownIt-Anchor" href="#任何的这些难点有阻碍到团队吗"></a> 任何的这些难点有阻碍到团队吗？</h1>
-<p>基本上所有东西都可以通过设计和内容来克服。</p>
-<h2 id="脚的放置"><a class="markdownIt-Anchor" href="#脚的放置"></a> 脚的放置</h2>
-<ol>
+<h1 id="任何的这些难点有阻碍到团队吗？"><a href="#任何的这些难点有阻碍到团队吗？" class="headerlink" title="任何的这些难点有阻碍到团队吗？"></a>任何的这些难点有阻碍到团队吗？</h1><p>基本上所有东西都可以通过设计和内容来克服。</p>
+<h2 id="脚的放置"><a href="#脚的放置" class="headerlink" title="脚的放置"></a>脚的放置</h2><ol>
 <li>角色会旋转到对齐他所处的表面法线上</li>
-<li>制作沿着斜面向上看和向下看的站立（idle）动画</li>
-</ol>
-<ul>
+<li>制作沿着斜面向上看和向下看的站立（idle）动画<ul>
 <li>制作这个相对简单，当然你还得完成与其他所有动画的过渡的工作（这个并不简单）。但如果你像我（James Benson）一样喜欢内容制作并且有良好的工具来简化工作，那你能很轻松地完成这些工作。</li>
 <li>这种做法非常健壮，基本上在游戏里不存在Ori无法完美站立的表面。</li>
 </ul>
+</li>
+</ol>
 <div class="figure left" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement1.jpg" title="" data-caption="" data-fancybox="FootPlacement" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement1.jpg" alt=""></a></div>
 <div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement2.jpg" title="" data-caption="" data-fancybox="FootPlacement" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/FootPlacement2.jpg" alt=""></a></div><div style="clear:both;"></div>
-<h2 id="混合树"><a class="markdownIt-Anchor" href="#混合树"></a> 混合树</h2>
-<h3 id="站立行走奔跑-的混合问题"><a class="markdownIt-Anchor" href="#站立行走奔跑-的混合问题"></a> 站立/行走/奔跑 的混合问题</h3>
-<ol>
+<h2 id="混合树"><a href="#混合树" class="headerlink" title="混合树"></a>混合树</h2><h3 id="站立-行走-奔跑-的混合问题"><a href="#站立-行走-奔跑-的混合问题" class="headerlink" title="站立/行走/奔跑 的混合问题"></a>站立/行走/奔跑 的混合问题</h3><ol>
 <li>所有受影响的动画会以正常帧率的4倍来渲染。</li>
 <li>然后基于手柄摇杆的位置，动态地加速或减速动画。</li>
 <li>当你的摇杆推到行走的阈值时会播放120帧的行走动画。然后如果你再轻推摇杆一点，帧率将会被降到30。当你突破从120帧的行走到30帧的慢跑的那个阈值时，会有一个动画过渡来处理这里。</li>
 </ol>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/BlendTree1.jpg" alt=""></a></div>
 <p>这个方案虽然不那么完美但实际上做的非常好。</p>
-<h3 id="游泳的绕圈混合问题"><a class="markdownIt-Anchor" href="#游泳的绕圈混合问题"></a> 游泳的绕圈混合问题</h3>
-<p>我们希望制作像雷曼起源那样的360度游泳姿势：</p>
+<h3 id="游泳的绕圈混合问题"><a href="#游泳的绕圈混合问题" class="headerlink" title="游泳的绕圈混合问题"></a>游泳的绕圈混合问题</h3><p>我们希望制作像雷曼起源那样的360度游泳姿势：</p>
 <ol>
 <li>先准备一个水平的游泳闲置（idle）姿势。</li>
 <li>之后叠加地制作11种背部上弓，11种背部下弓的版本。</li>
 <li>引擎会同时运行所有这些版本的动画。</li>
-<li>根据你游走的角度和游来的角度。<s>（美术所无法理解的）</s> 程序 <s>魔法</s>会从所有这些不同的动画中动态挑选出合适的一个。</li>
+<li>根据你游走的角度和游来的角度。<del>（美术所无法理解的）</del> 程序 <del>魔法</del>会从所有这些不同的动画中动态挑选出合适的一个。</li>
 </ol>
 <div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159985/blog/2/BlendTree2.jpg" alt=""></a></div>
-<h2 id="注视目标"><a class="markdownIt-Anchor" href="#注视目标"></a> 注视目标</h2>
-<ul>
-<li>再次，仅仅是内容制作上的问题
-<ul>
+<h2 id="注视目标"><a href="#注视目标" class="headerlink" title="注视目标"></a>注视目标</h2><ul>
+<li>再次，仅仅是内容制作上的问题<ul>
 <li>做一个145度眺望的版本</li>
 <li>做一个向上看的版本</li>
 <li>做一个望向背景的版本</li>
@@ -520,8 +480,7 @@
 </ul>
 <div class="figure left" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg" title="" data-caption="" data-fancybox="LookingAtTargets" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets1.jpg" alt=""></a></div>
 <div class="figure right" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg" title="" data-caption="" data-fancybox="LookingAtTargets" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1517159984/blog/2/LookingAtTargets2.jpg" alt=""></a></div><div style="clear:both;"></div>
-<h1 id="个人想法"><a class="markdownIt-Anchor" href="#个人想法"></a> 个人想法</h1>
-<p>Ori的开发着重依赖将3D烘焙成2D sprite，使得画面精细度几乎完全由美术把控，不存在为了性能和技术折中而降低美术资源的质量。而更令人惊叹！从Unity3出发，团队基本上把开发链上的每个部分都自定义化了一遍，把游戏制作直接拉到了电影级别！为了让美术自由地发挥，感觉程序员更应该致力于为他们扫除技术障碍而不是陷到完成游戏逻辑上。</p>
+<h1 id="个人想法"><a href="#个人想法" class="headerlink" title="个人想法"></a>个人想法</h1><p>Ori的开发着重依赖将3D烘焙成2D sprite，使得画面精细度几乎完全由美术把控，不存在为了性能和技术折中而降低美术资源的质量。而更令人惊叹！从Unity3出发，团队基本上把开发链上的每个部分都自定义化了一遍，把游戏制作直接拉到了电影级别！为了让美术自由地发挥，感觉程序员更应该致力于为他们扫除技术障碍而不是陷到完成游戏逻辑上。</p>
 <div class="alert info"><p><em>本文使用的所有图片归Moon Studio所有。</em></p>
 </div>
             
@@ -563,7 +522,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -572,7 +531,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/" title="分享到 Facebook">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -580,7 +539,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/" title="分享到 Twitter">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -588,7 +547,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/" title="分享到 Google+">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -597,7 +556,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -609,6 +568,7 @@
         
         
             
+        
         
     </div>
 </article>
@@ -669,7 +629,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -678,7 +638,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/" title="分享到 Facebook">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -686,7 +646,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/" title="分享到 Twitter">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -694,7 +654,7 @@
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/" title="分享到 Google+">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -703,7 +663,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -714,14 +674,14 @@
 
                 </div>
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
     <ul class="share-options">
         
             
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>分享到 Facebook</span>
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
                 </a>
             </li>
         
@@ -729,7 +689,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/">
-                    <i class="fa fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
                 </a>
             </li>
         
@@ -737,7 +697,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/zh-cn/2018/01/GDC2015-Animating-Ori/">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
                 </a>
             </li>
         
@@ -756,7 +716,7 @@
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
-            <i class="fa fa-remove"></i>
+            <i class="fa fa-times"></i>
         </div>
         
             <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="作者的图片"/>
@@ -776,7 +736,7 @@
         
         
             <div id="about-card-location">
-                <i class="fa fa-map-marker"></i>
+                <i class="fa fa-map-marker-alt"></i>
                 <br/>
                 Inside the Wall
             </div>
@@ -788,7 +748,7 @@
         
 <div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/assets/js/script-s1qxxirzk4funr9kz3gk3lvnsufv0yyupbhxf3blwxecdwbuvjvrswnh4cy5.min.js"></script>
+<script src="/assets/js/script-cgrhjjvb3y9asbumdacxtrs3jqkjaou1tfsl0yrwj2zkhvkdmk2ky8ctirib.min.js"></script>
 <!--SCRIPTS END-->
 
     

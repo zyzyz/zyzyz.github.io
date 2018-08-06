@@ -11,6 +11,7 @@
     
     
     
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find there’re more choices than I thought, like you can make use of those traditional data recovery software with more powerful algorithm on PC.\n\nAbout device typeThe method given in this article is tested with Xiaomi Mi 3, with native android 4.4 ROM provided by a Xiaomi internal tech employee. \nUnderstand what software has done from the outside-inAndroid is just a Unix-like system, so the software is just copying data under one specific mount point in a Unix-like system to PC and analyzing it with related algorithm then picking out the missing files.121. Copy data of specific mount point in a Unix-like system to PC2. Analyze data and restore files.\nNow it’s the problem how to achieve these two points. The difficulties are mainly focused on point 1, due to the involvement of two hardware, you should first establish physical communication channel using USB cable, and make sure your smartphone’s USB Debugging Mode is enabled. Of course you can have your two hardware in the same LAN by Wi-Fi but the data transimission speed of network is significant slower than of cable.\nThen the software part, PC side needs Netcat to download data from smartphone’s specific mount point. If you want to monitor the progress, prepare the Pipe Viewer. For PC side, as opposed to Unix-like system, Window system should also prepare a Linux command-line environment (like Cygwin or MSYS2); For smartphone side Netcat is also needed to open a port for PC side’s Netcat. Besides, in order to confirm the mount point of /data, mount command should be invoked in advance to get the path of mount point, blindly follow the instructions of some online tutorials will fail to complete the mission.\nNext, it’s not easy to execute the operation mentioned above on smartphone. The first one is privilege, android system should be rooted in advance; The second one is Linux tools, Busybox should be installed to acquire Netcat; The third one is operating approach, you can install ADB tools on PC and send commands after logged in Android shell, or directly use terminal app on smartphone.\nSo the reason why some online tutorials list that many requirements should be clear at a glance.\nStepsTools preparation\nRoot your smartphone.\nInstall Busybox.\nPrepare command-line environment on PC.\nDownload ADB tools (now Google has release ADB tools as standalone, no need to download full Android Studio).\nPut adb.exe, AdbWinApi.dll and AdbWinUsbApi.dll under PATH.\nDownload nc.exe and pv.exe.\n\nCommand line operationStep 112$ adb kill-server$ adb devices\nThis reset the ADB service, preventing interference from other existing ADB processes.\nStep 212345$ adb shell(Android shell entered...)$ mount$ su$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd if=&lt;data mount path&gt;\nBe aware that you should consciously invoke mount to figure out the path of /data mount point, and use it in the next command.Apart from that, you should take special care of whether you need to specify IP when using Netcat, because specifying IP MAY cause your port opened as tcp6. So in this case please open another command line window, enter Android shell and execute the command below to check port usage. If you find your port is opened as tcp6, add parameter -s 127.0.0.1 to force tcp instead of tcp6.1$ netstat lnt\nStep 3Open another window and execute12adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw\nFirst you need to establish a port mapping from PC to Android using ADB’s forwarding function, then use Netcat to execute the data download, the target file name is datablock.raw.\nAnalyze data and restoreThanks to the extracted raw data from smartphone, now you can choose some more professional data recovery software on PC, such as R-Studio and Easy Recovery.\nReferences：[1] https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705[2] http://www.freebuf.com/articles/database/94792.html[3] http://www.intohard.com/article-219-1.html  \n\n","dateCreated":"2018-03-12T00:09:25+09:00","dateModified":"2018-08-05T00:46:17+09:00","datePublished":"2018-03-12T00:09:25+09:00","description":"Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find there’re more choices than I thought, like you can make use of those traditional data recovery software with more powerful algorithm on PC.","headline":"Understanding the Process of Android Data Recovery","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/","keywords":"Data Recovery, Android"}</script>
     <meta name="description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
 <meta name="keywords" content="Data Recovery,Android">
 <meta property="og:type" content="blog">
@@ -19,7 +20,7 @@
 <meta property="og:site_name" content="zyzyz&#39;s Playground">
 <meta property="og:description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-07T16:50:04.707Z">
+<meta property="og:updated_time" content="2018-08-04T15:46:17.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Understanding the Process of Android Data Recovery">
 <meta name="twitter:description" content="Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find">
@@ -34,9 +35,19 @@
     
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-prcqxou7hisjt2xnhbaypaoei2xv365tw1jhd9m8gyrkgeqsbmvtx5wubcum.min.css">
+    <link rel="stylesheet" href="/assets/css/style-fgjla8tckr5vzva1cg6q4mmqxvozxkri5p13lfubzyfbs1ap3whckc49oazl.min.css">
     <!--STYLES END-->
     
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-123442566-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
 
     
 
@@ -102,7 +113,7 @@
                             title="Home"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Home</span>
                     </a>
             </li>
@@ -115,7 +126,7 @@
                             title="Terms"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-copyright" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-copyright" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Terms</span>
                     </a>
             </li>
@@ -128,7 +139,7 @@
                             title="Categories"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Categories</span>
                     </a>
             </li>
@@ -141,7 +152,7 @@
                             title="Tags"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Tags</span>
                     </a>
             </li>
@@ -154,7 +165,7 @@
                             title="Archives"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Archives</span>
                     </a>
             </li>
@@ -167,7 +178,7 @@
                             title="Search"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">Search</span>
                     </a>
             </li>
@@ -180,7 +191,7 @@
                     
                         <a  class="sidebar-button-link " href="https://github.com/zyzyz" target="_blank" rel="noopener" title="GitHub">
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
             </li>
@@ -197,7 +208,7 @@
                             title="RSS"
                         >
                     
-                        <i class="sidebar-button-icon fa fa-lg fa-rss" aria-hidden="true"></i>
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">RSS</span>
                     </a>
             </li>
@@ -213,20 +224,20 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post">
     
     
         <div class="post-header main-content-wrap text-left">
     
-        <h1 class="post-title" itemprop="headline">
+        <h1 class="post-title">
             Understanding the Process of Android Data Recovery
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2018-03-11T23:09:25+08:00">
+    <time datetime="2018-03-12T00:09:25+09:00">
 	
-		    Mar 11, 2018
+		    Mar 12, 2018
     	
     </time>
     
@@ -241,22 +252,17 @@
     
 </div>
     
-    <div class="post-content markdown" itemprop="articleBody">
+    <div class="post-content markdown">
         <div class="main-content-wrap">
             <p>Recently I’ve tried some Android data recovery software to restore the files from my phone, but many restrictions encountered. So after figured out the internal process of this kind of program I find there’re more choices than I thought, like you can make use of those traditional data recovery software with more powerful algorithm on PC.</p>
 <a id="more"></a>
-<h1 id="about-device-type"><a class="markdownIt-Anchor" href="#about-device-type"></a> About device type</h1>
-<p>The method given in this article is tested with Xiaomi Mi 3, with native android 4.4 ROM provided by a Xiaomi internal tech employee.</p>
-<h1 id="understand-what-software-has-done-from-the-outside-in"><a class="markdownIt-Anchor" href="#understand-what-software-has-done-from-the-outside-in"></a> Understand what software has done from the outside-in</h1>
-<p>Android is just a Unix-like system, so the software is just copying data under one specific mount point in a Unix-like system to PC and analyzing it with related algorithm then picking out the missing files.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. Copy data of specific mount point in a Unix-like system to PC</div><div class="line">2. Analyze data and restore files.</div></pre></td></tr></table></figure>
+<h1 id="About-device-type"><a href="#About-device-type" class="headerlink" title="About device type"></a>About device type</h1><p>The method given in this article is tested with Xiaomi Mi 3, with native android 4.4 ROM provided by a Xiaomi internal tech employee. </p>
+<h1 id="Understand-what-software-has-done-from-the-outside-in"><a href="#Understand-what-software-has-done-from-the-outside-in" class="headerlink" title="Understand what software has done from the outside-in"></a>Understand what software has done from the outside-in</h1><p>Android is just a Unix-like system, so the software is just copying data under one specific mount point in a Unix-like system to PC and analyzing it with related algorithm then picking out the missing files.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. Copy data of specific mount point in a Unix-like system to PC</div><div class="line">2. Analyze data and restore files.</div></pre></td></tr></table></figure></p>
 <p>Now it’s the problem how to achieve these two points. The difficulties are mainly focused on point 1, due to the involvement of two hardware, you should first establish physical communication channel using USB cable, and make sure your smartphone’s USB Debugging Mode is enabled. Of course you can have your two hardware in the same LAN by Wi-Fi but the data transimission speed of network is significant slower than of cable.</p>
 <p>Then the software part, PC side needs <code>Netcat</code> to download data from smartphone’s specific mount point. If you want to monitor the progress, prepare the <code>Pipe Viewer</code>. For PC side, as opposed to Unix-like system, Window system should also prepare a Linux command-line environment (like Cygwin or MSYS2); For smartphone side Netcat is also needed to open a port for PC side’s Netcat. Besides, in order to confirm the mount point of <code>/data</code>, <code>mount</code> command should be invoked in advance to get the path of mount point, blindly follow the instructions of some online tutorials will fail to complete the mission.</p>
 <p>Next, it’s not easy to execute the operation mentioned above on smartphone. The first one is privilege, android system should be rooted in advance; The second one is Linux tools, <code>Busybox</code> should be installed to acquire Netcat; The third one is operating approach, you can install <code>ADB</code> tools on PC and send commands after logged in Android shell, or directly use terminal app on smartphone.</p>
 <p>So the reason why some online tutorials list that many requirements should be clear at a glance.</p>
-<h1 id="steps"><a class="markdownIt-Anchor" href="#steps"></a> Steps</h1>
-<h2 id="tools-preparation"><a class="markdownIt-Anchor" href="#tools-preparation"></a> Tools preparation</h2>
-<ol>
+<h1 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h1><h2 id="Tools-preparation"><a href="#Tools-preparation" class="headerlink" title="Tools preparation"></a>Tools preparation</h2><ol>
 <li>Root your smartphone.</li>
 <li>Install Busybox.</li>
 <li>Prepare command-line environment on PC.</li>
@@ -264,25 +270,14 @@
 <li>Put <code>adb.exe</code>, <code>AdbWinApi.dll</code> and <code>AdbWinUsbApi.dll</code> under <code>PATH</code>.</li>
 <li>Download <code>nc.exe</code> and <code>pv.exe</code>.</li>
 </ol>
-<h2 id="command-line-operation"><a class="markdownIt-Anchor" href="#command-line-operation"></a> Command line operation</h2>
-<p>Step 1</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure>
+<h2 id="Command-line-operation"><a href="#Command-line-operation" class="headerlink" title="Command line operation"></a>Command line operation</h2><p>Step 1<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure></p>
 <p>This reset the ADB service, preventing interference from other existing ADB processes.</p>
-<p>Step 2</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Android shell entered...)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure>
-<p>Be aware that you should consciously invoke <code>mount</code> to figure out the path of <code>/data</code> mount point, and use it in the next command.<br>
-Apart from that, you should take special care of whether you need to specify IP when using Netcat, because specifying IP <strong>MAY</strong> cause your port opened as tcp6. So in this case please <strong>open another command line window, enter Android shell and execute the command below to check port usage</strong>. If you find your port is opened as tcp6, add parameter <code>-s 127.0.0.1</code> to force tcp instead of tcp6.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure>
-<p>Step 3<br>
-Open another window and execute</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure>
+<p>Step 2<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(Android shell entered...)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure></p>
+<p>Be aware that you should consciously invoke <code>mount</code> to figure out the path of <code>/data</code> mount point, and use it in the next command.<br>Apart from that, you should take special care of whether you need to specify IP when using Netcat, because specifying IP <strong>MAY</strong> cause your port opened as tcp6. So in this case please <strong>open another command line window, enter Android shell and execute the command below to check port usage</strong>. If you find your port is opened as tcp6, add parameter <code>-s 127.0.0.1</code> to force tcp instead of tcp6.<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure></p>
+<p>Step 3<br>Open another window and execute<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure></p>
 <p>First you need to establish a port mapping from PC to Android using ADB’s forwarding function, then use Netcat to execute the data download, the target file name is <code>datablock.raw</code>.</p>
-<h2 id="analyze-data-and-restore"><a class="markdownIt-Anchor" href="#analyze-data-and-restore"></a> Analyze data and restore</h2>
-<p>Thanks to the extracted raw data from smartphone, now you can choose some more professional data recovery software on PC, such as R-Studio and Easy Recovery.</p>
-<div class="alert info"><p>References：<br>
-[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>
-[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>
-[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a></p>
+<h2 id="Analyze-data-and-restore"><a href="#Analyze-data-and-restore" class="headerlink" title="Analyze data and restore"></a>Analyze data and restore</h2><p>Thanks to the extracted raw data from smartphone, now you can choose some more professional data recovery software on PC, such as R-Studio and Easy Recovery.</p>
+<div class="alert info"><p>References：<br>[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a>  </p>
 </div>
 
             
@@ -333,7 +328,7 @@ Open another window and execute</p>
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Facebook">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -341,7 +336,7 @@ Open another window and execute</p>
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Twitter">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -349,7 +344,7 @@ Open another window and execute</p>
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Google+">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -370,6 +365,7 @@ Open another window and execute</p>
         
         
             
+        
         
     </div>
 </article>
@@ -439,7 +435,7 @@ Open another window and execute</p>
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Facebook">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -447,7 +443,7 @@ Open another window and execute</p>
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Twitter">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -455,7 +451,7 @@ Open another window and execute</p>
             
             <li class="post-action hide-xs">
                 <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/" title="Share on Google+">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
                 </a>
             </li>
         
@@ -475,14 +471,14 @@ Open another window and execute</p>
 
                 </div>
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <i id="btn-close-shareoptions" class="fa fa-times"></i>
     <ul class="share-options">
         
             
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i><span>Share on Facebook</span>
+                    <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
                 </a>
             </li>
         
@@ -490,7 +486,7 @@ Open another window and execute</p>
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/">
-                    <i class="fa fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
                 </a>
             </li>
         
@@ -498,7 +494,7 @@ Open another window and execute</p>
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://zyzyz.github.io/en/2018/03/Understanding-the-process-of-Android-data-recovery/">
-                    <i class="fa fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
                 </a>
             </li>
         
@@ -517,7 +513,7 @@ Open another window and execute</p>
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
-            <i class="fa fa-remove"></i>
+            <i class="fa fa-times"></i>
         </div>
         
             <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
@@ -537,7 +533,7 @@ Open another window and execute</p>
         
         
             <div id="about-card-location">
-                <i class="fa fa-map-marker"></i>
+                <i class="fa fa-map-marker-alt"></i>
                 <br/>
                 Inside the Wall
             </div>
@@ -549,7 +545,7 @@ Open another window and execute</p>
         
 <div id="cover" style="background-image:url('/assets/images/cover_hollowknight.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/assets/js/script-s1qxxirzk4funr9kz3gk3lvnsufv0yyupbhxf3blwxecdwbuvjvrswnh4cy5.min.js"></script>
+<script src="/assets/js/script-cgrhjjvb3y9asbumdacxtrs3jqkjaou1tfsl0yrwj2zkhvkdmk2ky8ctirib.min.js"></script>
 <!--SCRIPTS END-->
 
     

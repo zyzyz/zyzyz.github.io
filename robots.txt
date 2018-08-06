@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /404
 Disallow: /assets
+Disallow: /zh-cn/
 Disallow: /zh-cn/terms-of-use
 Disallow: /zh-cn/all-archives
 Disallow: /zh-cn/all-categories
@@ -8,7 +9,7 @@ Disallow: /zh-cn/all-tags
 Disallow: /zh-cn/archives
 Disallow: /zh-cn/categories
 Disallow: /zh-cn/tags
-Disallow: /en/terms-of-uses
+Disallow: /en/terms-of-use
 Disallow: /en/all-archives
 Disallow: /en/all-categories
 Disallow: /en/all-tags
