@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。\n\n关于手机型号本文内容基于小米3手机，ROM为小米内部技术人员放出的原生安卓4.4 ROM。\n从外至内理解恢复软件做了什么安卓系统说白了就是一个类Unix系统，安卓数据恢复软件所做的就是把类Unix系统某个挂载点的数据镜像拷贝到PC上然后使用相关算法分析该镜像并取出丢失文件。121. 拷贝类Unix系统某个挂载点下的数据到PC2. 使用特定算法分析数据并恢复文件\n接下来就是怎么实现上面两点的问题了。麻烦的事情主要集中在第一点，由于涉及到两个硬件，那么首先需要通过USB线构建物理传输通道，要注意确保手机的USB Debugging模式打开。当然用wifi保持在同一局域网内也是可以的，只是网络传输肯定没有数据线传输快。\n然后是软件方面，PC端需要准备好Netcat来下载手机某个挂载点的数据，如果需要监视传输进度，需要再准备好Pipe Viewer。如果PC端是类Unix系统还好，Windows系统则还需要准备Linux命令行环境（比如Cygwin，MSYS2等）；手机端为了开放端口供PC端Netcat下载数据需要同时使用Netcat打开端口。此外为了确定手机内部的/data挂载点，还需要预先通过mount命令查出挂载点路径，不可直接按照网上教程给出的路径将参数传递给Netcat。\n下一步，想要让手机进行上述命令行操作并不轻松。第一点是权限，安卓系统需要预先root；第二点是linux工具，安卓手机需要再安装busybox以获得netcat；第三点是操作手段，一种是在PC端准备好ADB后基于PC端命令行登录安卓手机shell进行操作，另一种是在安卓手机上安装终端工具，直接在手机上输入命令。\n这样看下来网上教程为什么列出那么多操作的原因一目了然。\n具体步骤工具准备\nroot安卓手机。\n手机安装busybox。\nPC端准备好命令行环境。\n下载adb工具（目前google已单独提供adb工具，无需下载完整的Android Studio）。\n将adb.exe、AdbWinApi.dll和AdbWinUsbApi.dll放到PATH所包括目录下。\n下载nc.exe和pv.exe。\n\n命令行操作第一步12$ adb kill-server$ adb devices\n此步重置了adb服务，防止已在运行的adb进程干扰操作。\n第二步12345$ adb shell(进入Android手机shell)$ mount$ su$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd if=&lt;data mount path&gt;\n注意，进入Android手机shell后要主动调用mount查找/data的挂载路径，然后在下一个命令中使用。此外，使用netcat时尤其要注意是否需要主动指定IP，因为如果按照部分网上教程的步骤不去指定IP，有可能会导致netcat以tcp6的方式打开端口。所以这时需要另外开启一个命令行窗口，进入Android手机shell并调用以下命令检查端口情况。如果是以tcp6的方式打开了端口，需要使用-s 127.0.0.1来保证以tcp的方式打开端口。1$ netstat lnt\n第三步重新打开一个命令行窗口，并执行12adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw\n首先需要用adb的forward功能建立一个PC系统到安卓系统的端口映射，然后使用netcat执行数据下载，文件名为datablock.raw。\n分析数据与恢复由于已经拷贝出来了手机原始数据，现在就可以使用PC上更专业的数据恢复软件了，比如R-Studio和Easy Recovery。\n参考：[1] https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705[2] http://www.freebuf.com/articles/database/94792.html[3] http://www.intohard.com/article-219-1.html  \n\n","dateCreated":"2018-03-12T00:08:39+09:00","dateModified":"2018-08-05T00:46:17+09:00","datePublished":"2018-03-12T00:08:39+09:00","description":"最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。","headline":"理解安卓手机数据恢复的过程","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/zh-cn/2018/03/Understanding-the-process-of-Android-data-recovery/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/zh-cn/2018/03/Understanding-the-process-of-Android-data-recovery/","keywords":"Data Recovery, Android"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。\n\n关于手机型号本文内容基于小米3手机，ROM为小米内部技术人员放出的原生安卓4.4 ROM。\n从外至内理解恢复软件做了什么安卓系统说白了就是一个类Unix系统，安卓数据恢复软件所做的就是把类Unix系统某个挂载点的数据镜像拷贝到PC上然后使用相关算法分析该镜像并取出丢失文件。121. 拷贝类Unix系统某个挂载点下的数据到PC2. 使用特定算法分析数据并恢复文件\n接下来就是怎么实现上面两点的问题了。麻烦的事情主要集中在第一点，由于涉及到两个硬件，那么首先需要通过USB线构建物理传输通道，要注意确保手机的USB Debugging模式打开。当然用wifi保持在同一局域网内也是可以的，只是网络传输肯定没有数据线传输快。\n然后是软件方面，PC端需要准备好Netcat来下载手机某个挂载点的数据，如果需要监视传输进度，需要再准备好Pipe Viewer。如果PC端是类Unix系统还好，Windows系统则还需要准备Linux命令行环境（比如Cygwin，MSYS2等）；手机端为了开放端口供PC端Netcat下载数据需要同时使用Netcat打开端口。此外为了确定手机内部的/data挂载点，还需要预先通过mount命令查出挂载点路径，不可直接按照网上教程给出的路径将参数传递给Netcat。\n下一步，想要让手机进行上述命令行操作并不轻松。第一点是权限，安卓系统需要预先root；第二点是linux工具，安卓手机需要再安装busybox以获得netcat；第三点是操作手段，一种是在PC端准备好ADB后基于PC端命令行登录安卓手机shell进行操作，另一种是在安卓手机上安装终端工具，直接在手机上输入命令。\n这样看下来网上教程为什么列出那么多操作的原因一目了然。\n具体步骤工具准备\nroot安卓手机。\n手机安装busybox。\nPC端准备好命令行环境。\n下载adb工具（目前google已单独提供adb工具，无需下载完整的Android Studio）。\n将adb.exe、AdbWinApi.dll和AdbWinUsbApi.dll放到PATH所包括目录下。\n下载nc.exe和pv.exe。\n\n命令行操作第一步12$ adb kill-server$ adb devices\n此步重置了adb服务，防止已在运行的adb进程干扰操作。\n第二步12345$ adb shell(进入Android手机shell)$ mount$ su$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd if=&lt;data mount path&gt;\n注意，进入Android手机shell后要主动调用mount查找/data的挂载路径，然后在下一个命令中使用。此外，使用netcat时尤其要注意是否需要主动指定IP，因为如果按照部分网上教程的步骤不去指定IP，有可能会导致netcat以tcp6的方式打开端口。所以这时需要另外开启一个命令行窗口，进入Android手机shell并调用以下命令检查端口情况。如果是以tcp6的方式打开了端口，需要使用-s 127.0.0.1来保证以tcp的方式打开端口。1$ netstat lnt\n第三步重新打开一个命令行窗口，并执行12adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw\n首先需要用adb的forward功能建立一个PC系统到安卓系统的端口映射，然后使用netcat执行数据下载，文件名为datablock.raw。\n分析数据与恢复由于已经拷贝出来了手机原始数据，现在就可以使用PC上更专业的数据恢复软件了，比如R-Studio和Easy Recovery。\n参考：[1] https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705[2] http://www.freebuf.com/articles/database/94792.html[3] http://www.intohard.com/article-219-1.html  \n\n","dateCreated":"2018-03-12T00:08:39+09:00","dateModified":"2018-08-11T00:40:19+09:00","datePublished":"2018-03-12T00:08:39+09:00","description":"最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。","headline":"理解安卓手机数据恢复的过程","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/zh-cn/2018/03/Understanding-the-process-of-Android-data-recovery/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/zh-cn/2018/03/Understanding-the-process-of-Android-data-recovery/","keywords":"Data Recovery, Android"}</script>
     <meta name="description" content="最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。">
 <meta name="keywords" content="Data Recovery,Android">
 <meta property="og:type" content="blog">
@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="zyzyz&#39;s Playground">
 <meta property="og:description" content="最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-08-04T15:46:17.439Z">
+<meta property="og:updated_time" content="2018-08-10T15:40:19.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解安卓手机数据恢复的过程">
 <meta name="twitter:description" content="最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。">
@@ -255,7 +255,7 @@
             <p>最近尝试用一些安卓数据恢复软件找回手机中已删除的数据，但限制不少。在了解这些软件的内部行为后发现可以有更多的恢复选择，比如自选拥有更强大算法的PC端传统数据恢复软件进行手机的数据恢复。</p>
 <a id="more"></a>
 <h1 id="关于手机型号"><a href="#关于手机型号" class="headerlink" title="关于手机型号"></a>关于手机型号</h1><p>本文内容基于小米3手机，ROM为小米内部技术人员放出的原生安卓4.4 ROM。</p>
-<h1 id="从外至内理解恢复软件做了什么"><a href="#从外至内理解恢复软件做了什么" class="headerlink" title="从外至内理解恢复软件做了什么"></a>从外至内理解恢复软件做了什么</h1><p>安卓系统说白了就是一个类Unix系统，安卓数据恢复软件所做的就是把类Unix系统某个挂载点的数据镜像拷贝到PC上然后使用相关算法分析该镜像并取出丢失文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 拷贝类Unix系统某个挂载点下的数据到PC</div><div class="line">2. 使用特定算法分析数据并恢复文件</div></pre></td></tr></table></figure></p>
+<h1 id="从外至内理解恢复软件做了什么"><a href="#从外至内理解恢复软件做了什么" class="headerlink" title="从外至内理解恢复软件做了什么"></a>从外至内理解恢复软件做了什么</h1><p>安卓系统说白了就是一个类Unix系统，安卓数据恢复软件所做的就是把类Unix系统某个挂载点的数据镜像拷贝到PC上然后使用相关算法分析该镜像并取出丢失文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 拷贝类Unix系统某个挂载点下的数据到PC</span><br><span class="line">2. 使用特定算法分析数据并恢复文件</span><br></pre></td></tr></table></figure></p>
 <p>接下来就是怎么实现上面两点的问题了。麻烦的事情主要集中在第一点，由于涉及到两个硬件，那么首先需要通过USB线构建物理传输通道，要注意确保手机的USB Debugging模式打开。当然用wifi保持在同一局域网内也是可以的，只是网络传输肯定没有数据线传输快。</p>
 <p>然后是软件方面，PC端需要准备好<code>Netcat</code>来下载手机某个挂载点的数据，如果需要监视传输进度，需要再准备好<code>Pipe Viewer</code>。如果PC端是类Unix系统还好，Windows系统则还需要准备Linux命令行环境（比如Cygwin，MSYS2等）；手机端为了开放端口供PC端Netcat下载数据需要同时使用Netcat打开端口。此外为了确定手机内部的<code>/data</code>挂载点，还需要预先通过<code>mount</code>命令查出挂载点路径，不可直接按照网上教程给出的路径将参数传递给Netcat。</p>
 <p>下一步，想要让手机进行上述命令行操作并不轻松。第一点是权限，安卓系统需要预先root；第二点是linux工具，安卓手机需要再安装busybox以获得netcat；第三点是操作手段，一种是在PC端准备好<code>ADB</code>后基于PC端命令行登录安卓手机shell进行操作，另一种是在安卓手机上安装终端工具，直接在手机上输入命令。</p>
@@ -268,14 +268,14 @@
 <li>将<code>adb.exe</code>、<code>AdbWinApi.dll</code>和<code>AdbWinUsbApi.dll</code>放到<code>PATH</code>所包括目录下。</li>
 <li>下载<code>nc.exe</code>和<code>pv.exe</code>。</li>
 </ol>
-<h2 id="命令行操作"><a href="#命令行操作" class="headerlink" title="命令行操作"></a>命令行操作</h2><p>第一步<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ adb <span class="built_in">kill</span>-server</div><div class="line">$ adb devices</div></pre></td></tr></table></figure></p>
+<h2 id="命令行操作"><a href="#命令行操作" class="headerlink" title="命令行操作"></a>命令行操作</h2><p>第一步<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ adb <span class="built_in">kill</span>-server</span><br><span class="line">$ adb devices</span><br></pre></td></tr></table></figure></p>
 <p>此步重置了adb服务，防止已在运行的adb进程干扰操作。</p>
-<p>第二步<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ adb shell</div><div class="line">(进入Android手机shell)</div><div class="line">$ mount</div><div class="line">$ su</div><div class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</div></pre></td></tr></table></figure></p>
-<p>注意，进入Android手机shell后要主动调用<code>mount</code>查找<code>/data</code>的挂载路径，然后在下一个命令中使用。<br>此外，使用netcat时尤其要注意是否需要主动指定IP，因为如果按照部分网上教程的步骤不去指定IP，有可能会导致netcat以tcp6的方式打开端口。所以这时需要<strong>另外开启一个命令行窗口，进入Android手机shell并调用以下命令检查端口情况</strong>。如果是以tcp6的方式打开了端口，需要使用<code>-s 127.0.0.1</code>来保证以tcp的方式打开端口。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ netstat lnt</div></pre></td></tr></table></figure></p>
-<p>第三步<br>重新打开一个命令行窗口，并执行<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</div><div class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</div></pre></td></tr></table></figure></p>
+<p>第二步<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ adb shell</span><br><span class="line">(进入Android手机shell)</span><br><span class="line">$ mount</span><br><span class="line">$ su</span><br><span class="line">$ busybox nc -l -s 127.0.0.1 -p &lt;your port number&gt; -e dd <span class="keyword">if</span>=&lt;data mount path&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意，进入Android手机shell后要主动调用<code>mount</code>查找<code>/data</code>的挂载路径，然后在下一个命令中使用。<br>此外，使用netcat时尤其要注意是否需要主动指定IP，因为如果按照部分网上教程的步骤不去指定IP，有可能会导致netcat以tcp6的方式打开端口。所以这时需要<strong>另外开启一个命令行窗口，进入Android手机shell并调用以下命令检查端口情况</strong>。如果是以tcp6的方式打开了端口，需要使用<code>-s 127.0.0.1</code>来保证以tcp的方式打开端口。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat lnt</span><br></pre></td></tr></table></figure></p>
+<p>第三步<br>重新打开一个命令行窗口，并执行<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb forward tcp:&lt;your port number&gt; tcp:&lt;your port number&gt;</span><br><span class="line">nc 127.0.0.1 &lt;your port number&gt; | pv -i 0.5 &gt; datablock.raw</span><br></pre></td></tr></table></figure></p>
 <p>首先需要用adb的forward功能建立一个PC系统到安卓系统的端口映射，然后使用netcat执行数据下载，文件名为<code>datablock.raw</code>。</p>
 <h2 id="分析数据与恢复"><a href="#分析数据与恢复" class="headerlink" title="分析数据与恢复"></a>分析数据与恢复</h2><p>由于已经拷贝出来了手机原始数据，现在就可以使用PC上更专业的数据恢复软件了，比如R-Studio和Easy Recovery。</p>
-<div class="alert info"><p>参考：<br>[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="external">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="external">http://www.freebuf.com/articles/database/94792.html</a><br>[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="external">http://www.intohard.com/article-219-1.html</a>  </p>
+<div class="alert info"><p>参考：<br>[1] <a href="https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705" target="_blank" rel="noopener">https://forum.xda-developers.com/galaxy-nexus/general/guide-internal-memory-data-recovery-yes-t1994705</a><br>[2] <a href="http://www.freebuf.com/articles/database/94792.html" target="_blank" rel="noopener">http://www.freebuf.com/articles/database/94792.html</a><br>[3] <a href="http://www.intohard.com/article-219-1.html" target="_blank" rel="noopener">http://www.intohard.com/article-219-1.html</a>  </p>
 </div>
 
             
@@ -317,7 +317,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -351,7 +351,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -424,7 +424,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Diesen Beitrag teilen">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
         </li>
@@ -458,7 +458,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>

@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"I do hate typo and any syntax that cannot be checked by IDE…\n\nThe embarrassment started with a stupid typo of an uniform name in shader. I was trying to reimplement an OpenGL shadow-mapping tutorial but got the main texture covered on my object in a weird way, I didn’t even use any mainTexture stuff in my fragment shader’s main()!?\n\nEven more stupidly, I posted it on a Discord community for help! Someone did hint that 4294967295 of GLuint might stand for -1 but they didn’t notice there was a typo neither and started to complain the weird behaviors of shader compiler. (embarrassing!)\nAfter a long time of rolling the code up and down, eventually I caught the missing ‘t’ from shadowTexure and everything turned to normal after the fixing.\nThe “common mistakes” page on OpenGL Wiki notes that -1 is returned by glGetUniformLocation when a uniform is not using because “the driver will optimize your uniform out”. Indeed in my code mainTexture was bound to a valid texture object but hadn’t been used in my shader yet so 4294967295, and shadowTexure didn’t even have a definition in fragment shader so of course 4294967295.\nBy the way, thanks to the marvelous debugging feature of ReSharper to show the value of local variables inline in the editor, without it I may waste more time on finding out the typo…(No it’s not an AD, I swear.)\nReferences：https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform\n\n","dateCreated":"2018-04-09T00:18:55+09:00","dateModified":"2018-08-05T00:46:17+09:00","datePublished":"2018-04-09T00:18:55+09:00","description":"I do hate typo and any syntax that cannot be checked by IDE…","headline":"An Embarrassing Mistake","image":[null,"https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/","keywords":"OpenGL","thumbnailUrl":"https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg"},"articleBody":"I do hate typo and any syntax that cannot be checked by IDE…\n\nThe embarrassment started with a stupid typo of an uniform name in shader. I was trying to reimplement an OpenGL shadow-mapping tutorial but got the main texture covered on my object in a weird way, I didn’t even use any mainTexture stuff in my fragment shader’s main()!?\n\nEven more stupidly, I posted it on a Discord community for help! Someone did hint that 4294967295 of GLuint might stand for -1 but they didn’t notice there was a typo neither and started to complain the weird behaviors of shader compiler. (embarrassing!)\nAfter a long time of rolling the code up and down, eventually I caught the missing ‘t’ from shadowTexure and everything turned to normal after the fixing.\nThe “common mistakes” page on OpenGL Wiki notes that -1 is returned by glGetUniformLocation when a uniform is not using because “the driver will optimize your uniform out”. Indeed in my code mainTexture was bound to a valid texture object but hadn’t been used in my shader yet so 4294967295, and shadowTexure didn’t even have a definition in fragment shader so of course 4294967295.\nBy the way, thanks to the marvelous debugging feature of ReSharper to show the value of local variables inline in the editor, without it I may waste more time on finding out the typo…(No it’s not an AD, I swear.)\nReferences：https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform\n\n","dateCreated":"2018-04-09T00:18:55+09:00","dateModified":"2018-08-11T00:40:18+09:00","datePublished":"2018-04-09T00:18:55+09:00","description":"I do hate typo and any syntax that cannot be checked by IDE…","headline":"An Embarrassing Mistake","image":[null,"https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/"},"publisher":{"@type":"Organization","name":"zyzyz","sameAs":["https://github.com/zyzyz"],"image":"avatar.jpg","logo":{"@type":"ImageObject","url":"avatar.jpg"}},"url":"https://zyzyz.github.io/en/2018/04/An-Embarrassing-Mistake/","keywords":"OpenGL","thumbnailUrl":"https://res.cloudinary.com/dypawucdo/image/upload/v1523179958/blog/4/coverImage.jpg"}</script>
     <meta name="description" content="I do hate typo and any syntax that cannot be checked by IDE…">
 <meta name="keywords" content="OpenGL">
 <meta property="og:type" content="blog">
@@ -21,7 +21,7 @@
 <meta property="og:description" content="I do hate typo and any syntax that cannot be checked by IDE…">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg">
-<meta property="og:updated_time" content="2018-08-04T15:46:17.275Z">
+<meta property="og:updated_time" content="2018-08-10T15:40:18.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="An Embarrassing Mistake">
 <meta name="twitter:description" content="I do hate typo and any syntax that cannot be checked by IDE…">
@@ -268,12 +268,12 @@
             <p>I do hate typo and any syntax that cannot be checked by IDE…</p>
 <a id="more"></a>
 <p>The embarrassment started with a stupid typo of an uniform name in shader. I was trying to reimplement an OpenGL shadow-mapping tutorial but got the main texture covered on my object in a weird way, I didn’t even use any <code>mainTexture</code> stuff in my fragment shader’s <code>main()</code>!?</p>
-<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="external"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg" alt=""></a></div>
+<div class="figure center" style="width:;"><a class="fancybox" href="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg" title="" data-caption="" data-fancybox="default" target="_blank" rel="noopener"><img class="fig-img" src="https://res.cloudinary.com/dypawucdo/image/upload/v1523173801/blog/4/mistake.jpg" alt=""></a></div>
 <p>Even more stupidly, I posted it on a Discord community for help! Someone did hint that 4294967295 of <code>GLuint</code> might stand for -1 but they didn’t notice there was a typo neither and started to complain the weird behaviors of shader compiler. (embarrassing!)</p>
 <p>After a long time of rolling the code up and down, eventually I caught <strong>the missing ‘t’</strong> from <code>shadowTexure</code> and everything turned to normal after the fixing.</p>
 <p>The “common mistakes” page on OpenGL Wiki notes that -1 is returned by <code>glGetUniformLocation</code> when a uniform is not using because “the driver will optimize your uniform out”. Indeed in my code <code>mainTexture</code> was bound to a valid texture object but hadn’t been used in my shader yet so 4294967295, and <code>shadowTexure</code> didn’t even have a definition in fragment shader so of course 4294967295.</p>
 <p>By the way, thanks to the marvelous debugging feature of ReSharper to show the value of local variables inline in the editor, without it I may waste more time on finding out the typo…<br>(No it’s not an AD, I swear.)</p>
-<div class="alert info"><p>References：<br><a href="https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform" target="_blank" rel="external">https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform</a></p>
+<div class="alert info"><p>References：<br><a href="https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform" target="_blank" rel="noopener">https://www.khronos.org/opengl/wiki/GLSL_:_common_mistakes#glGetUniformLocation_and_glGetActiveUniform</a></p>
 </div>
 
             
@@ -295,7 +295,8 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/08/Ori-2-E3-Demo-Live/" data-tooltip="[Note]Ori and the Will of the Wisps E3 Demo Live" aria-label="PREVIOUS: [Note]Ori and the Will of the Wisps E3 Demo Live">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -401,7 +402,8 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/en/2018/08/Ori-2-E3-Demo-Live/" data-tooltip="[Note]Ori and the Will of the Wisps E3 Demo Live" aria-label="PREVIOUS: [Note]Ori and the Will of the Wisps E3 Demo Live">
                 
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
